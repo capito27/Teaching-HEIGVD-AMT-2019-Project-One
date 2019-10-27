@@ -1,11 +1,10 @@
 package ch.heigvd.amt.livecoding.model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 
-@Builder
 @Getter
+@AllArgsConstructor
+@Builder
 @EqualsAndHashCode
 public class Match {
     private Team team1, team2;

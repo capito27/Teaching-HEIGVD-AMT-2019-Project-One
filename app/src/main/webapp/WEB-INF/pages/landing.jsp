@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,6 +117,14 @@
 
 <section class="ftco-section">
     <div class="container">
+        <table>
+            <c:forEach items="${matches}" var="match">
+                <tr>
+                    <td>${match.goals1}</td>
+                    <td>${match.goals2}</td>
+                </tr>
+            </c:forEach>
+        </table>
         <div class="row">
             <div class="col-lg-6">
                 <div class="heading-section ftco-animate">
