@@ -3,11 +3,12 @@
 <html lang="en">
 <head>
     <title>Knights - Free Bootstrap 4 Template by Colorlib</title>
-    <base href="${pageContext.request.contextPath}/"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700,800,900" rel="stylesheet">
+
+    <base href="${pageContext.request.contextPath}/"/>
 
     <link rel="stylesheet" href="./assets/knights/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="./assets/knights/css/animate.css">
@@ -31,19 +32,15 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-        <a class="navbar-brand" href="index.html"><span>Knights</span></a>
+        <a class="navbar-brand" href="index"><span>Knights</span></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="games.html" class="nav-link">Games</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                <li class="nav-item cta"><a href="#" class="nav-link">Buy Ticket</a></li>
+                <li class="nav-item active"><a href="index" class="nav-link">Games</a></li>
+                <li class="nav-item cta"><a href="login" class="nav-link">Login / Register</a></li>
 
             </ul>
         </div>
@@ -51,124 +48,19 @@
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('./assets/knights/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('./assets/knights/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-end" data-scrollax-parent="true">
-            <div class="col-md-7 ftco-animate mt-5" data-scrollax=" properties: { translateY: '70%' }">
-                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">How long can you last?</h1>
-                <p class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                <p class="d-flex align-items-center">
-                    <a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex justify-content-center align-items-center mr-3">
-                        <span class="ion-ios-play"></span>
-                    </a>
-                    <span class="watch">Watch Games</span>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<section class="ftco-section ftco-no-pb ftco-no-pt">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="game-wrap-1 ftco-animate p-4">
-                    <div class="row p-2">
-                        <div class="col-md-6 pb-4 pb-lg-0 col-lg-3">
-                            <div class="text d-flex">
-                                <div class="team-logo d-flex">
-                                    <div class="img" style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
-                                    <div class="img img-2" style="background-image: url(./assets/knights/images/team-2.jpg);"></div>
-                                </div>
-                                <div class="team-name pl-3">
-                                    <h3><span>Knights Warrior</span> <span>Mighty Falcons</span></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 pb-4 pb-lg-0 col-lg-3">
-                            <div class="text">
-                                <div class="img"></div>
-                                <h3 class="league">FIFA Champions League</h3>
-                                <span>Semi-Final</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6 pb-4 pb-lg-0 col-lg-4">
-                            <div class="text">
-                                <div id="timer" class="d-flex mb-0">
-                                    <div class="time" id="days"></div>
-                                    <div class="time pl-3" id="hours"></div>
-                                    <div class="time pl-3" id="minutes"></div>
-                                    <div class="time pl-3" id="seconds"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 pb-4 pb-lg-0 col-lg-2">
-                            <div class="text">
-                                <p class="mb-0"><a href="#" class="btn btn-primary py-3">Buy Tickets</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <h1 class="mb-3 bread">Games</h1>
+                <p class="breadcrumbs"><span>Games <i class="ion-ios-arrow-forward"></i></span></p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="ftco-section">
-    <div class="container">
-        <table>
-            <c:forEach items="${matches}" var="match">
-                <tr>
-                    <td>${match.goals1}</td>
-                    <td>${match.goals2}</td>
-                </tr>
-            </c:forEach>
-        </table>
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="heading-section ftco-animate">
-                    <span class="subheading">Game Report</span>
-                    <h2 class="mb-4">Great Win In Final Game</h2>
-                </div>
-                <div class="scoreboard mb-5 mb-lg-0">
-                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
-                    <div class="d-sm-flex mb-4">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score win"><span>3</span></h3>
-                                <h4 class="team-name">Knight Warrior</h4>
-                            </div>
-                        </div>
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-2.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score lost"><span>1</span></h3>
-                                <h4 class="team-name">Mighty Falcons</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <p><a href="#" class="btn btn-primary">More Details</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 d-flex align-items-stretch">
-                <div class="img d-flex align-items-center justify-content-center py-5" style="background-image: url(./assets/knights/images/victory.jpg); width: 100%;">
-                    <p class="text-center mb-0 py-5">
-                        <a href="https://vimeo.com/45830194" class="icon-video-2 popup-vimeo d-flex justify-content-center align-items-center mr-3">
-                            <span class="ion-ios-play"></span>
-                        </a>
-                        <small style="color: rgba(255,255,255,1); font-size: 16px;">Watch Highlights</small>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section ftco-game-schedule ftco-no-pt">
+<section class="ftco-section ftco-game-schedule bg-light">
     <div class="container">
         <div class="row">
             <div class="col-md-12 heading-section ftco-animate mb-4">
@@ -254,378 +146,207 @@
     </div>
 </section>
 
-<section class="ftco-section services-section bg-light">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-6 col-lg-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-flex">
-                    <div class="icon"><span class="flaticon-american-football"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Senior Team</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-flex">
-                    <div class="icon"><span class="flaticon-american-football-1"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">For Kids</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-flex">
-                    <div class="icon"><span class="flaticon-lockers"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Football Schools</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 d-flex align-self-stretch ftco-animate">
-                <div class="media block-6 services d-flex">
-                    <div class="icon"><span class="flaticon-strategy"></span></div>
-                    <div class="media-body">
-                        <h3 class="heading mb-3">Basic Tactics</h3>
-                        <p>A small river named Duden flows by their place and supplies.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section ftco-team img" style="background-image:url(./assets/knights/images/bg_3.jpg);" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row justify-content-center pb-5">
-            <div class="col-md-6 heading-section heading-section-white text-center ftco-animate">
-                <span class="subheading">Team Squad</span>
-                <h2 class="mb-4">Our Team <span>Squad</span></h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 ftco-animate">
-                <div class="carousel-team owl-carousel">
-                    <div class="item">
-                        <div class="team-wrap text-center">
-                            <div class="img" style="background-image: url(./assets/knights/images/staff-1.jpg);"></div>
-                            <div class="text">
-                                <h3 class="mb-0">David Scott</h3>
-                                <span class="position">Wide Receiver</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team-wrap text-center">
-                            <div class="img" style="background-image: url(./assets/knights/images/staff-2.jpg);"></div>
-                            <div class="text">
-                                <h3 class="mb-0">David Scott</h3>
-                                <span class="position">Tight End</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team-wrap text-center">
-                            <div class="img" style="background-image: url(./assets/knights/images/staff-3.jpg);"></div>
-                            <div class="text">
-                                <h3 class="mb-0">David Scott</h3>
-                                <span class="position">Defensive</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team-wrap text-center">
-                            <div class="img" style="background-image: url(./assets/knights/images/staff-4.jpg);"></div>
-                            <div class="text">
-                                <h3 class="mb-0">David Scott</h3>
-                                <span class="position">Quarterback</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team-wrap text-center">
-                            <div class="img" style="background-image: url(./assets/knights/images/staff-5.jpg);"></div>
-                            <div class="text">
-                                <h3 class="mb-0">David Scott</h3>
-                                <span class="position">Runing Back</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team-wrap text-center">
-                            <div class="img" style="background-image: url(./assets/knights/images/staff-6.jpg);"></div>
-                            <div class="text">
-                                <h3 class="mb-0">David Scott</h3>
-                                <span class="position">Center</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="team-wrap text-center">
-                            <div class="img" style="background-image: url(./assets/knights/images/staff-7.jpg);"></div>
-                            <div class="text">
-                                <h3 class="mb-0">David Scott</h3>
-                                <span class="position">Offensive Guard</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-</section>
-
-<section class="ftco-section ftco-no-pt ftco-no-pb ftco-counter img" id="section-counter">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-6 d-flex">
-                <div class="img d-flex align-self-stretch" style="background-image:url(./assets/knights/images/about.jpg);"></div>
-            </div>
-            <div class="col-md-6 pl-lg-5 py-5">
-                <div class="row justify-content-start pb-3">
-                    <div class="col-md-12 heading-section ftco-animate">
-                        <h2 class="mb-4">About the Knights Team</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center py-3 bg-light mb-4">
-                            <div class="text">
-                                <strong class="number" data-number="100">0</strong>
-                                <span>Game Played</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center py-3 bg-light mb-4">
-                            <div class="text">
-                                <strong class="number" data-number="10">0</strong>
-                                <span>Coaches</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center py-3 bg-light mb-4">
-                            <div class="text">
-                                <strong class="number" data-number="20">0</strong>
-                                <span>Trophies</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 justify-content-center counter-wrap ftco-animate">
-                        <div class="block-18 text-center py-3 bg-light mb-4">
-                            <div class="text">
-                                <strong class="number" data-number="80">0</strong>
-                                <span>Members</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="ftco-section testimony-section" style="background-image: url(./assets/knights/images/bg_2.jpg);" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                <span class="subheading">Testimonial</span>
-                <h2 class="mb-4">Happy Viewers</h2>
-            </div>
-        </div>
-        <div class="row ftco-animate justify-content-center">
-            <div class="col-md-7">
-                <div class="carousel-testimony owl-carousel ftco-owl">
-                    <div class="item">
-                        <div class="testimony-wrap text-center py-4 pb-5">
-                            <div class="user-img mb-4" style="background-image: url(./assets/knights/images/person_1.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text p-3">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Arthur Browner</p>
-                                <span class="position">Viewer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap text-center py-4 pb-5">
-                            <div class="user-img mb-4" style="background-image: url(./assets/knights/images/person_2.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text p-3">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Arthur Browner</p>
-                                <span class="position">Viewer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap text-center py-4 pb-5">
-                            <div class="user-img mb-4" style="background-image: url(./assets/knights/images/person_3.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text p-3">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Arthur Browner</p>
-                                <span class="position">Viewer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap text-center py-4 pb-5">
-                            <div class="user-img mb-4" style="background-image: url(./assets/knights/images/person_4.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text p-3">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Arthur Browner</p>
-                                <span class="position">Viewer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="testimony-wrap text-center py-4 pb-5">
-                            <div class="user-img mb-4" style="background-image: url(./assets/knights/images/person_3.jpg)">
-                    <span class="quote d-flex align-items-center justify-content-center">
-                      <i class="icon-quote-left"></i>
-                    </span>
-                            </div>
-                            <div class="text p-3">
-                                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                                <p class="name">Arthur Browner</p>
-                                <span class="position">Viewer</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="ftco-section">
     <div class="container">
-        <div class="row justify-content-center mb-5 pb-3">
-            <div class="col-md-7 heading-section text-center ftco-animate">
-                <span class="subheading">Blog</span>
-                <h2>Recent News</h2>
-            </div>
-        </div>
-        <div class="row d-flex">
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="blog-entry justify-content-end">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('./assets/knights/images/image_1.jpg');">
-                    </a>
-                    <div class="text mt-3 float-right d-block">
-                        <div class="d-flex align-items-center p-2 pr-3 mb-4 topp">
-                            <div class="one">
-                                <span class="day mr-1">08</span>
-                            </div>
-                            <div class="two">
-                                <span class="yr">2019</span>
-                                <span class="mos">March</span>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="heading-section ftco-animate">
+                    <span class="subheading">Game Report</span>
+                    <h2 class="mb-4">Football Game Reports 2018</h2>
+                </div>
+                <div class="scoreboard mb-5 mb-lg-3">
+                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
+                    <div class="d-sm-flex mb-4">
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo" style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score win"><span>3</span></h3>
+                                <h4 class="team-name">Knight Warrior</h4>
                             </div>
                         </div>
-                        <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-2.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score lost"><span>1</span></h3>
+                                <h4 class="team-name">Mighty Falcons</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
+                    </div>
+                </div>
+
+                <div class="scoreboard mb-5 mb-lg-3">
+                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
+                    <div class="d-sm-flex mb-4">
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo" style="background-image: url(./assets/knights/images/team-3.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score lost"><span>0</span></h3>
+                                <h4 class="team-name">Knight Warrior</h4>
+                            </div>
+                        </div>
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-4.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score win"><span>2</span></h3>
+                                <h4 class="team-name">Mighty Falcons</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
+                    </div>
+                </div>
+
+                <div class="scoreboard mb-5 mb-lg-3">
+                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
+                    <div class="d-sm-flex mb-4">
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo" style="background-image: url(./assets/knights/images/team-5.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score win"><span>4</span></h3>
+                                <h4 class="team-name">Knight Warrior</h4>
+                            </div>
+                        </div>
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-6.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score lost"><span>2</span></h3>
+                                <h4 class="team-name">Mighty Falcons</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
+                    </div>
+                </div>
+                <div class="scoreboard mb-5 mb-lg-3">
+                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
+                    <div class="d-sm-flex mb-4">
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo" style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score win"><span>3</span></h3>
+                                <h4 class="team-name">Knight Warrior</h4>
+                            </div>
+                        </div>
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-5.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score lost"><span>2</span></h3>
+                                <h4 class="team-name">Mighty Falcons</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
+                    </div>
+                </div>
+                <div class="scoreboard mb-5 mb-lg-3">
+                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
+                    <div class="d-sm-flex mb-4">
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo" style="background-image: url(./assets/knights/images/team-6.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score win"><span>3</span></h3>
+                                <h4 class="team-name">Knight Warrior</h4>
+                            </div>
+                        </div>
+                        <div class="sport-team d-flex align-items-center">
+                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-3.jpg);"></div>
+                            <div class="text-center px-1 px-md-3 desc">
+                                <h3 class="score lost"><span>2</span></h3>
+                                <h4 class="team-name">Mighty Falcons</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            <ul>
+                                <li><a href="index#">&lt;</a></li>
+                                <li class="active"><span>1</span></li>
+                                <li><a href="index#">2</a></li>
+                                <li><a href="index#">3</a></li>
+                                <li><a href="index#">4</a></li>
+                                <li><a href="index#">5</a></li>
+                                <li><a href="index#">&gt;</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="blog-entry justify-content-end">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('./assets/knights/images/image_2.jpg');">
-                    </a>
-                    <div class="text mt-3 float-right d-block">
-                        <div class="d-flex align-items-center p-2 pr-3 mb-4 topp">
-                            <div class="one">
-                                <span class="day mr-1">07</span>
-                            </div>
-                            <div class="two">
-                                <span class="yr">2019</span>
-                                <span class="mos">March</span>
-                            </div>
-                        </div>
-                        <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
+            <div class="col-md-5 sidebar">
+                <div class="sidebar-box">
+                    <h2 class="mb-4">Latest Video</h2>
+                    <div class="img d-flex align-items-center justify-content-center py-5" style="background-image: url(./assets/knights/images/victory.jpg); width: 100%;">
+                        <p class="text-center mb-0 py-5">
+                            <a href="https://vimeo.com/45830194" class="icon-video-2 popup-vimeo d-flex justify-content-center align-items-center mr-3">
+                                <span class="ion-ios-play"></span>
+                            </a>
+                            <small style="color: rgba(255,255,255,1); font-size: 16px;">Watch Highlights</small>
+                        </p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="blog-entry">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('./assets/knights/images/image_3.jpg');">
-                    </a>
-                    <div class="text mt-3 float-right d-block">
-                        <div class="d-flex align-items-center p-2 mb-4 topp">
-                            <div class="one">
-                                <span class="day mr-1">07</span>
-                            </div>
-                            <div class="two">
-                                <span class="yr">2019</span>
-                                <span class="mos">March</span>
-                            </div>
-                        </div>
-                        <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate">
-                <div class="blog-entry">
-                    <a href="blog-single.html" class="block-20" style="background-image: url('./assets/knights/images/image_4.jpg');">
-                    </a>
-                    <div class="text mt-3 float-right d-block">
-                        <div class="d-flex align-items-center p-2 pr-3 mb-4 topp">
-                            <div class="one">
-                                <span class="day mr-1">06</span>
-                            </div>
-                            <div class="two">
-                                <span class="yr">2019</span>
-                                <span class="mos">March</span>
-                            </div>
-                        </div>
-                        <h3 class="heading"><a href="#">Why Lead Generation is Key for Business Growth</a></h3>
-                    </div>
+                <div class="sidebar-box">
+                    <h2 class="mb-4">League Table</h2>
+                    <table class="table table-league">
+                        <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>G</th>
+                            <th>P</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Knights Warrior</td>
+                            <td>14</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>Mighty Falcons</td>
+                            <td>14</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>Germany Football</td>
+                            <td>14</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>Colorado</td>
+                            <td>14</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>Florida CLub</td>
+                            <td>14</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>Miami Club</td>
+                            <td>14</td>
+                            <td>24</td>
+                        </tr>
+                        <tr>
+                            <td>Toronto Team</td>
+                            <td>14</td>
+                            <td>24</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<section class="ftco-subscribe img" style="background-image: url(./assets/knights/images/bg_1.jpg);">
-    <div class="overlay">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-10 text-wrap text-center heading-section heading-section-white ftco-animate">
-                    <h2>Subcribe to our upcoming match</h2>
-                    <div class="row d-flex justify-content-center mt-4 mb-4">
-                        <div class="col-md-10">
-                            <form action="#" class="subscribe-form">
-                                <div class="form-group d-flex">
-                                    <input type="text" class="form-control" placeholder="Enter email address">
-                                    <input type="submit" value="Subscribe" class="submit px-3">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <footer class="ftco-footer ftco-footer-2 ftco-section">
     <div class="container">
@@ -635,9 +356,9 @@
                     <h2 class="ftco-heading-2">Knights</h2>
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
-                        <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                        <li class="ftco-animate"><a href="index#"><span class="icon-twitter"></span></a></li>
+                        <li class="ftco-animate"><a href="index#"><span class="icon-facebook"></span></a></li>
+                        <li class="ftco-animate"><a href="index#"><span class="icon-instagram"></span></a></li>
                     </ul>
                 </div>
             </div>
@@ -647,8 +368,8 @@
                     <div class="block-23 mb-3">
                         <ul>
                             <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                            <li><a href="index#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                            <li><a href="index#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -689,4 +410,5 @@
 <script src="./assets/knights/js/main.js"></script>
 
 </body>
+</html>
 </html>

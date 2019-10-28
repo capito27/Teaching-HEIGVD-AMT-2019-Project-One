@@ -10,18 +10,19 @@
 <!-- partial:index.partial.html -->
 <div class="login-page">
     <div class="form">
+        <button style="background: #868e96; margin-bottom: 10px" onclick="location.href = './index';">Return to main website</button>
         <form class="register-form">
             <input type="text" placeholder="name"/>
             <input type="password" placeholder="password"/>
             <input type="text" placeholder="email address"/>
             <button>create</button>
-            <p class="message">Already registered? <a href="./registration#">Sign In</a></p>
+            <p class="message">Already registered? <a href="./login#">Sign In</a></p>
         </form>
         <form class="login-form">
             <input type="text" placeholder="username"/>
             <input type="password" placeholder="password"/>
             <button>login</button>
-            <p class="message">Not registered? <a href="./registration#">Create an account</a></p>
+            <p class="message">Not registered? <a href="./login#">Create an account</a></p>
         </form>
     </div>
 </div>

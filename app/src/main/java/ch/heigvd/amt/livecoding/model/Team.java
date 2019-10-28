@@ -7,6 +7,7 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 public class Team {
+    private long id;
     private String name;
-    private String Country;
+    private String country;
 }

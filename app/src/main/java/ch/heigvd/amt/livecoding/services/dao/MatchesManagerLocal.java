@@ -8,4 +8,5 @@ import java.util.List;
 @Local
 public interface MatchesManagerLocal {
     List<Match> findAllMatches();
+    Match findMatch(int id);
 }
