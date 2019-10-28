@@ -3,7 +3,6 @@ package ch.heigvd.amt.livecoding.model;
 import lombok.*;
 
 @Getter
-@AllArgsConstructor
 @Builder
 @EqualsAndHashCode
 public class Match {
