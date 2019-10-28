@@ -33,7 +33,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
         <a class="navbar-brand" href="index"><span>Knights</span></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
 
@@ -48,7 +49,8 @@
 </nav>
 <!-- END nav -->
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('./assets/knights/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('./assets/knights/images/bg_2.jpg');"
+         data-stellar-background-ratio="0.5">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
@@ -72,7 +74,8 @@
                 <div class="item">
                     <div class="game-schedule">
                         <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
+                            <div class="img logo"
+                                 style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
                             <div class="pl-4 desc">
                                 <span class="venue">Home @ Arena</span>
                                 <h4 class="team-name">Knight Warrior</h4>
@@ -84,7 +87,8 @@
                 <div class="item">
                     <div class="game-schedule">
                         <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-2.jpg);"></div>
+                            <div class="img logo"
+                                 style="background-image: url(./assets/knights/images/team-2.jpg);"></div>
                             <div class="pl-4 desc">
                                 <span class="venue">Home @ Arena</span>
                                 <h4 class="team-name">Knight Warrior</h4>
@@ -96,7 +100,8 @@
                 <div class="item">
                     <div class="game-schedule">
                         <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-3.jpg);"></div>
+                            <div class="img logo"
+                                 style="background-image: url(./assets/knights/images/team-3.jpg);"></div>
                             <div class="pl-4 desc">
                                 <span class="venue">Home @ Arena</span>
                                 <h4 class="team-name">Knight Warrior</h4>
@@ -108,7 +113,8 @@
                 <div class="item">
                     <div class="game-schedule">
                         <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-4.jpg);"></div>
+                            <div class="img logo"
+                                 style="background-image: url(./assets/knights/images/team-4.jpg);"></div>
                             <div class="pl-4 desc">
                                 <span class="venue">Home @ Arena</span>
                                 <h4 class="team-name">Knight Warrior</h4>
@@ -120,7 +126,8 @@
                 <div class="item">
                     <div class="game-schedule">
                         <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-5.jpg);"></div>
+                            <div class="img logo"
+                                 style="background-image: url(./assets/knights/images/team-5.jpg);"></div>
                             <div class="pl-4 desc">
                                 <span class="venue">Home @ Arena</span>
                                 <h4 class="team-name">Knight Warrior</h4>
@@ -132,7 +139,8 @@
                 <div class="item">
                     <div class="game-schedule">
                         <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-6.jpg);"></div>
+                            <div class="img logo"
+                                 style="background-image: url(./assets/knights/images/team-6.jpg);"></div>
                             <div class="pl-4 desc">
                                 <span class="venue">Home @ Arena</span>
                                 <h4 class="team-name">Knight Warrior</h4>
@@ -154,129 +162,64 @@
                     <span class="subheading">Game Report</span>
                     <h2 class="mb-4">Football Game Reports 2018</h2>
                 </div>
-                <div class="scoreboard mb-5 mb-lg-3">
-                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
-                    <div class="d-sm-flex mb-4">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score win"><span>3</span></h3>
-                                <h4 class="team-name">Knight Warrior</h4>
+                <c:forEach items="${matches}" var="match">
+                    <div class="scoreboard mb-5 mb-lg-3">
+                        <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
+                        <div class="d-sm-flex mb-4">
+                            <div class="sport-team d-flex align-items-center">
+                                <div class="img logo"
+                                     style="background-image: url(./assets/knights/images/team-<%=(int)(Math.random() * 6) + 1%>.jpg);"></div>
+                                <div class="text-center px-1 px-md-3 desc">
+                                    <c:choose>
+                                        <c:when test="${match.getGoals1() > match.getGoals1()}">
+                                            <h3 class="score win">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h3 class="score lost">
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <span>${match.getGoals1()}</span></h3>
+                                    <h4 class="team-name">${match.getTeam1().getName()}</h4>
+                                </div>
+                            </div>
+                            <div class="sport-team d-flex align-items-center">
+                                <div class="img logo order-sm-last"
+                                     style="background-image: url(./assets/knights/images/team-<%=(int)(Math.random() * 6) + 1%>.jpg);"></div>
+                                <div class="text-center px-1 px-md-3 desc">
+                                    <c:choose>
+                                        <c:when test="${match.getGoals1() < match.getGoals1()}">
+                                            <h3 class="score win">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <h3 class="score lost">
+                                        </c:otherwise>
+                                        </c:choose>
+                                        <span>${match.getGoals2()}</span></h3>
+                                        <h4 class="team-name">${match.getTeam2().getName()}</h4>
+                                </div>
                             </div>
                         </div>
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-2.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score lost"><span>1</span></h3>
-                                <h4 class="team-name">Mighty Falcons</h4>
-                            </div>
+                        <div class="text-center">
+                            <p><a href="index#" class="btn btn-primary">More Details</a></p>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
-                    </div>
-                </div>
-
-                <div class="scoreboard mb-5 mb-lg-3">
-                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
-                    <div class="d-sm-flex mb-4">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-3.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score lost"><span>0</span></h3>
-                                <h4 class="team-name">Knight Warrior</h4>
-                            </div>
-                        </div>
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-4.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score win"><span>2</span></h3>
-                                <h4 class="team-name">Mighty Falcons</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
-                    </div>
-                </div>
-
-                <div class="scoreboard mb-5 mb-lg-3">
-                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
-                    <div class="d-sm-flex mb-4">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-5.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score win"><span>4</span></h3>
-                                <h4 class="team-name">Knight Warrior</h4>
-                            </div>
-                        </div>
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-6.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score lost"><span>2</span></h3>
-                                <h4 class="team-name">Mighty Falcons</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
-                    </div>
-                </div>
-                <div class="scoreboard mb-5 mb-lg-3">
-                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
-                    <div class="d-sm-flex mb-4">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score win"><span>3</span></h3>
-                                <h4 class="team-name">Knight Warrior</h4>
-                            </div>
-                        </div>
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-5.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score lost"><span>2</span></h3>
-                                <h4 class="team-name">Mighty Falcons</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
-                    </div>
-                </div>
-                <div class="scoreboard mb-5 mb-lg-3">
-                    <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
-                    <div class="d-sm-flex mb-4">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo" style="background-image: url(./assets/knights/images/team-6.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score win"><span>3</span></h3>
-                                <h4 class="team-name">Knight Warrior</h4>
-                            </div>
-                        </div>
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo order-sm-last" style="background-image: url(./assets/knights/images/team-3.jpg);"></div>
-                            <div class="text-center px-1 px-md-3 desc">
-                                <h3 class="score lost"><span>2</span></h3>
-                                <h4 class="team-name">Mighty Falcons</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <p><a href="index#" class="btn btn-primary">More Details</a></p>
-                    </div>
-                </div>
+                </c:forEach>
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
                             <ul>
-                                <li><a href="index#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="index#">2</a></li>
-                                <li><a href="index#">3</a></li>
-                                <li><a href="index#">4</a></li>
-                                <li><a href="index#">5</a></li>
-                                <li><a href="index#">&gt;</a></li>
+                                <li><a href="index?matchListPage=${leftArrow}">&lt;</a></li>
+                                <c:forEach items="${matchPageNumbers}" var="page">
+                                    <c:choose>
+                                        <c:when test="${page == currentMatchPage}">
+                                            <li class="active"><span>${page}</span></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li><a href="index?matchListPage=${page}">${page}</a></li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <li><a href="index?matchListPage=${rightArrow}">&gt;</a></li>
                             </ul>
                         </div>
                     </div>
@@ -285,9 +228,11 @@
             <div class="col-md-5 sidebar">
                 <div class="sidebar-box">
                     <h2 class="mb-4">Latest Video</h2>
-                    <div class="img d-flex align-items-center justify-content-center py-5" style="background-image: url(./assets/knights/images/victory.jpg); width: 100%;">
+                    <div class="img d-flex align-items-center justify-content-center py-5"
+                         style="background-image: url(./assets/knights/images/victory.jpg); width: 100%;">
                         <p class="text-center mb-0 py-5">
-                            <a href="https://vimeo.com/45830194" class="icon-video-2 popup-vimeo d-flex justify-content-center align-items-center mr-3">
+                            <a href="https://vimeo.com/45830194"
+                               class="icon-video-2 popup-vimeo d-flex justify-content-center align-items-center mr-3">
                                 <span class="ion-ios-play"></span>
                             </a>
                             <small style="color: rgba(255,255,255,1); font-size: 16px;">Watch Highlights</small>
@@ -354,7 +299,8 @@
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
                     <h2 class="ftco-heading-2">Knights</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
+                        live the blind texts.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
                         <li class="ftco-animate"><a href="index#"><span class="icon-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="index#"><span class="icon-facebook"></span></a></li>
@@ -367,9 +313,12 @@
                     <h2 class="ftco-heading-2">Have a Questions?</h2>
                     <div class="block-23 mb-3">
                         <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                            <li><a href="index#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="index#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
+                            </li>
+                            <li><a href="index#"><span class="icon icon-phone"></span><span
+                                    class="text">+2 392 3929 210</span></a></li>
+                            <li><a href="index#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -379,7 +328,10 @@
             <div class="col-md-12 text-center">
 
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="icon-heart color-danger"
+                                                                        aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
         </div>
@@ -387,9 +339,14 @@
 </footer>
 
 
-
 <!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+<div id="ftco-loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"/>
+    </svg>
+</div>
 
 
 <script src="./assets/knights/js/jquery.min.js"></script>
