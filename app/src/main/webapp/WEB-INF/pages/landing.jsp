@@ -171,7 +171,7 @@
                                      style="background-image: url(./assets/knights/images/team-<%=(int)(Math.random() * 6) + 1%>.jpg);"></div>
                                 <div class="text-center px-1 px-md-3 desc">
                                     <c:choose>
-                                        <c:when test="${match.getGoals1() > match.getGoals1()}">
+                                        <c:when test="${match.getGoals1() > match.getGoals2()}">
                                             <h3 class="score win">
                                         </c:when>
                                         <c:otherwise>
@@ -187,7 +187,7 @@
                                      style="background-image: url(./assets/knights/images/team-<%=(int)(Math.random() * 6) + 1%>.jpg);"></div>
                                 <div class="text-center px-1 px-md-3 desc">
                                     <c:choose>
-                                        <c:when test="${match.getGoals1() < match.getGoals1()}">
+                                        <c:when test="${match.getGoals1() < match.getGoals2()}">
                                             <h3 class="score win">
                                         </c:when>
                                         <c:otherwise>

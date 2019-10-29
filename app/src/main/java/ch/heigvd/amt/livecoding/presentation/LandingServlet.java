@@ -31,6 +31,9 @@ public class LandingServlet extends HttpServlet {
             currentMatchPage = Integer.parseInt(req.getParameter("matchListPage"));
         } catch (Exception e) { /* ignored */ }
 
+        if(currentMatchPage > matchPageCount)
+            currentMatchPage = matchPageCount;
+
 
         ArrayList<Integer> matchPageNumbers = new ArrayList<>();
         // the left arrow is always the greater between 1 and page_nbr - 3, so that we can return either to the start of the listing, or go back 3 spots
@@ -52,9 +55,14 @@ public class LandingServlet extends HttpServlet {
         if (matchPageCount > 3)
             matchPageNumbers.add(Math.max(5, (Math.min(matchPageCount, currentMatchPage + 2))));
 
-        // the right arrow is always the smaller between pageCount and page_nbr + 3, so that we can return either to the end of the listing, or go forward 3 spots
+        // the right arrow is always the left number + 5, except when we're at the last 5 numbers
 
-        int rightArrow = Math.min(matchPageCount, leftArrow + 6);
+        int rightArrow = Math.min(matchPageCount, matchPageNumbers.get(0) + 5);
+
+        // if the first page number is at 1,
+        if(leftArrow == 1){
+
+        }
 
         resp.setContentType("text/html;charset=UTF-8");
         req.setAttribute("matches", matchesManager.getXMatchesFromYThMatch(matchPerPage * (currentMatchPage - 1), matchPerPage));
