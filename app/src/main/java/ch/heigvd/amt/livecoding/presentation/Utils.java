@@ -9,14 +9,13 @@ public class Utils {
 
     static public boolean CheckRequiredAttributes(HttpServletRequest req, HttpServletResponse res, String[] attr, String redirectUrl, String[] redirectAttr) throws ServletException, IOException {
         for (String att : attr) {
-
-            if (req.getAttribute(att) == null || req.getAttribute(att).equals("")) {
+            if (req.getParameter(att) == null || req.getParameter(att).equals("")) {
                 req.setAttribute("error", "missing required parameters");
                 for (String errAttr : redirectAttr) {
-                    req.setAttribute(errAttr, req.getAttribute(errAttr));
-                    req.getRequestDispatcher(redirectUrl).forward(req, res);
-                    return false;
+                    req.setAttribute(errAttr, req.getParameter(errAttr));
                 }
+                req.getRequestDispatcher(redirectUrl).forward(req, res);
+                return false;
             }
         }
         return true;
