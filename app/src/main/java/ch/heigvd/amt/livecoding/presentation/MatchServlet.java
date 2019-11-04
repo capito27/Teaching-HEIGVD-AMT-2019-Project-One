@@ -30,9 +30,9 @@ public class MatchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         System.out.println("toto");
-        List<Match> matches = matchesManager.getMatchesFromUser(((User) req.getSession().getAttribute("user")).getId());
+        User user = (User) req.getSession().getAttribute("user");
 
-        int matchPageCount = matches.size() / matchPerPage;
+        int matchPageCount = matchesManager.getMatchCountFromUser(user.getId()) / matchPerPage;
 
         // try to parse an integer from the parameter, if we can't assume it's 1
         int currentMatchPage = 1;
@@ -74,7 +74,7 @@ public class MatchServlet extends HttpServlet {
         }
 
         resp.setContentType("text/html;charset=UTF-8");
-        req.setAttribute("matches", matches);
+        req.setAttribute("matches", matchesManager.getMatchesFromUserAndOffset(user.getId(), matchPerPage * (currentMatchPage - 1), matchPerPage));
         req.setAttribute("matchPageNumbers", matchPageNumbers);
         req.setAttribute("currentMatchPage", currentMatchPage);
         req.setAttribute("leftArrow", leftArrow);

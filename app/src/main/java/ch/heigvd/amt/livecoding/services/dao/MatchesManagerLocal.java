@@ -11,10 +11,12 @@ import java.util.List;
 @Local
 public interface MatchesManagerLocal {
     int getMatchCount();
+    int getMatchCountFromUser(long userId);
     List<Match> findAllMatches();
     Match findMatch(int id);
-    List<Match> getXMatchesFromYThMatch(int offset, int count);
+    List<Match> getMatchesFromOffset(int offset, int count);
     List<Match> getMatchesFromUser(long userId);
+    List<Match> getMatchesFromUserAndOffset(long userId, int offset, int count);
 
     boolean createMatch(int score1, int score2, int team1, int team2, int stadium, int user);
 }

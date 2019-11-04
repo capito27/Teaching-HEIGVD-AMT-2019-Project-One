@@ -12,59 +12,52 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-public class UsersManager implements UsersManagerLocal{
+public class UsersManager implements UsersManagerLocal {
 
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
 
-    @Override
-    public User findUserById(int userID) {
-        User returnUser = null;
+    private List<User> findUsersByRule(String rule) {
+        ArrayList<User> returnUser = new ArrayList<>();
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.user WHERE id_user = ?");
-            pstmt.setLong(1, userID);
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.user " + rule);
             ResultSet rs = pstmt.executeQuery();
-            if(rs.next()) {
-                returnUser= User.builder().id(rs.getLong("id_user"))
-                        .email(rs.getString("email"))
-                        .firstname(rs.getString("firstname"))
-                        .lastname(rs.getString("lastname"))
-                        .password("password")
-                        .username("username").build();
-            }
-            conn.close();
-        } catch(SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return returnUser;
-    }
-
-    @Override
-    public User findUserByUsername(String username) {
-        User returnUser = null;
-        try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.user WHERE `username`=?");
-            pstmt.setString(1, username);
-            ResultSet rs = pstmt.executeQuery();
-            if(rs.next()) {
-                returnUser= User.builder().id(rs.getLong("id_user"))
+            User.UserBuilder ub = User.builder();
+            while (rs.next()) {
+                ub.id(rs.getLong("id_user"))
                         .email(rs.getString("email"))
                         .firstname(rs.getString("first_name"))
                         .lastname(rs.getString("last_name"))
                         .password(rs.getString("password"))
-                        .username(rs.getString("username")).build();
+                        .username(rs.getString("username"));
+
+                returnUser.add(ub.build());
             }
             conn.close();
-        } catch(SQLException e) {
-            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE, null, e);
+        } catch (SQLException e) {
+            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnUser;
+
+    }
+
+    @Override
+    public User findUserById(int userID) {
+        List<User> users = findUsersByRule("WHERE id_user = " + userID);
+        return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        List<User> users = findUsersByRule("WHERE username = '" + username + "'");
+        return users.isEmpty() ? null : users.get(0);
     }
 
     @Override
@@ -87,7 +80,7 @@ public class UsersManager implements UsersManagerLocal{
             pstmt.setString(4, bytesToHex(encodedhash));
             pstmt.setString(5, user.getEmail());
             int nbOfLines = pstmt.executeUpdate();
-            if(nbOfLines != 0) {
+            if (nbOfLines != 0) {
                 returnUser = user;
             }
         } catch (SQLException e) {
@@ -95,6 +88,7 @@ public class UsersManager implements UsersManagerLocal{
         }
         return returnUser;
     }
+
     // Source : https://stackoverflow.com/questions/9655181/how-to-convert-a-byte-array-to-a-hex-string-in-java
     public static String bytesToHex(byte[] bytes) {
         char[] HEX_ARRAY = "0123456789abcdef".toCharArray();

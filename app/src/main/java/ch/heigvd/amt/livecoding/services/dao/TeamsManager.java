@@ -18,21 +18,20 @@ import java.util.logging.Logger;
 
 
 @Stateless
-public class TeamsManager implements TeamsManagerLocal{
+public class TeamsManager implements TeamsManagerLocal {
 
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
 
-    @Override
-    public List<Team> findAllTeams() {
+    private List<Team> findTeamsByRule(String rule) {
         List<Team> returnVal = new ArrayList<>();
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.team");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.team " + rule);
             ResultSet rs = pstmt.executeQuery();
             Team.TeamBuilder tb = Team.builder();
             while (rs.next()) {
-                tb.id(rs.getLong("idteam"))
+                tb.id(rs.getLong("id_team"))
                         .country(rs.getString("team_country"))
                         .name(rs.getString("team_name"));
                 returnVal.add(tb.build());
@@ -42,24 +41,17 @@ public class TeamsManager implements TeamsManagerLocal{
             Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnVal;
+
+    }
+
+    @Override
+    public List<Team> findAllTeams() {
+        return findTeamsByRule("");
     }
 
     @Override
     public Team findTeam(int id) {
-        Team returnVal = null;
-        try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.team WHERE id = ?");
-            ResultSet rs = pstmt.executeQuery(Integer.toString(id));
-            if (rs.next()) {
-                returnVal = Team.builder().id(rs.getLong("idteam"))
-                        .country(rs.getString("team_country"))
-                        .name(rs.getString("team_name")).build();
-            }
-            conn.close();
-        } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return returnVal;
+        List<Team> teams = findTeamsByRule("WHERE id_team = " + id);
+        return teams.isEmpty() ? null : teams.get(0);
     }
 }

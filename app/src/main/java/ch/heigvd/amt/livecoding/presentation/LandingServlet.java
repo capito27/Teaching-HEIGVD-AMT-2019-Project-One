@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(urlPatterns = {"/index"})
 public class LandingServlet extends HttpServlet {
@@ -65,7 +64,7 @@ public class LandingServlet extends HttpServlet {
         }
 
         resp.setContentType("text/html;charset=UTF-8");
-        req.setAttribute("matches", matchesManager.getXMatchesFromYThMatch(matchPerPage * (currentMatchPage - 1), matchPerPage));
+        req.setAttribute("matches", matchesManager.getMatchesFromOffset(matchPerPage * (currentMatchPage - 1), matchPerPage));
         req.setAttribute("matchPageNumbers", matchPageNumbers);
         req.setAttribute("currentMatchPage", currentMatchPage);
         req.setAttribute("leftArrow", leftArrow);

@@ -21,12 +21,11 @@ public class StadiumsManager implements StadiumsManagerLocal {
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
 
-    @Override
-    public List<Stadium> findAllStadiums() {
+    private List<Stadium> findStadiumByRule(String rule) {
         List<Stadium> returnVal = new ArrayList<>();
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.stadium");
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.stadium " + rule);
             ResultSet rs = pstmt.executeQuery();
             Stadium.StadiumBuilder sb = Stadium.builder();
             while (rs.next()) {
@@ -41,25 +40,16 @@ public class StadiumsManager implements StadiumsManagerLocal {
             Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnVal;
+
+    }
+
+    @Override
+    public List<Stadium> findAllStadiums() {
+        return findStadiumByRule("");
     }
 
     public Stadium findStadium(int id) {
-        Stadium returnVal = null;
-        try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM amt.stadium WHERE id = ?");
-            ResultSet rs = pstmt.executeQuery(Integer.toString(id));
-            if (rs.next()) {
-                returnVal = Stadium.builder().id(rs.getLong("idstadium"))
-                        .name(rs.getString("stadium_name"))
-                        .location(rs.getString("stadium_location"))
-                        .viewerPlaces(rs.getInt("stadium_viewer_places")).build();
-            }
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return returnVal;
+        List<Stadium> stadiums = findStadiumByRule("WHERE id_stadium" + id);
+        return (stadiums.isEmpty()) ? null : stadiums.get(0);
     }
 }
