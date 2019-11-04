@@ -2,7 +2,6 @@ package ch.heigvd.amt.livecoding.presentation;
 
 import ch.heigvd.amt.livecoding.model.User;
 import ch.heigvd.amt.livecoding.services.dao.UsersManagerLocal;
-import jdk.internal.org.objectweb.asm.Handle;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

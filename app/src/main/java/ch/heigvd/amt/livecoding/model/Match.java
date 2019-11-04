@@ -10,4 +10,5 @@ public class Match {
     private Team team1, team2;
     private Integer goals1, goals2;
     private Stadium location;
+    private User user;
 }

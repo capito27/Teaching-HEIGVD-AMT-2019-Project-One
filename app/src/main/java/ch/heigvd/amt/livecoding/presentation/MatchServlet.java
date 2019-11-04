@@ -1,5 +1,9 @@
 package ch.heigvd.amt.livecoding.presentation;
 
+
+import ch.heigvd.amt.livecoding.model.Match;
+import ch.heigvd.amt.livecoding.model.User;
+import ch.heigvd.amt.livecoding.services.dao.MatchesManager;
 import ch.heigvd.amt.livecoding.services.dao.MatchesManagerLocal;
 
 import javax.ejb.EJB;
@@ -12,18 +16,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/index"})
-public class LandingServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/match")
+public class MatchServlet extends HttpServlet {
 
     private static int matchPerPage = 5;
 
     @EJB
     private MatchesManagerLocal matchesManager;
 
+    private static String[] postReqArgs = {"score1", "score2", "team1", "team2", "stadium"};
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        int matchPageCount = matchesManager.getMatchCount() / matchPerPage;
+        System.out.println("toto");
+        List<Match> matches = matchesManager.getMatchesFromUser(((User) req.getSession().getAttribute("user")).getId());
+
+        int matchPageCount = matches.size() / matchPerPage;
 
         // try to parse an integer from the parameter, if we can't assume it's 1
         int currentMatchPage = 1;
@@ -31,7 +40,7 @@ public class LandingServlet extends HttpServlet {
             currentMatchPage = Integer.parseInt(req.getParameter("matchListPage"));
         } catch (Exception e) { /* ignored */ }
 
-        if(currentMatchPage > matchPageCount)
+        if (currentMatchPage > matchPageCount)
             currentMatchPage = matchPageCount;
 
 
@@ -60,12 +69,12 @@ public class LandingServlet extends HttpServlet {
         int rightArrow = Math.min(matchPageCount, matchPageNumbers.get(0) + 5);
 
         // if the first page number is at 1,
-        if(leftArrow == 1){
+        if (leftArrow == 1) {
 
         }
 
         resp.setContentType("text/html;charset=UTF-8");
-        req.setAttribute("matches", matchesManager.getXMatchesFromYThMatch(matchPerPage * (currentMatchPage - 1), matchPerPage));
+        req.setAttribute("matches", matches);
         req.setAttribute("matchPageNumbers", matchPageNumbers);
         req.setAttribute("currentMatchPage", currentMatchPage);
         req.setAttribute("leftArrow", leftArrow);
@@ -75,6 +84,20 @@ public class LandingServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/landing.jsp", postReqArgs)) {
+            User user = (User) req.getSession().getAttribute("user");
+
+        }
+        resp.sendRedirect(req.getContextPath() + "/match");
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp);
     }
 }

@@ -60,7 +60,6 @@ public class LoginServlet extends HttpServlet {
       req.getRequestDispatcher("/WEB-INF/pages/login_register.jsp").forward(req, resp);
       return;
     }
-    System.out.println("chelou frer");
     resp.sendRedirect(req.getContextPath() + "/index");
   }
 

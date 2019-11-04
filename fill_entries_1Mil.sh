@@ -5,10 +5,10 @@ rm -f gen_data.sql
 
 echo "use \`amt\`;" >> gen_data.sql
 
-TeamCount=10
-UserCount=10
-StadiumCount=10
-matchCount=1000000
+TeamCount=0
+UserCount=0
+StadiumCount=0
+matchCount=100
 
 
 OUTPUT=""
