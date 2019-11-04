@@ -7,4 +7,5 @@ import java.util.List;
 public interface UsersManagerLocal {
     User findUserById(int userID);
     User findUserByUsername(String username);
+    User createUser(User user);
 }

@@ -11,16 +11,18 @@
 <div class="login-page">
     <div class="form">
         <button style="background: #868e96; margin-bottom: 10px" onclick="location.href = './index';">Return to main website</button>
-        <form class="register-form">
-            <input type="text" placeholder="name"/>
-            <input type="password" placeholder="password"/>
-            <input type="text" placeholder="email address"/>
+        <form class="register-form" method="post" action="register">
+            <input type="text" id="username_register" name="username" placeholder="username"/>
+            <input type="text" id="firstname_register" name="firstname"  placeholder="Firstname"/>
+            <input type="text" id="lastname_register" name="lastname"  placeholder="Lastname"/>
+            <input type="password" id="password_register" name="password"  placeholder="password"/>
+            <input type="text" id="email_register" name="email"  placeholder="email address"/>
             <button>create</button>
             <p class="message">Already registered? <a href="./login#">Sign In</a></p>
         </form>
-        <form class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
+        <form class="login-form" method="post" action="login">
+            <input type="text" id="username_login" name="username" placeholder="username"/>
+            <input type="password" id="password_login" name="password" placeholder="password"/>
             <button>login</button>
             <p class="message">Not registered? <a href="./login#">Create an account</a></p>
         </form>
