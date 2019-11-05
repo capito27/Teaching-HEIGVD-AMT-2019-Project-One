@@ -5,9 +5,12 @@ import lombok.*;
 @Builder(toBuilder = true)
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Team {
     private long id;
-    private String name;
-    private String country;
+    @NonNull private String name;
+    @NonNull private String country;
     private boolean isDeleted = false;
+
 }

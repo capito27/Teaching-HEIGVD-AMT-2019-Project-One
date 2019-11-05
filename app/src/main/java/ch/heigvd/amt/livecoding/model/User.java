@@ -1,18 +1,18 @@
 package ch.heigvd.amt.livecoding.model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.*;
 
 @Builder(toBuilder = true)
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class User {
     private long id;
-    private String username;
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String password;
+    @NonNull private String username;
+    @NonNull private String firstname;
+    @NonNull private String lastname;
+    @NonNull private String email;
+    @NonNull private String password;
     private boolean isDeleted = false;
 }

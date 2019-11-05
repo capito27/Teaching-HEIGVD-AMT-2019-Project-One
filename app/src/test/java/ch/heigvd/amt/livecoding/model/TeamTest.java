@@ -8,6 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TeamTest {
 
     @Test
+    void itShouldHaveAConstructor() {
+        Team team = new Team("F.C. Lausanne", "Switzerland");
+        assertEquals("F.C. Lausanne", team.getName());
+        assertEquals("Switzerland", team.getCountry());
+    }
+
+    @Test
     void itShouldBePossibleToCreateTeams() {
         Team fclausanne = Team.builder()
                 .name("F.C. Lausanne")
