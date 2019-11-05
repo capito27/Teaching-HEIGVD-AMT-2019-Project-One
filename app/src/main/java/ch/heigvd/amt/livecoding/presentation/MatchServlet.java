@@ -1,9 +1,7 @@
 package ch.heigvd.amt.livecoding.presentation;
 
 
-import ch.heigvd.amt.livecoding.model.Match;
 import ch.heigvd.amt.livecoding.model.User;
-import ch.heigvd.amt.livecoding.services.dao.MatchesManager;
 import ch.heigvd.amt.livecoding.services.dao.MatchesManagerLocal;
 import ch.heigvd.amt.livecoding.services.dao.StadiumsManagerLocal;
 import ch.heigvd.amt.livecoding.services.dao.TeamsManagerLocal;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(urlPatterns = "/match")
 public class MatchServlet extends HttpServlet {
@@ -82,8 +79,8 @@ public class MatchServlet extends HttpServlet {
 
         resp.setContentType("text/html;charset=UTF-8");
         req.setAttribute("matches", matchesManager.getMatchesFromUserAndOffset(user.getId(), matchPerPage * (currentMatchPage - 1), matchPerPage));
-        req.setAttribute("teams", teamsManager.findAllTeams());
-        req.setAttribute("stadiums", stadiumsManager.findAllStadiums());
+        req.setAttribute("teams", teamsManager.getAllTeams());
+        req.setAttribute("stadiums", stadiumsManager.getAllStadiums());
         req.setAttribute("matchPageNumbers", matchPageNumbers);
         req.setAttribute("currentMatchPage", currentMatchPage);
         req.setAttribute("leftArrow", leftArrow);

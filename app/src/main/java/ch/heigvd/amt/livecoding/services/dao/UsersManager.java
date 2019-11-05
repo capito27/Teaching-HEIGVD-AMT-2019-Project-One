@@ -5,13 +5,7 @@ import ch.heigvd.amt.livecoding.model.User;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,7 +17,7 @@ public class UsersManager implements UsersManagerLocal {
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
 
-    private List<User> findUsersByRule(String rule) {
+    private List<User> getUsersByRule(String rule) {
         ArrayList<User> returnUser = new ArrayList<>();
         try {
             Connection conn = dataSource.getConnection();
@@ -45,52 +39,10 @@ public class UsersManager implements UsersManagerLocal {
             Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnUser;
-
-    }
-
-    @Override
-    public User findUserById(int userID) {
-        List<User> users = findUsersByRule("WHERE id_user = " + userID);
-        return users.isEmpty() ? null : users.get(0);
-    }
-
-    @Override
-    public User findUserByUsername(String username) {
-        List<User> users = findUsersByRule("WHERE username = '" + username + "'");
-        return users.isEmpty() ? null : users.get(0);
-    }
-
-    @Override
-    public User createUser(User user) {
-        User returnUser = null;
-        try {
-            MessageDigest digest = null;
-            try {
-                digest = MessageDigest.getInstance("SHA-256");
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-            byte[] encodedhash = digest.digest(
-                    user.getPassword().getBytes(StandardCharsets.UTF_8));
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO amt.user (username, first_name, last_name, password, email) VALUES (?, ?, ?, ?, ?)");
-            pstmt.setString(1, user.getUsername());
-            pstmt.setString(2, user.getFirstname());
-            pstmt.setString(3, user.getLastname());
-            pstmt.setString(4, bytesToHex(encodedhash));
-            pstmt.setString(5, user.getEmail());
-            int nbOfLines = pstmt.executeUpdate();
-            if (nbOfLines != 0) {
-                returnUser = user;
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return returnUser;
     }
 
     // Source : https://stackoverflow.com/questions/9655181/how-to-convert-a-byte-array-to-a-hex-string-in-java
-    public static String bytesToHex(byte[] bytes) {
+    private static String bytesToHex(byte[] bytes) {
         char[] HEX_ARRAY = "0123456789abcdef".toCharArray();
         char[] hexChars = new char[bytes.length * 2];
         for (int j = 0; j < bytes.length; j++) {
@@ -100,4 +52,158 @@ public class UsersManager implements UsersManagerLocal {
         }
         return new String(hexChars);
     }
+
+    @Override
+    public User createUser(String username, String firstname, String lastname, String email, String password) {
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("NSERT INTO amt.user (username, first_name, last_name, password, email) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, username);
+            pstmt.setString(2, firstname);
+            pstmt.setString(3, lastname);
+            pstmt.setString(4, password);
+            pstmt.setString(5, email);
+            int res = pstmt.executeUpdate();
+            long key = -1;
+            // if the statement was ran correctly, we get the generated key field
+            if (res != 0) {
+                ResultSet rs = pstmt.getGeneratedKeys();
+                if (rs.next())
+                    key = rs.getLong(1);
+            }
+            conn.close();
+            // if we managed to get the id, we return the match
+            return (key == -1) ? null : getUserById(key);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public User createUser(User user) {
+        return user == null ? null : createUser(user.getUsername(),
+                user.getFirstname(),
+                user.getLastname(),
+                user.getEmail(),
+                user.getPassword());
+    }
+
+    @Override
+    public User getUserById(long id) {
+        List<User> users = getUsersByRule("WHERE id_user = " + id);
+        return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        List<User> users = getUsersByRule("WHERE username = '" + username + "'");
+        return users.isEmpty() ? null : users.get(0);
+    }
+
+    @Override
+    public boolean updateUser(long id, String username, String firstname, String lastname, String email, String password) {
+        Connection conn = null;
+        try {
+            String updateQuerry = "UPDATE amt.`user` SET ";
+            boolean querryUpdated = false;
+
+            // create the updateQuerry dynamically
+            if (username != null) {
+                updateQuerry += "username = ?,";
+                querryUpdated = true;
+            }
+
+            if (firstname != null) {
+                updateQuerry += "first_name = ?,";
+                querryUpdated = true;
+            }
+
+            if (lastname != null) {
+                updateQuerry += "last_name = ?,";
+                querryUpdated = true;
+            }
+
+            if (email != null) {
+                updateQuerry += "email = ?,";
+                querryUpdated = true;
+            }
+
+            if (password != null) {
+                updateQuerry += "password = ?,";
+                querryUpdated = true;
+            }
+
+            // if no field was updated, don't run the statement, and return false
+            if (!querryUpdated) {
+                return false;
+            }
+
+            conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + "WHERE id_user = ?;");
+            int index = 1;
+            // insert the values into the prepared statement
+            if (username != null) {
+                pstmt.setString(index++, username);
+            }
+
+            if (firstname != null) {
+                pstmt.setString(index++, firstname);
+            }
+
+            if (lastname != null) {
+                pstmt.setString(index++, lastname);
+            }
+
+            if (email != null) {
+                pstmt.setString(index++, email);
+            }
+
+            if (password != null) {
+                pstmt.setString(index++, password);
+            }
+
+            pstmt.setLong(index, id);
+
+            int res = pstmt.executeUpdate();
+            conn.close();
+            // if we didn't change a single row, the update failed, so we return false.
+            return res > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean updateUser(User user, String username, String firstname, String lastname, String email, String password) {
+        return user != null && updateUser(user.getId(), username, firstname, lastname, email, password);
+    }
+
+    @Override
+    public boolean deleteUser(long id) {
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM amt.`user` WHERE id_user = ?");
+            pstmt.setLong(1, id);
+            int res = pstmt.executeUpdate();
+            conn.close();
+            // si le retour d'executeUpdate est 0, aucune ligne n'à été supprimé
+            return res != 0;
+
+        } catch (SQLException e) {
+            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        return user != null && deleteUser(user.getId());
+
+    }
+
+
 }

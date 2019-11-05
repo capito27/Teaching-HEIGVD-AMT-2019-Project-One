@@ -6,17 +6,9 @@ import ch.heigvd.amt.livecoding.model.Team;
 import ch.heigvd.amt.livecoding.model.User;
 
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.persistence.PersistenceContext;
-import javax.sql.ConnectionEvent;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -28,34 +20,8 @@ public class MatchesManager implements MatchesManagerLocal {
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
 
-    private int getMatchCount(String rule) {
-        int matchCount = 0;
-        try {
-            Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) AS total FROM amt.match " + rule);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                matchCount = rs.getInt("total");
-            }
-            conn.close();
-        } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return matchCount;
 
-    }
-
-    @Override
-    public int getMatchCount() {
-        return getMatchCount("");
-    }
-
-    @Override
-    public int getMatchCountFromUser(long userId) {
-        return getMatchCount("WHERE FK_user = " + userId);
-    }
-
-    private List<Match> findAllMatching(String rule) {
+    private List<Match> getMatchesByRule(String rule) {
         List<Match> returnVal = new ArrayList<>();
         try {
             Connection conn = dataSource.getConnection();
@@ -104,41 +70,29 @@ public class MatchesManager implements MatchesManagerLocal {
             Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnVal;
-
     }
 
-    @Override
-    public List<Match> findAllMatches() {
-        return findAllMatching("");
-    }
-
-    @Override
-    public Match findMatch(int id) {
-        List<Match> matches = findAllMatching("WHERE id_match = " + id);
-        return (!matches.isEmpty()) ? matches.get(0) : null;
-    }
-
-    @Override
-    public List<Match> getMatchesFromOffset(int offset, int count) {
-        return findAllMatching("ORDER BY id_match LIMIT " + offset + "," + count);
-    }
-
-    @Override
-    public List<Match> getMatchesFromUser(long userId) {
-        return findAllMatching("WHERE FK_user = " + userId);
-    }
-
-    @Override
-    public List<Match> getMatchesFromUserAndOffset(long userId, int offset, int count) {
-        return findAllMatching("WHERE FK_user = " + userId + " ORDER BY id_match LIMIT " + offset + "," + count);
-    }
-
-    @Override
-    public boolean createMatch(int score1, int score2, int team1, int team2, int stadium, int user) {
-        Connection conn = null;
+    private int getMatchCount(String rule) {
+        int matchCount = 0;
         try {
-            conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO amt.`match` (score1, score2, FK_team1, FK_team2, FK_stadium, FK_user) VALUES(?,?,?,?,?,?)");
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("SELECT COUNT(*) AS total FROM amt.match " + rule);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                matchCount = rs.getInt("total");
+            }
+            conn.close();
+        } catch (SQLException e) {
+            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return matchCount;
+    }
+
+    @Override
+    public Match createMatch(int score1, int score2, long team1, long team2, long stadium, long user) {
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO amt.`match` (score1, score2, FK_team1, FK_team2, FK_stadium, FK_user) VALUES(?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             pstmt.setInt(1, score1);
             pstmt.setInt(2, score2);
             pstmt.setLong(3, team1);
@@ -146,12 +100,184 @@ public class MatchesManager implements MatchesManagerLocal {
             pstmt.setLong(5, stadium);
             pstmt.setLong(6, user);
             int res = pstmt.executeUpdate();
+            long key = -1;
+            // if the statement was ran correctly, we get the generated key field
+            if (res != 0) {
+                ResultSet rs = pstmt.getGeneratedKeys();
+                if (rs.next())
+                    key = rs.getLong(1);
+            }
             conn.close();
-            return res != 0;
+            // if we managed to get the id, we return the match
+            return (key == -1) ? null : getMatch(key);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    public Match createMatch(Match match) {
+        return match == null ? null : createMatch(match.getGoals1(),
+                match.getGoals2(),
+                match.getTeam1().getId(),
+                match.getTeam2().getId(),
+                match.getLocation().getId(),
+                match.getUser().getId());
+    }
+
+    @Override
+    public int getMatchCount() {
+        return getMatchCount("");
+    }
+
+    @Override
+    public int getMatchCountFromUser(long userId) {
+        return getMatchCount("WHERE FK_user = " + userId);
+    }
+
+    @Override
+    public List<Match> getAllMatches() {
+        return getMatchesByRule("");
+    }
+
+    @Override
+    public Match getMatch(long id) {
+        List<Match> matches = getMatchesByRule("WHERE id_match = " + id);
+        return (!matches.isEmpty()) ? matches.get(0) : null;
+    }
+
+    @Override
+    public List<Match> getMatchesFromOffset(int offset, int count) {
+        return getMatchesByRule("ORDER BY id_match LIMIT " + offset + "," + count);
+    }
+
+    @Override
+    public List<Match> getMatchesFromUser(long userId) {
+        return getMatchesByRule("WHERE FK_user = " + userId);
+    }
+
+    @Override
+    public List<Match> getMatchesFromUserAndOffset(long userId, int offset, int count) {
+        return getMatchesByRule("WHERE FK_user = " + userId + " ORDER BY id_match LIMIT " + offset + "," + count);
+    }
+
+    @Override
+    public boolean updateMatch(long id, Integer score1, Integer score2, Long team1, Long team2, Long stadium, Long user) {
+        Connection conn = null;
+        try {
+            String updateQuerry = "UPDATE amt.`match` SET ";
+            boolean querryUpdated = false;
+
+            // create the updateQuerry dynamically
+            if (score1 != null) {
+                updateQuerry += "score1 = ?,";
+                querryUpdated = true;
+            }
+
+            if (score2 != null) {
+                updateQuerry += "score2 = ?,";
+                querryUpdated = true;
+            }
+
+            if (team1 != null) {
+                updateQuerry += "FK_team1 = ?,";
+                querryUpdated = true;
+            }
+
+            if (team2 != null) {
+                updateQuerry += "FK_team2 = ?,";
+                querryUpdated = true;
+            }
+
+            if (stadium != null) {
+                updateQuerry += "FK_stadium = ?,";
+                querryUpdated = true;
+            }
+
+            if (user != null) {
+                updateQuerry += "FK_user = ?,";
+                querryUpdated = true;
+            }
+
+            // if no field was updated, don't run the statement, and return false
+            if (!querryUpdated) {
+                return false;
+            }
+
+            conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + "WHERE id_match = ?;");
+            int index = 1;
+            // insert the values into the prepared statement
+            if (score1 != null) {
+                pstmt.setInt(index++, score1);
+            }
+
+            if (score2 != null) {
+                pstmt.setInt(index++, score2);
+            }
+
+            if (team1 != null) {
+                pstmt.setLong(index++, team1);
+            }
+
+            if (team2 != null) {
+                pstmt.setLong(index++, team2);
+            }
+
+            if (stadium != null) {
+                pstmt.setLong(index++, stadium);
+            }
+
+            if (user != null) {
+                pstmt.setLong(index++, user);
+            }
+
+            pstmt.setLong(index, id);
+
+            int res = pstmt.executeUpdate();
+            conn.close();
+            // if we didn't change a single row, the update failed, so we return false.
+            return res > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return false;
     }
+
+    @Override
+    public boolean updateMatch(Match match, Integer score1, Integer score2, Team team1, Team team2, Stadium stadium, User user) {
+        return match != null && updateMatch(match.getId(),
+                score1,
+                score2,
+                (team1 == null) ? null : team1.getId(),
+                (team2 == null) ? null : team2.getId(),
+                (stadium == null) ? null : stadium.getId(),
+                (user == null) ? null : user.getId());
+    }
+
+    @Override
+    public boolean deleteMatch(long match_id) {
+        try {
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM amt.match WHERE id_match = ?");
+            pstmt.setLong(1, match_id);
+            int res = pstmt.executeUpdate();
+            conn.close();
+            // si le retour d'executeUpdate est 0, aucune ligne n'à été supprimé
+            return res != 0;
+
+        } catch (SQLException e) {
+            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteMatch(Match match) {
+        return match != null && deleteMatch(match.getId());
+    }
+
 }

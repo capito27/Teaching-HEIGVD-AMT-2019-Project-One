@@ -5,10 +5,10 @@ rm -f gen_data.sql
 
 echo "use \`amt\`;" >> gen_data.sql
 
-TeamCount=0
-UserCount=0
-StadiumCount=0
-matchCount=100
+TeamCount=10
+UserCount=10
+StadiumCount=10
+matchCount=1000000
 
 
 OUTPUT=""
@@ -110,7 +110,7 @@ done
 echo "sql instance available, running SQL transaction"
 # now, we simply run the SQL file
 
-mysql -u root -proot -h"127.0.0.1" -P 3333 < gen_data.sql
+#mysql -u root -proot -h"127.0.0.1" -P 3333 < gen_data.sql
 
 echo "done!"
 

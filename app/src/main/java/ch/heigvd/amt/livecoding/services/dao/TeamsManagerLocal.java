@@ -8,7 +8,24 @@ import ch.heigvd.amt.livecoding.model.Team;
 @Local
 public interface TeamsManagerLocal {
 
-    List<Team> findAllTeams();
-    Team findTeam(int id);
+    // Create
+    Team createTeam(String name, String country);
+
+    Team createTeam(Team team);
+
+    // Read
+    List<Team> getAllTeams();
+
+    Team getTeam(long id);
+
+    // Update
+    boolean updateTeam(long id, String name, String country);
+
+    boolean updateTeam(Team team, String name, String country);
+
+    // Delete
+    boolean deleteTeam(long id);
+
+    boolean deleteTeam(Team team);
 }
 

@@ -1,7 +1,6 @@
 package ch.heigvd.amt.livecoding.presentation;
 
 import ch.heigvd.amt.livecoding.model.User;
-import ch.heigvd.amt.livecoding.services.dao.UsersManager;
 import ch.heigvd.amt.livecoding.services.dao.UsersManagerLocal;
 
 import javax.ejb.EJB;
@@ -37,7 +36,7 @@ public class LoginServlet extends HttpServlet {
     // TODO : Control form entries
     req.setAttribute("login", true);
     if(Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/login_register.jsp", postReqVal)) {
-      User user = usersManager.findUserByUsername(req.getParameter("username"));
+      User user = usersManager.getUserByUsername(req.getParameter("username"));
       if (user != null) {
         MessageDigest digest = null;
         try {

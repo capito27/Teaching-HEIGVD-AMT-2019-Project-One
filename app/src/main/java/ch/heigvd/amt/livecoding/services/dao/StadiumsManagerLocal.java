@@ -8,6 +8,24 @@ import java.util.List;
 @Local
 public interface StadiumsManagerLocal {
 
-    List<Stadium> findAllStadiums();
-    Stadium findStadium(int id);
+    // Create
+    Stadium createStadium(String name, String location, Integer viewerPlaces);
+
+    Stadium createStadium(Stadium stadium);
+
+    // Read
+    List<Stadium> getAllStadiums();
+
+    Stadium getStadium(long id);
+
+    // Update
+    boolean updateStadium(long id, String name, String location, Integer places);
+
+    boolean updateStadium(Stadium stadium, String name, String location, Integer places);
+
+    // Delete
+    boolean deleteStadium(long id);
+
+    boolean deleteStadium(Stadium stadium);
+
 }
