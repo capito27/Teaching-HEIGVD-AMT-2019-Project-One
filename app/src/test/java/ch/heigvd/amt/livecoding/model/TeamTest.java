@@ -1,15 +1,30 @@
 package ch.heigvd.amt.livecoding.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class TeamTest {
+
+    @Test
     void itShouldBePossibleToCreateTeams() {
         Team fclausanne = Team.builder()
                 .name("F.C. Lausanne")
-                .Country("Switzerland")
+                .country("Switzerland")
                 .build();
         assertNotNull(fclausanne);
         assertEquals("F.C. Lausanne", fclausanne.getName());
+    }
+
+    @Test
+    public void itShouldBePossibleToCloneATeam() {
+        Team team = Team.builder()
+                .name("F.C. Lausanne")
+                .country("Switzerland")
+                .build();
+        Team cloned = team.toBuilder().build();
+        assertEquals(team, cloned);
+        assertNotSame(team, cloned);
     }
 }

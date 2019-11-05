@@ -93,18 +93,18 @@ public class MatchServlet extends HttpServlet {
         if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
             User user = (User) req.getSession().getAttribute("user");
             System.out.println("Test " + user.getUsername());
-            if(matchesManager.createMatch(Integer.parseInt(req.getParameter("score1")),
+            if (matchesManager.createMatch(Integer.parseInt(req.getParameter("score1")),
                     Integer.parseInt(req.getParameter("score2")),
                     Integer.parseInt(req.getParameter("team1")),
                     Integer.parseInt(req.getParameter("team2")),
                     Integer.parseInt(req.getParameter("stadium")),
-                    (int) user.getId())) {
+                    (int) user.getId()) != null) {
                 System.out.println("Creation");
                 resp.sendRedirect(req.getContextPath() + "/match");
             } else {
                 // TODO : error on creation
                 req.setAttribute("error", "Error in creation");
-                req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req,resp);
+                req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);
             }
         }
     }

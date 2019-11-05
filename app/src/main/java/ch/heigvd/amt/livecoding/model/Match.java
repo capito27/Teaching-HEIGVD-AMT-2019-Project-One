@@ -2,8 +2,8 @@ package ch.heigvd.amt.livecoding.model;
 
 import lombok.*;
 
+@Builder(toBuilder = true)
 @Getter
-@Builder
 @EqualsAndHashCode
 public class Match {
     private long id;
@@ -11,4 +11,5 @@ public class Match {
     private Team team1, team2;
     private Stadium location;
     private User user;
+    private boolean isDeleted = false;
 }

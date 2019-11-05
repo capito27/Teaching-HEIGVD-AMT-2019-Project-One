@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-@Builder
+@Builder(toBuilder = true)
 @Getter
 @EqualsAndHashCode
 public class User {
@@ -14,4 +14,5 @@ public class User {
     private String lastname;
     private String email;
     private String password;
+    private boolean isDeleted = false;
 }
