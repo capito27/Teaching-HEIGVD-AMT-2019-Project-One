@@ -3,7 +3,7 @@
 <html lang="en" >
 <head>
     <meta charset="UTF-8">
-    <title>Flat HTML5/CSS3 Login Form</title>
+    <title>Login Form</title>
     <base href="${pageContext.request.contextPath}/"/>
     <link rel="stylesheet" href="./assets/login_register/style.css">
 </head>
@@ -27,12 +27,13 @@
             <button>login</button>
             <p class="message">Not registered? <a href="./login#">Create an account</a></p>
         </form>
+        <p class="error">${error}</p>
     </div>
 </div>
 <!-- partial -->
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-<script  src="./assets/login_register/script.js"></script>
+<script src="./assets/login_register/script.js"></script>
 
 </body>
 </html>

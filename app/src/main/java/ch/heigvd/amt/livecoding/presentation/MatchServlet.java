@@ -5,6 +5,8 @@ import ch.heigvd.amt.livecoding.model.Match;
 import ch.heigvd.amt.livecoding.model.User;
 import ch.heigvd.amt.livecoding.services.dao.MatchesManager;
 import ch.heigvd.amt.livecoding.services.dao.MatchesManagerLocal;
+import ch.heigvd.amt.livecoding.services.dao.StadiumsManagerLocal;
+import ch.heigvd.amt.livecoding.services.dao.TeamsManagerLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -24,16 +26,21 @@ public class MatchServlet extends HttpServlet {
     @EJB
     private MatchesManagerLocal matchesManager;
 
+    @EJB
+    private TeamsManagerLocal teamsManager;
+
+    @EJB
+    private StadiumsManagerLocal stadiumsManager;
+
     private static String[] postReqArgs = {"score1", "score2", "team1", "team2", "stadium"};
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println("toto");
         User user = (User) req.getSession().getAttribute("user");
 
-        int matchPageCount = matchesManager.getMatchCountFromUser(user.getId()) / matchPerPage;
-
+        int matchPageCount = (int) Math.ceil((double) matchesManager.getMatchCountFromUser(user.getId()) / matchPerPage);
+        System.out.println(matchPageCount);
         // try to parse an integer from the parameter, if we can't assume it's 1
         int currentMatchPage = 1;
         try {
@@ -75,20 +82,34 @@ public class MatchServlet extends HttpServlet {
 
         resp.setContentType("text/html;charset=UTF-8");
         req.setAttribute("matches", matchesManager.getMatchesFromUserAndOffset(user.getId(), matchPerPage * (currentMatchPage - 1), matchPerPage));
+        req.setAttribute("teams", teamsManager.findAllTeams());
+        req.setAttribute("stadiums", stadiumsManager.findAllStadiums());
         req.setAttribute("matchPageNumbers", matchPageNumbers);
         req.setAttribute("currentMatchPage", currentMatchPage);
         req.setAttribute("leftArrow", leftArrow);
         req.setAttribute("rightArrow", rightArrow);
-        req.getRequestDispatcher("/WEB-INF/pages/landing.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/landing.jsp", postReqArgs)) {
+        if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
             User user = (User) req.getSession().getAttribute("user");
-
+            System.out.println("Test " + user.getUsername());
+            if(matchesManager.createMatch(Integer.parseInt(req.getParameter("score1")),
+                    Integer.parseInt(req.getParameter("score2")),
+                    Integer.parseInt(req.getParameter("team1")),
+                    Integer.parseInt(req.getParameter("team2")),
+                    Integer.parseInt(req.getParameter("stadium")),
+                    (int) user.getId())) {
+                System.out.println("Creation");
+                resp.sendRedirect(req.getContextPath() + "/match");
+            } else {
+                // TODO : error on creation
+                req.setAttribute("error", "Error in creation");
+                req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req,resp);
+            }
         }
-        resp.sendRedirect(req.getContextPath() + "/match");
     }
 
     @Override

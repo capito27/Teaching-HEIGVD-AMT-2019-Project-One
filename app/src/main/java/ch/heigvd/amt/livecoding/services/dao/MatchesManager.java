@@ -130,7 +130,7 @@ public class MatchesManager implements MatchesManagerLocal {
 
     @Override
     public List<Match> getMatchesFromUserAndOffset(long userId, int offset, int count) {
-        return findAllMatching("WHERE FK_user = " + userId + "ORDER BY id_match LIMIT " + offset + "," + count);
+        return findAllMatching("WHERE FK_user = " + userId + " ORDER BY id_match LIMIT " + offset + "," + count);
     }
 
     @Override

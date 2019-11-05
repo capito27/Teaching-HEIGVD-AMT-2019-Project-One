@@ -29,7 +29,7 @@ public class StadiumsManager implements StadiumsManagerLocal {
             ResultSet rs = pstmt.executeQuery();
             Stadium.StadiumBuilder sb = Stadium.builder();
             while (rs.next()) {
-                sb.id(rs.getLong("idstadium"))
+                sb.id(rs.getLong("id_stadium"))
                         .name(rs.getString("stadium_name"))
                         .location(rs.getString("stadium_location"))
                         .viewerPlaces(rs.getInt("stadium_viewer_places"));
@@ -40,7 +40,6 @@ public class StadiumsManager implements StadiumsManagerLocal {
             Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnVal;
-
     }
 
     @Override
