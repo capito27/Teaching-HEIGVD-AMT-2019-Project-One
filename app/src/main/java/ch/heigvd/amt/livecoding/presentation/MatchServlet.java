@@ -29,7 +29,7 @@ public class MatchServlet extends HttpServlet {
     @EJB
     private StadiumsManagerLocal stadiumsManager;
 
-    private static String[] postReqArgs = {"score1", "score2", "team1", "team2", "stadium"};
+    private static String[] postReqArgs = {"action", "score1", "score2", "team1", "team2", "stadium"};
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,7 +65,7 @@ public class MatchServlet extends HttpServlet {
         if (matchPageCount > 3)
             matchPageNumbers.add(Math.max(4, (Math.min(matchPageCount - 1, currentMatchPage + 1))));
 
-        if (matchPageCount > 3)
+        if (matchPageCount > 4)
             matchPageNumbers.add(Math.max(5, (Math.min(matchPageCount, currentMatchPage + 2))));
 
         // the right arrow is always the left number + 5, except when we're at the last 5 numbers
@@ -90,32 +90,63 @@ public class MatchServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
-            User user = (User) req.getSession().getAttribute("user");
-            System.out.println("Test " + user.getUsername());
-            if (matchesManager.createMatch(Integer.parseInt(req.getParameter("score1")),
-                    Integer.parseInt(req.getParameter("score2")),
-                    Integer.parseInt(req.getParameter("team1")),
-                    Integer.parseInt(req.getParameter("team2")),
-                    Integer.parseInt(req.getParameter("stadium")),
-                    (int) user.getId()) != null) {
-                System.out.println("Creation");
-                resp.sendRedirect(req.getContextPath() + "/match");
-            } else {
-                // TODO : error on creation
-                req.setAttribute("error", "Error in creation");
-                req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);
+        System.out.println(req.getParameter("action"));
+        if(req.getParameter("action").equals("post")) {
+            if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
+                User user = (User) req.getSession().getAttribute("user");
+                if (matchesManager.createMatch(Integer.parseInt(req.getParameter("score1")),
+                        Integer.parseInt(req.getParameter("score2")),
+                        Integer.parseInt(req.getParameter("team1")),
+                        Integer.parseInt(req.getParameter("team2")),
+                        Integer.parseInt(req.getParameter("stadium")),
+                        (int) user.getId()) != null) {
+                    System.out.println("Creation");
+                    // TODO put confirmation of action
+                    this.doGet(req, resp);
+                } else {
+                    req.setAttribute("error", "Error in creation");
+                    req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);
+                }
+            }
+        } else {
+            if(req.getParameter("action").equals("update")){
+                this.doPut(req, resp);
+            } else if(req.getParameter("action").equals("delete")){
+                this.doDelete(req, resp);
             }
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        if (matchesManager.deleteMatch(Integer.parseInt(req.getParameter("match")))) {
+            System.out.println("Delete");
+            // TODO put confirmation of action
+            this.doGet(req, resp);
+        } else {
+            req.setAttribute("error", "Error in creation");
+            req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);
+        }
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+        if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
+            User user = (User) req.getSession().getAttribute("user");
+            if (matchesManager.updateMatch(Integer.parseInt(req.getParameter("id")),
+                    Integer.parseInt(req.getParameter("score1")),
+                    Integer.parseInt(req.getParameter("score2")),
+                    (long) Integer.parseInt(req.getParameter("team1")),
+                    (long) Integer.parseInt(req.getParameter("team2")),
+                    (long) Integer.parseInt(req.getParameter("stadium")),
+                    user.getId())) {
+                System.out.println("Update");
+                // TODO put confirmation of action
+                this.doGet(req, resp);
+            } else {
+                req.setAttribute("error", "Error in creation");
+                req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);
+            }
+        }
     }
 }

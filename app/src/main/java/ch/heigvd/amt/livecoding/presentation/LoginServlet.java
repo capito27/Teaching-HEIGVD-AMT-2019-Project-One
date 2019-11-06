@@ -53,14 +53,14 @@ public class LoginServlet extends HttpServlet {
           httpSession.setAttribute("user", user);
         } else {
           // render errors
-          System.out.println("Bad password : " + user.getPassword() + " : " + bytesToHex(encodedhash));
           httpSession.setAttribute("user", null);
+          req.setAttribute("error", "Bad username or password !");
           req.getRequestDispatcher("/WEB-INF/pages/login_register.jsp").forward(req, resp);
           return;
         }
       } else {
         // render errors
-        System.out.println("No user");
+        req.setAttribute("error", "Bad username or password !");
         req.getRequestDispatcher("/WEB-INF/pages/login_register.jsp").forward(req, resp);
         return;
       }

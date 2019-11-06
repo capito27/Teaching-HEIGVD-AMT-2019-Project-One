@@ -207,7 +207,7 @@ public class MatchesManager implements MatchesManagerLocal {
             }
 
             conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + "WHERE id_match = ?;");
+            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + " WHERE id_match = ?;");
             int index = 1;
             // insert the values into the prepared statement
             if (score1 != null) {
