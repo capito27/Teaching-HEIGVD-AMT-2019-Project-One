@@ -18,9 +18,9 @@
 </head>
 <body>
 <nav class="nav">
-    <a class="nav-link active" href="#">Matches</a>
-    <a class="nav-link" href="/team">Teams</a>
-    <a class="nav-link" href="/stadium">Stadiums</a>
+    <a class="nav-link active" href="/Project-One/team">Teams</a>
+    <a class="nav-link" href="/Project-One/stadium">Stadiums</a>
+    <a class="nav-link" href="/Project-One/match">Matches</a>
 </nav>
 
 <!-- Modal -->

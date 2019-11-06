@@ -42,7 +42,7 @@ public class StadiumsManager implements StadiumsManagerLocal {
     public Stadium createStadium(String name, String location, Integer viewerPlaces) {
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO amt.`match` (stadium_name, stadium_location, stadium_viewer_places) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO amt.`stadium` (stadium_name, stadium_location, stadium_viewer_places) VALUES(?,?,?)", Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, name);
             pstmt.setString(2, location);
             pstmt.setInt(3, viewerPlaces);
@@ -77,7 +77,7 @@ public class StadiumsManager implements StadiumsManagerLocal {
     }
 
     public Stadium getStadium(long id) {
-        List<Stadium> stadiums = getStadiumByRule("WHERE id_stadium" + id);
+        List<Stadium> stadiums = getStadiumByRule(" WHERE id_stadium = " + id);
         return (stadiums.isEmpty()) ? null : stadiums.get(0);
     }
 
@@ -110,7 +110,7 @@ public class StadiumsManager implements StadiumsManagerLocal {
             }
 
             conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + "WHERE id_stadium = ?;");
+            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + " WHERE id_stadium = ?;");
             int index = 1;
             // insert the values into the prepared statement
             if (name != null) {
