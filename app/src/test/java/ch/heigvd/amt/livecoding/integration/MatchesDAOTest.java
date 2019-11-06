@@ -108,13 +108,14 @@ public class MatchesDAOTest {
         assertNotEquals(matchOriginal, matchModified);
     }
 
+    // mostly for code coverage completeness
     @Test
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldNotBreakWithInvalidValues() {
         assertNull(manager.createMatch(0, 0, 0, 0, 0, 0));
         assertNull(manager.createMatch(null));
         assertNull(manager.createMatch(new Match(1,0, 0, null, null, null, null)));
-        assertEquals(-1, manager.getMatchCountFromUser(0));
+        assertEquals(-1, manager.getMatchCountFromUser(-1));
     }
 
 
