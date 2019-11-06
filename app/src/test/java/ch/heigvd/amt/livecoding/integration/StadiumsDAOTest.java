@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 @MavenBuild
 @DeploymentParameters(testable = true)
-public class StadiumsDaoTest {
+public class StadiumsDAOTest {
 
     @EJB
     IStadiumsDAO stadiumsManager;
@@ -49,11 +49,21 @@ public class StadiumsDaoTest {
         assertNull(stadiumsManager.getStadium(stadium.getId()));
     }
 
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldDeleteAllMatchesInStadiumWhenDeleted() {
+        // guarentees that the stadium is at least in a match, all those methods MUST be tested in their respective tests
+        Stadium stadium = matchesManager.getMatch(1).getLocation();
+        int matchCount = matchesManager.getMatchCount();
+
+        stadiumsManager.deleteStadium(stadium);
+        assertTrue(matchCount > matchesManager.getMatchCount());
+    }
 
 
     @Test
     @Transactional(TransactionMode.ROLLBACK)
-    public void itShouldBePossibleToUpdateAMatch() {
+    public void itShouldBePossibleToUpdateAStadium() {
         Stadium stadiumOriginal = stadiumsManager.createStadium("toto", "tata", 1);
         assertEquals(stadiumOriginal, stadiumsManager.getStadium(stadiumOriginal.getId()));
         Stadium stadiumModified = stadiumOriginal.toBuilder().viewerPlaces(2).build();

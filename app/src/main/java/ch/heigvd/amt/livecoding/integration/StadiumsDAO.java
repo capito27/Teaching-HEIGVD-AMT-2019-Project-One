@@ -83,50 +83,20 @@ public class StadiumsDAO implements IStadiumsDAO {
 
     @Override
     public boolean updateStadium(long id, String name, String location, Integer places) {
+
         Connection conn = null;
         try {
-            String updateQuerry = "UPDATE amt.`stadium` SET ";
-            boolean querryUpdated = false;
-
-            // create the updateQuerry dynamically
-            if (name != null) {
-                updateQuerry += "stadium_name = ?,";
-                querryUpdated = true;
-            }
-
-            if (location != null) {
-                updateQuerry += "stadium_location = ?,";
-                querryUpdated = true;
-            }
-
-            if (places != null) {
-                updateQuerry += "stadium_viewer_places = ?,";
-                querryUpdated = true;
-            }
-
-            // if no field was updated, don't run the statement, and return false
-            if (!querryUpdated) {
+            Stadium stadium = getStadium(id);
+            if (stadium == null)
                 return false;
-            }
 
             conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + " WHERE id_stadium = ?;");
-            int index = 1;
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE amt.`stadium` SET stadium_name = ?, stadium_location = ?, stadium_viewer_places = ? WHERE id_stadium = ?;");
             // insert the values into the prepared statement
-            if (name != null) {
-                pstmt.setString(index++, name);
-            }
-
-            if (location != null) {
-                pstmt.setString(index++, location);
-            }
-
-            if (places != null) {
-                pstmt.setInt(index++, places);
-            }
-
-            pstmt.setLong(index, id);
-
+            pstmt.setString(1, name == null ? stadium.getName() : name);
+            pstmt.setString(2, location == null ? stadium.getLocation() : location);
+            pstmt.setInt(3, places == null ? stadium.getViewerPlaces() : places);
+            pstmt.setLong(4, id);
             int res = pstmt.executeUpdate();
             conn.close();
             // if we didn't change a single row, the update failed, so we return false.

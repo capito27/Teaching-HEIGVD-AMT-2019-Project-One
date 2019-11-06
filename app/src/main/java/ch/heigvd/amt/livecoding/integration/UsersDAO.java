@@ -57,7 +57,7 @@ public class UsersDAO implements IUsersDAO {
     public User createUser(String username, String firstname, String lastname, String email, String password) {
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("NSERT INTO amt.user (username, first_name, last_name, password, email) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO amt.`user` (`username`, `first_name`, `last_name`, `password`, `email`) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, username);
             pstmt.setString(2, firstname);
             pstmt.setString(3, lastname);
@@ -88,6 +88,11 @@ public class UsersDAO implements IUsersDAO {
                 user.getLastname(),
                 user.getEmail(),
                 user.getPassword());
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return getUsersByRule("");
     }
 
     @Override
@@ -178,8 +183,8 @@ public class UsersDAO implements IUsersDAO {
     }
 
     @Override
-    public boolean updateUser(User user, String username, String firstname, String lastname, String email, String password) {
-        return user != null && updateUser(user.getId(), username, firstname, lastname, email, password);
+    public boolean updateUser(User user) {
+        return user != null && updateUser(user.getId(), user.getUsername(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getPassword());
     }
 
     @Override

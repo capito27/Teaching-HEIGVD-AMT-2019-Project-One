@@ -21,7 +21,7 @@ public interface ITeamsDAO {
     // Update
     boolean updateTeam(long id, String name, String country);
 
-    boolean updateTeam(Team team, String name, String country);
+    boolean updateTeam(Team team);
 
     // Delete
     boolean deleteTeam(long id);

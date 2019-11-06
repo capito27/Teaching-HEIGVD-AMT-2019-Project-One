@@ -29,11 +29,8 @@ public class AuthFilter implements Filter {
         HttpSession session = request.getSession(false);
         String path = request.getRequestURI().substring(request.getContextPath().length()).replaceAll("[/]+$", "");
 
-        System.out.println(request.getContextPath());
-        System.out.println(path);
-
         // if the path of the request is not the current project, we ignore it
-        if (!path.startsWith("/Project-One") && !path.equals("/Project-One")) {
+        if (!path.startsWith("/Project-One")) {
             chain.doFilter(request, response);
             return;
         }

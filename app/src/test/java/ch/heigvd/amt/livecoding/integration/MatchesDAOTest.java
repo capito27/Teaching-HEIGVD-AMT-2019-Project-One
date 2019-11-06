@@ -61,6 +61,20 @@ public class MatchesDAOTest {
 
     @Test
     public void itShouldBePossibleToRetrieveAllMatchesFromAStadium() {
+        List<Match> userMatches = manager.getMatchesFromUser(1),
+                allMatches = manager.getAllMatches();
+
+        // check that we actually got all matches
+        assertEquals(manager.getMatchCount(), allMatches.size());
+
+        // check that all matches we got are actually played in stadium 1
+        assertTrue(userMatches.stream().allMatch(match -> match.getUser().getId() == 1));
+        // check that the total number of matches not played in stadium 1 + the matches in stadium 1 is the total number of matches
+        assertEquals(userMatches.size() + allMatches.stream().filter(match -> match.getUser().getId() != 1).count(), allMatches.size());
+    }
+
+    @Test
+    public void itShouldBePossibleToRetrieveAllMatchesFromAUser() {
         List<Match> stadiumMatch = manager.getMatchesFromStadium(1),
                 allMatches = manager.getAllMatches();
 

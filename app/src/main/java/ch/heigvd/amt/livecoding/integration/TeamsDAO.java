@@ -129,8 +129,8 @@ public class TeamsDAO implements ITeamsDAO {
     }
 
     @Override
-    public boolean updateTeam(Team team, String name, String country) {
-        return team != null && updateTeam(team.getId(), name, country);
+    public boolean updateTeam(Team team) {
+        return team != null && updateTeam(team.getId(), team.getName(), team.getCountry());
     }
 
     @Override

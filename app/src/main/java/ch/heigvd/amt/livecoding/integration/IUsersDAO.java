@@ -3,6 +3,7 @@ package ch.heigvd.amt.livecoding.integration;
 import ch.heigvd.amt.livecoding.model.User;
 
 import javax.ejb.Local;
+import java.util.List;
 
 @Local
 public interface IUsersDAO {
@@ -12,14 +13,17 @@ public interface IUsersDAO {
     User createUser(User user);
 
     // Read
+    List<User> getAllUsers();
+
     User getUserById(long id);
+
 
     User getUserByUsername(String username);
 
     // Update
     boolean updateUser(long id, String username, String firstname, String lastname, String email, String password);
 
-    boolean updateUser(User user, String username, String firstname, String lastname, String email, String password);
+    boolean updateUser(User user);
 
     // Delete
     boolean deleteUser(long id);
