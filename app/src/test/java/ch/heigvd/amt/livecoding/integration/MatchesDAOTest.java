@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 
 import javax.ejb.EJB;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -60,12 +61,14 @@ public class MatchesDAOTest {
     }
 
     @Test
-    public void itShouldBePossibleToRetrieveAllMatchesFromAStadium() {
+    public void itShouldBePossibleToRetrieveAllMatchesFromAUser() {
         List<Match> userMatches = manager.getMatchesFromUser(1),
                 allMatches = manager.getAllMatches();
 
         // check that we actually got all matches
         assertEquals(manager.getMatchCount(), allMatches.size());
+
+        assertEquals(manager.getMatchCountFromUser(1), userMatches.size());
 
         // check that all matches we got are actually played in stadium 1
         assertTrue(userMatches.stream().allMatch(match -> match.getUser().getId() == 1));
@@ -74,12 +77,13 @@ public class MatchesDAOTest {
     }
 
     @Test
-    public void itShouldBePossibleToRetrieveAllMatchesFromAUser() {
+    public void itShouldBePossibleToRetrieveAllMatchesFromAStadium() {
         List<Match> stadiumMatch = manager.getMatchesFromStadium(1),
                 allMatches = manager.getAllMatches();
 
         // check that we actually got all matches
         assertEquals(manager.getMatchCount(), allMatches.size());
+
 
         // check that all matches we got are actually played in stadium 1
         assertTrue(stadiumMatch.stream().allMatch(match -> match.getLocation().getId() == 1));
@@ -108,14 +112,14 @@ public class MatchesDAOTest {
         assertNotEquals(matchOriginal, matchModified);
     }
 
-    // mostly for code coverage completeness
+    // mostly for code coverage completeness§
     @Test
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldNotBreakWithInvalidValues() {
         assertNull(manager.createMatch(0, 0, 0, 0, 0, 0));
         assertNull(manager.createMatch(null));
-        assertNull(manager.createMatch(new Match(1,0, 0, null, null, null, null)));
-        assertEquals(-1, manager.getMatchCountFromUser(-1));
+        assertNull(manager.createMatch(new Match(1, 0, 0, null, null, null, null)));
+        assertArrayEquals(manager.getMatchesFromOffset(-1, -1).toArray(), new ArrayList<Match>().toArray());
     }
 
 

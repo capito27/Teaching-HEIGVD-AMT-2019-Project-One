@@ -84,7 +84,6 @@ public class MatchesDAO implements IMatchesDAO {
             conn.close();
         } catch (SQLException e) {
             Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
-            matchCount = -1;
         }
         return matchCount;
     }
