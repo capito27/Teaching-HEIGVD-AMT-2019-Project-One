@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MatchTest {
-    final Team team = new Team("F.C. Lausanne", "Switzerland");
-    final User user = new User("admin", "admin", "istrator", "admin@istrator.com", "toto");
-    final Stadium stadium = new Stadium("Sion", "Switzerland", 33);
+    final Team team = new Team(0,"F.C. Lausanne", "Switzerland");
+    final User user = new User(0,"admin", "admin", "istrator", "admin@istrator.com", "toto");
+    final Stadium stadium = new Stadium(0,"Sion", "Switzerland", 33);
 
 
     @Test
     void itShouldHaveAConstructor() {
-        Match match = new Match(0, 1, team, team, stadium, user);
+        Match match = new Match(0,0, 1, team, team, stadium, user);
         assertEquals(0, match.getGoals1());
         assertEquals(1, match.getGoals2());
         assertEquals(team, match.getTeam1());

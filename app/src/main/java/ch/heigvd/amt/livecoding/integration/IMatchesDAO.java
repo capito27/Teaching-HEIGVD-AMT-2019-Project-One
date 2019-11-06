@@ -1,4 +1,4 @@
-package ch.heigvd.amt.livecoding.services.dao;
+package ch.heigvd.amt.livecoding.integration;
 
 import ch.heigvd.amt.livecoding.model.Match;
 import ch.heigvd.amt.livecoding.model.Stadium;
@@ -9,7 +9,7 @@ import javax.ejb.Local;
 import java.util.List;
 
 @Local
-public interface MatchesManagerLocal {
+public interface IMatchesDAO {
 
     // Create
     Match createMatch(int score1, int score2, long team1, long team2, long stadium, long user);
@@ -29,12 +29,16 @@ public interface MatchesManagerLocal {
 
     List<Match> getMatchesFromUser(long userId);
 
+    List<Match> getMatchesFromTeam(long teamId);
+
+    List<Match> getMatchesFromStadium(long stadiumId);
+
     List<Match> getMatchesFromUserAndOffset(long userId, int offset, int count);
 
     // Update (all fields other than the first one are optional)
     boolean updateMatch(long id, Integer score1, Integer score2, Long team1, Long team2, Long stadium, Long user);
 
-    boolean updateMatch(Match match, Integer score1, Integer score2, Team team1, Team team2, Stadium stadium, User user);
+    boolean updateMatch(Match match);
 
     // Delete
     boolean deleteMatch(long match_id);

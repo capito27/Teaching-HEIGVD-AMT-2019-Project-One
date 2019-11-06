@@ -1,11 +1,11 @@
-package ch.heigvd.amt.livecoding.services.dao;
+package ch.heigvd.amt.livecoding.integration;
 
 import ch.heigvd.amt.livecoding.model.User;
 
 import javax.ejb.Local;
 
 @Local
-public interface UsersManagerLocal {
+public interface IUsersDAO {
     // Create
     User createUser(String username, String firstname, String lastname, String email, String password);
 

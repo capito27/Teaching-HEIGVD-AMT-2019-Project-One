@@ -1,7 +1,7 @@
 package ch.heigvd.amt.livecoding.presentation;
 
 import ch.heigvd.amt.livecoding.model.User;
-import ch.heigvd.amt.livecoding.services.dao.UsersManagerLocal;
+import ch.heigvd.amt.livecoding.integration.IUsersDAO;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class RegistrationServlet extends HttpServlet {
 
     @EJB
-    private UsersManagerLocal usersManager;
+    private IUsersDAO usersManager;
 
     private static String[] postReqArgs = {"username", "firstname", "lastname", "email", "password"};
     private static String[] postReqVal = {"username", "firstname", "lastname", "email"};

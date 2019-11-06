@@ -1,6 +1,6 @@
 package ch.heigvd.amt.livecoding.presentation;
 
-import ch.heigvd.amt.livecoding.services.dao.MatchesManagerLocal;
+import ch.heigvd.amt.livecoding.integration.IMatchesDAO;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -17,7 +17,7 @@ public class LandingServlet extends HttpServlet {
     private static int matchPerPage = 5;
 
     @EJB
-    private MatchesManagerLocal matchesManager;
+    private IMatchesDAO matchesManager;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

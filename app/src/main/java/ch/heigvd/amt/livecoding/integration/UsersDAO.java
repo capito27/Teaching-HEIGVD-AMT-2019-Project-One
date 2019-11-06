@@ -1,4 +1,4 @@
-package ch.heigvd.amt.livecoding.services.dao;
+package ch.heigvd.amt.livecoding.integration;
 
 import ch.heigvd.amt.livecoding.model.User;
 
@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-public class UsersManager implements UsersManagerLocal {
+public class UsersDAO implements IUsersDAO {
 
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
@@ -36,7 +36,7 @@ public class UsersManager implements UsersManagerLocal {
             }
             conn.close();
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnUser;
     }
@@ -194,7 +194,7 @@ public class UsersManager implements UsersManagerLocal {
             return res != 0;
 
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return false;
     }

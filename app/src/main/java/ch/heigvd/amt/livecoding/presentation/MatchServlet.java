@@ -2,9 +2,9 @@ package ch.heigvd.amt.livecoding.presentation;
 
 
 import ch.heigvd.amt.livecoding.model.User;
-import ch.heigvd.amt.livecoding.services.dao.MatchesManagerLocal;
-import ch.heigvd.amt.livecoding.services.dao.StadiumsManagerLocal;
-import ch.heigvd.amt.livecoding.services.dao.TeamsManagerLocal;
+import ch.heigvd.amt.livecoding.integration.IMatchesDAO;
+import ch.heigvd.amt.livecoding.integration.IStadiumsDAO;
+import ch.heigvd.amt.livecoding.integration.ITeamsDAO;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -21,13 +21,13 @@ public class MatchServlet extends HttpServlet {
     private static int matchPerPage = 5;
 
     @EJB
-    private MatchesManagerLocal matchesManager;
+    private IMatchesDAO matchesManager;
 
     @EJB
-    private TeamsManagerLocal teamsManager;
+    private ITeamsDAO teamsManager;
 
     @EJB
-    private StadiumsManagerLocal stadiumsManager;
+    private IStadiumsDAO stadiumsManager;
 
     private static String[] postReqArgs = {"action", "score1", "score2", "team1", "team2", "stadium"};
 

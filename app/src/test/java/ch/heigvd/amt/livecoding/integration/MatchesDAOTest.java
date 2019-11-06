@@ -1,0 +1,97 @@
+package ch.heigvd.amt.livecoding.integration;
+
+import ch.heigvd.amt.livecoding.model.Match;
+import org.arquillian.container.chameleon.deployment.api.DeploymentParameters;
+import org.arquillian.container.chameleon.deployment.maven.MavenBuild;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
+import org.jboss.arquillian.transaction.api.annotation.Transactional;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javax.ejb.EJB;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
+
+@RunWith(Arquillian.class)
+@MavenBuild
+@DeploymentParameters(testable = true)
+public class MatchesDAOTest {
+
+    @EJB
+    IMatchesDAO manager;
+
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldBePossibleToCreateAMatch() {
+        manager.createMatch(1, 1, 1, 1, 1, 1);
+    }
+
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldIncreaseMatchCountWhenCreatingMatch() {
+        int matchCount = manager.getMatchCount();
+        manager.createMatch(1, 1, 1, 1, 1, 1);
+        assertEquals(matchCount + 1, manager.getMatchCount());
+    }
+
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldBePossibleToCreateAndRetrieveAMatchViaTheMatchesDAO() {
+        Match match =
+                manager.createMatch(1, 1, 1, 1, 1, 1);
+        assertEquals(match, manager.getMatch(match.getId()));
+    }
+
+    @Test
+    public void itShouldBePossibleToRetrieveAllMatchesFromATeam() {
+        List<Match> teamMatches = manager.getMatchesFromTeam(1),
+                allMatches = manager.getAllMatches();
+
+        // check that we actually got all matches
+        assertEquals(manager.getMatchCount(), allMatches.size());
+
+        // check that all matches we got are actually played by team1
+        assertTrue(teamMatches.stream().allMatch(match -> (match.getTeam1().getId() == 1 || match.getTeam2().getId() == 1)));
+        // check that the total number of matches not played by team 1 + the matches from team 1 is the total number of matches
+        assertEquals(teamMatches.size() + allMatches.stream().filter(match -> (match.getTeam1().getId() != 1 && match.getTeam2().getId() != 1)).count(), allMatches.size());
+    }
+
+    @Test
+    public void itShouldBePossibleToRetrieveAllMatchesFromAStadium() {
+        List<Match> stadiumMatch = manager.getMatchesFromStadium(1),
+                allMatches = manager.getAllMatches();
+
+        // check that we actually got all matches
+        assertEquals(manager.getMatchCount(), allMatches.size());
+
+        // check that all matches we got are actually played in stadium 1
+        assertTrue(stadiumMatch.stream().allMatch(match -> match.getLocation().getId() == 1));
+        // check that the total number of matches not played in stadium 1 + the matches in stadium 1 is the total number of matches
+        assertEquals(stadiumMatch.size() + allMatches.stream().filter(match -> match.getLocation().getId() != 1).count(), allMatches.size());
+    }
+
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldBePossibleToDeleteAMatch() {
+        int matchCount = manager.getMatchCount();
+        Match match = manager.createMatch(1, 1, 1, 1, 1, 1);
+        assertEquals(matchCount + 1, manager.getMatchCount());
+        manager.deleteMatch(match);
+        assertEquals(matchCount, manager.getMatchCount());
+        assertNull(manager.getMatch(match.getId()));
+    }
+
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldBePossibleToUpdateAMatch() {
+        Match matchOriginal = manager.createMatch(1, 1, 1, 1, 1, 1);
+        assertEquals(matchOriginal, manager.getMatch(matchOriginal.getId()));
+        Match matchModified = matchOriginal.toBuilder().goals1(2).build();
+        assertTrue(manager.updateMatch(matchModified));
+        assertNotEquals(matchOriginal, matchModified);
+    }
+
+}

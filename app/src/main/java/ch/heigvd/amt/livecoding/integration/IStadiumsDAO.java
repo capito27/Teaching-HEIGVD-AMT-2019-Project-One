@@ -1,4 +1,4 @@
-package ch.heigvd.amt.livecoding.services.dao;
+package ch.heigvd.amt.livecoding.integration;
 
 import ch.heigvd.amt.livecoding.model.Stadium;
 
@@ -6,7 +6,7 @@ import javax.ejb.Local;
 import java.util.List;
 
 @Local
-public interface StadiumsManagerLocal {
+public interface IStadiumsDAO {
 
     // Create
     Stadium createStadium(String name, String location, Integer viewerPlaces);
@@ -21,7 +21,7 @@ public interface StadiumsManagerLocal {
     // Update
     boolean updateStadium(long id, String name, String location, Integer places);
 
-    boolean updateStadium(Stadium stadium, String name, String location, Integer places);
+    boolean updateStadium(Stadium stadium);
 
     // Delete
     boolean deleteStadium(long id);

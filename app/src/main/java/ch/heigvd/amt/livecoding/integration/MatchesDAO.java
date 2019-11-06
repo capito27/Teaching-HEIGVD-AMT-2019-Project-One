@@ -1,4 +1,4 @@
-package ch.heigvd.amt.livecoding.services.dao;
+package ch.heigvd.amt.livecoding.integration;
 
 import ch.heigvd.amt.livecoding.model.Match;
 import ch.heigvd.amt.livecoding.model.Stadium;
@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-public class MatchesManager implements MatchesManagerLocal {
+public class MatchesDAO implements IMatchesDAO {
 
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
@@ -67,7 +67,7 @@ public class MatchesManager implements MatchesManagerLocal {
             }
             conn.close();
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnVal;
     }
@@ -83,7 +83,7 @@ public class MatchesManager implements MatchesManagerLocal {
             }
             conn.close();
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return matchCount;
     }
@@ -159,6 +159,16 @@ public class MatchesManager implements MatchesManagerLocal {
     }
 
     @Override
+    public List<Match> getMatchesFromTeam(long teamId) {
+        return getMatchesByRule("WHERE FK_team1 = " + teamId + " OR FK_team2 = " + teamId);
+    }
+
+    @Override
+    public List<Match> getMatchesFromStadium(long stadiumId) {
+        return getMatchesByRule("WHERE FK_stadium = " + stadiumId);
+    }
+
+    @Override
     public List<Match> getMatchesFromUserAndOffset(long userId, int offset, int count) {
         return getMatchesByRule("WHERE FK_user = " + userId + " ORDER BY id_match LIMIT " + offset + "," + count);
     }
@@ -167,75 +177,20 @@ public class MatchesManager implements MatchesManagerLocal {
     public boolean updateMatch(long id, Integer score1, Integer score2, Long team1, Long team2, Long stadium, Long user) {
         Connection conn = null;
         try {
-            String updateQuerry = "UPDATE amt.`match` SET ";
-            boolean querryUpdated = false;
-
-            // create the updateQuerry dynamically
-            if (score1 != null) {
-                updateQuerry += "score1 = ?,";
-                querryUpdated = true;
-            }
-
-            if (score2 != null) {
-                updateQuerry += "score2 = ?,";
-                querryUpdated = true;
-            }
-
-            if (team1 != null) {
-                updateQuerry += "FK_team1 = ?,";
-                querryUpdated = true;
-            }
-
-            if (team2 != null) {
-                updateQuerry += "FK_team2 = ?,";
-                querryUpdated = true;
-            }
-
-            if (stadium != null) {
-                updateQuerry += "FK_stadium = ?,";
-                querryUpdated = true;
-            }
-
-            if (user != null) {
-                updateQuerry += "FK_user = ?,";
-                querryUpdated = true;
-            }
-
-            // if no field was updated, don't run the statement, and return false
-            if (!querryUpdated) {
+            Match match = getMatch(id);
+            if (match == null)
                 return false;
-            }
 
             conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + " WHERE id_match = ?;");
-            int index = 1;
+            PreparedStatement pstmt = conn.prepareStatement("UPDATE amt.`match` SET score1 = ?, score2 = ?, FK_team1 = ?, FK_team2 = ?, FK_stadium = ?, FK_user = ? WHERE id_match = ?;");
             // insert the values into the prepared statement
-            if (score1 != null) {
-                pstmt.setInt(index++, score1);
-            }
-
-            if (score2 != null) {
-                pstmt.setInt(index++, score2);
-            }
-
-            if (team1 != null) {
-                pstmt.setLong(index++, team1);
-            }
-
-            if (team2 != null) {
-                pstmt.setLong(index++, team2);
-            }
-
-            if (stadium != null) {
-                pstmt.setLong(index++, stadium);
-            }
-
-            if (user != null) {
-                pstmt.setLong(index++, user);
-            }
-
-            pstmt.setLong(index, id);
-
+            pstmt.setInt(1, score1 == null ? match.getGoals1() : score1);
+            pstmt.setInt(2, score2 == null ? match.getGoals2() : score2);
+            pstmt.setLong(3, team1 == null ? match.getTeam1().getId() : team1);
+            pstmt.setLong(4, team2 == null ? match.getTeam2().getId() : team2);
+            pstmt.setLong(5, stadium == null ? match.getLocation().getId() : stadium);
+            pstmt.setLong(6, user == null ? match.getUser().getId() : user);
+            pstmt.setLong(7, id);
             int res = pstmt.executeUpdate();
             conn.close();
             // if we didn't change a single row, the update failed, so we return false.
@@ -248,14 +203,14 @@ public class MatchesManager implements MatchesManagerLocal {
     }
 
     @Override
-    public boolean updateMatch(Match match, Integer score1, Integer score2, Team team1, Team team2, Stadium stadium, User user) {
+    public boolean updateMatch(Match match) {
         return match != null && updateMatch(match.getId(),
-                score1,
-                score2,
-                (team1 == null) ? null : team1.getId(),
-                (team2 == null) ? null : team2.getId(),
-                (stadium == null) ? null : stadium.getId(),
-                (user == null) ? null : user.getId());
+                match.getGoals1(),
+                match.getGoals2(),
+                match.getTeam1().getId(),
+                match.getTeam2().getId(),
+                match.getLocation().getId(),
+                match.getUser().getId());
     }
 
     @Override
@@ -270,7 +225,7 @@ public class MatchesManager implements MatchesManagerLocal {
             return res != 0;
 
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return false;
     }

@@ -8,7 +8,7 @@ public class StadiumTest {
 
     @Test
     void itShouldHaveAConstructor() {
-        Stadium stadium = new Stadium("Sion", "Switzerland", 33);
+        Stadium stadium = new Stadium(0,"Sion", "Switzerland", 33);
 
         assertEquals("Sion", stadium.getName());
         assertEquals("Switzerland", stadium.getLocation());

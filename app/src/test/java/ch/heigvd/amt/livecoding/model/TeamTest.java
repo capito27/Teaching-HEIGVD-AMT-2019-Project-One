@@ -9,7 +9,7 @@ public class TeamTest {
 
     @Test
     void itShouldHaveAConstructor() {
-        Team team = new Team("F.C. Lausanne", "Switzerland");
+        Team team = new Team(0,"F.C. Lausanne", "Switzerland");
         assertEquals("F.C. Lausanne", team.getName());
         assertEquals("Switzerland", team.getCountry());
     }

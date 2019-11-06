@@ -1,8 +1,0 @@
-<jdbc-connection-pool driver-classname="com.mysql.jdbc.Driver" name="amt_pool" res-type="java.sql.Driver">
-    <property name="password" value="mypass"></property>
-    <property name="user" value="myuser"></property>
-    <property name="URL" value="jdbc:mysql://db:3306/amt"></property>
-    <property name="useSSl" value="false"></property>
-    <property name="allowPublicKeyRetrieval" value="tre"></property>
-</jdbc-connection-pool>
-<jdbc-resource pool-name="amt_pool" jndi-name="jdbc/app"></jdbc-resource>

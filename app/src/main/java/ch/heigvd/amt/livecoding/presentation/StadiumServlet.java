@@ -1,7 +1,7 @@
 package ch.heigvd.amt.livecoding.presentation;
 
 import ch.heigvd.amt.livecoding.model.Stadium;
-import ch.heigvd.amt.livecoding.services.dao.StadiumsManagerLocal;
+import ch.heigvd.amt.livecoding.integration.IStadiumsDAO;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class StadiumServlet extends HttpServlet {
 
     @EJB
-    private StadiumsManagerLocal stadiumsManager;
+    private IStadiumsDAO stadiumsManager;
 
     private static String[] postReqArgs = {"action", "name", "location", "viewers"};
 

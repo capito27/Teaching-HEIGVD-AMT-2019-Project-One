@@ -7,11 +7,9 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Stadium {
     private long id;
-    @NonNull private String name;
-    @NonNull private String location;
-    @NonNull private Integer viewerPlaces;
-    private boolean isDeleted = false;
+    private String name;
+    private String location;
+    private Integer viewerPlaces;
 }

@@ -1,7 +1,7 @@
 package ch.heigvd.amt.livecoding.presentation;
 
 import ch.heigvd.amt.livecoding.model.Team;
-import ch.heigvd.amt.livecoding.services.dao.TeamsManagerLocal;
+import ch.heigvd.amt.livecoding.integration.ITeamsDAO;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class TeamServlet extends HttpServlet {
 
     @EJB
-    private TeamsManagerLocal teamsManager;
+    private ITeamsDAO teamsManager;
 
     private static String[] postReqArgs = {"action", "name", "country"};
 

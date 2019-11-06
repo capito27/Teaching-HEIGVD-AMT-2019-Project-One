@@ -6,13 +6,11 @@ import lombok.*;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class User {
     private long id;
-    @NonNull private String username;
-    @NonNull private String firstname;
-    @NonNull private String lastname;
-    @NonNull private String email;
-    @NonNull private String password;
-    private boolean isDeleted = false;
+    private String username;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String password;
 }

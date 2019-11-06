@@ -1,4 +1,4 @@
-package ch.heigvd.amt.livecoding.services.dao;
+package ch.heigvd.amt.livecoding.integration;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import ch.heigvd.amt.livecoding.model.Team;
 
 @Local
-public interface TeamsManagerLocal {
+public interface ITeamsDAO {
 
     // Create
     Team createTeam(String name, String country);

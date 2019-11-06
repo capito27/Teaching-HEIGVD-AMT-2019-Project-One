@@ -1,4 +1,4 @@
-package ch.heigvd.amt.livecoding.services.dao;
+package ch.heigvd.amt.livecoding.integration;
 
 import ch.heigvd.amt.livecoding.model.Stadium;
 
@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
-public class StadiumsManager implements StadiumsManagerLocal {
+public class StadiumsDAO implements IStadiumsDAO {
 
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
@@ -33,7 +33,7 @@ public class StadiumsManager implements StadiumsManagerLocal {
             }
             conn.close();
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnVal;
     }
@@ -139,8 +139,8 @@ public class StadiumsManager implements StadiumsManagerLocal {
     }
 
     @Override
-    public boolean updateStadium(Stadium stadium, String name, String location, Integer places) {
-        return stadium != null && updateStadium(stadium.getId(), name, location, places);
+    public boolean updateStadium(Stadium stadium) {
+        return stadium != null && updateStadium(stadium.getId(), stadium.getName(), stadium.getLocation(), stadium.getViewerPlaces());
     }
 
     @Override
@@ -155,7 +155,7 @@ public class StadiumsManager implements StadiumsManagerLocal {
             return res != 0;
 
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return false;
     }

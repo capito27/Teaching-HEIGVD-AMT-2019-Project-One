@@ -1,4 +1,4 @@
-package ch.heigvd.amt.livecoding.services.dao;
+package ch.heigvd.amt.livecoding.integration;
 
 
 import ch.heigvd.amt.livecoding.model.Team;
@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 
 @Stateless
-public class TeamsManager implements TeamsManagerLocal {
+public class TeamsDAO implements ITeamsDAO {
 
     @Resource(lookup = "jdbc/app")
     private DataSource dataSource;
@@ -34,7 +34,7 @@ public class TeamsManager implements TeamsManagerLocal {
             }
             conn.close();
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return returnVal;
 
@@ -145,7 +145,7 @@ public class TeamsManager implements TeamsManagerLocal {
             return res != 0;
 
         } catch (SQLException e) {
-            Logger.getLogger(MatchesManager.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return false;
     }
