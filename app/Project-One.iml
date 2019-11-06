@@ -95,7 +95,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.arquillian.container:arquillian-container-chameleon-runner-api:1.0.0.CR6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.arquillian.container:arquillian-chameleon-maven-build-deployment:1.0.0.CR6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven-embedded:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.shrinkwrap:shrinkwrap-api:1.2.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jboss.shrinkwrap.resolver:shrinkwrap-resolver-api-maven:3.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.maven:maven-model:3.3.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
@@ -131,5 +130,12 @@
     <orderEntry type="library" scope="TEST" name="Maven: commons-io:commons-io:2.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: commons-codec:commons-codec:1.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.arquillian.container:arquillian-chameleon-deployment-api:1.0.0.CR6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jacoco:org.jacoco.core:0.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.ow2.asm:asm:6.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.ow2.asm:asm-commons:6.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.ow2.asm:asm-analysis:6.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.ow2.asm:asm-tree:6.2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.jboss.arquillian.extension:arquillian-jacoco:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.shrinkwrap:shrinkwrap-api:1.2.6" level="project" />
   </component>
 </module>

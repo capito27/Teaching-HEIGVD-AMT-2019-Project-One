@@ -10,6 +10,7 @@ services:
       - 8080:8080
       - 4848:4848
       - 9009:9009
+    volumes:
 
   wildfly:
     build: ../../images/wildfly

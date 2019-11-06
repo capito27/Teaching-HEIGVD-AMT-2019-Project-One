@@ -84,6 +84,7 @@ public class MatchesDAO implements IMatchesDAO {
             conn.close();
         } catch (SQLException e) {
             Logger.getLogger(MatchesDAO.class.getName()).log(Level.SEVERE, null, e);
+            matchCount = -1;
         }
         return matchCount;
     }
@@ -121,10 +122,10 @@ public class MatchesDAO implements IMatchesDAO {
     public Match createMatch(Match match) {
         return match == null ? null : createMatch(match.getGoals1(),
                 match.getGoals2(),
-                match.getTeam1().getId(),
-                match.getTeam2().getId(),
-                match.getLocation().getId(),
-                match.getUser().getId());
+                (match.getTeam1() == null) ? 0 : match.getTeam1().getId(),
+                (match.getTeam2() == null) ? 0 : match.getTeam2().getId(),
+                (match.getLocation() == null) ? 0 : match.getLocation().getId(),
+                (match.getUser() == null) ? 0 : match.getUser().getId());
     }
 
     @Override
@@ -207,10 +208,10 @@ public class MatchesDAO implements IMatchesDAO {
         return match != null && updateMatch(match.getId(),
                 match.getGoals1(),
                 match.getGoals2(),
-                match.getTeam1().getId(),
-                match.getTeam2().getId(),
-                match.getLocation().getId(),
-                match.getUser().getId());
+                (match.getTeam1() == null) ? null : match.getTeam1().getId(),
+                (match.getTeam2() == null) ? null : match.getTeam2().getId(),
+                (match.getLocation() == null) ? null : match.getLocation().getId(),
+                (match.getUser() == null) ? null : match.getUser().getId());
     }
 
     @Override

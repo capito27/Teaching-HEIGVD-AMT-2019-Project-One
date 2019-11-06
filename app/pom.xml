@@ -20,6 +20,8 @@
         <version.arquillian.chameleon>1.0.0.CR6</version.arquillian.chameleon>
         <version.arquillian>1.5.0.Final</version.arquillian>
         <arquillian.launch></arquillian.launch>
+        <version.jacoco>0.8.2</version.jacoco>
+        <version.arquillian_jacoco>1.0.0</version.arquillian_jacoco>
     </properties>
 
     <dependencies>
@@ -111,6 +113,18 @@
             <version>${version.arquillian.chameleon}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>org.jacoco.core</artifactId>
+            <version>${version.jacoco}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-jacoco</artifactId>
+            <version>${version.arquillian_jacoco}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -132,6 +146,26 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${version.jacoco}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- attached to Maven test phase -->
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
