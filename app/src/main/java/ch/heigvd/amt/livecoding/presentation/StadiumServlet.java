@@ -15,7 +15,7 @@ import java.io.IOException;
 public class StadiumServlet extends HttpServlet {
 
     @EJB
-    private IStadiumsDAO stadiumsManager;
+    IStadiumsDAO stadiumsManager;
 
     private static String[] postReqArgs = {"action", "name", "location", "viewers"};
 

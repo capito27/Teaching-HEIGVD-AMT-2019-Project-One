@@ -21,13 +21,13 @@ public class MatchServlet extends HttpServlet {
     private static int matchPerPage = 5;
 
     @EJB
-    private IMatchesDAO matchesManager;
+    IMatchesDAO matchesManager;
 
     @EJB
-    private ITeamsDAO teamsManager;
+    ITeamsDAO teamsManager;
 
     @EJB
-    private IStadiumsDAO stadiumsManager;
+    IStadiumsDAO stadiumsManager;
 
     private static String[] postReqArgs = {"action", "score1", "score2", "team1", "team2", "stadium"};
 
@@ -102,7 +102,8 @@ public class MatchServlet extends HttpServlet {
                         (int) user.getId()) != null) {
                     System.out.println("Creation");
                     // TODO put confirmation of action
-                    this.doGet(req, resp);
+
+                    resp.sendRedirect(req.getContextPath() + "/match");
                 } else {
                     req.setAttribute("error", "Error in creation");
                     req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);

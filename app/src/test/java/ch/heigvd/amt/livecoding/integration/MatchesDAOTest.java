@@ -126,6 +126,4 @@ public class MatchesDAOTest {
         assertFalse(manager.deleteMatch(-1));
         assertFalse(manager.deleteMatch(null));
     }
-
-
 }

@@ -143,5 +143,4 @@ public class LoginServletTest {
         verify(session, atLeastOnce()).setAttribute("user", user);
         verify(requestDispatcher, atLeastOnce()).forward(request, response);
     }
-
 }

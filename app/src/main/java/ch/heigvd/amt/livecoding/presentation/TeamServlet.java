@@ -15,7 +15,7 @@ import java.io.IOException;
 public class TeamServlet extends HttpServlet {
 
     @EJB
-    private ITeamsDAO teamsManager;
+    ITeamsDAO teamsManager;
 
     private static String[] postReqArgs = {"action", "name", "country"};
 
