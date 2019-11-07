@@ -103,7 +103,7 @@ public class MatchServlet extends HttpServlet {
                     System.out.println("Creation");
                     // TODO put confirmation of action
 
-                    resp.sendRedirect(req.getContextPath() + "/match");
+                    this.doGet(req, resp);
                 } else {
                     req.setAttribute("error", "Error in creation");
                     req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);
