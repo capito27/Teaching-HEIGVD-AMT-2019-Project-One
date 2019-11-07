@@ -29,19 +29,20 @@ public class UsersDAOTest {
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToCreateAUser() {
         String name = "toto" + (int) (Math.random() * 10000000);
-        User user = usersManager.createUser(name, "tata", "titi", "tete", "tutu");
+        User user = usersManager.createUser(name, "tata", "titi", "tete", "tutu", false);
         assertEquals(name, user.getUsername());
         assertEquals("tata", user.getFirstname());
         assertEquals("titi", user.getLastname());
         assertEquals("tete", user.getEmail());
         assertEquals("tutu", user.getPassword());
+        assertFalse(user.isAdmin());
     }
 
     @Test
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToCreateAndRetrieveAUsermViaTheUsersDAO() {
         String name = "toto" + (int) (Math.random() * 10000000);
-        User user = usersManager.createUser(name, "tata", "titi", "tete", "tutu");
+        User user = usersManager.createUser(name, "tata", "titi", "tete", "tutu", false);
         assertEquals(user, usersManager.getUserById(user.getId()));
         assertEquals(user, usersManager.getUserByUsername(name));
     }
@@ -50,7 +51,7 @@ public class UsersDAOTest {
     @Test
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToDeleteAUser() {
-        User user = usersManager.createUser("toto" + (int) (Math.random() * 10000000), "tata", "titi", "tete", "tutu");
+        User user = usersManager.createUser("toto" + (int) (Math.random() * 10000000), "tata", "titi", "tete", "tutu", false);
         int userCount =usersManager.getAllUsers().size();
         usersManager.deleteUser(user);
         assertNull(usersManager.getUserById(user.getId()));
@@ -72,7 +73,7 @@ public class UsersDAOTest {
     @Test
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToUpdateAUser() {
-        User userOriginal = usersManager.createUser("toto" + (int) (Math.random() * 10000000), "tata", "titi", "tete", "tutu");
+        User userOriginal = usersManager.createUser("toto" + (int) (Math.random() * 10000000), "tata", "titi", "tete", "tutu", false);
         assertEquals(userOriginal, usersManager.getUserById(userOriginal.getId()));
         User userModified = userOriginal.toBuilder().firstname("toto").build();
         assertTrue(usersManager.updateUser(userModified));

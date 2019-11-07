@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MatchTest {
     final Team team = new Team(0,"F.C. Lausanne", "Switzerland");
-    final User user = new User(0,"admin", "admin", "istrator", "admin@istrator.com", "toto");
+    final User user = new User(0,"admin", "admin", "istrator", "admin@istrator.com", "toto", true);
     final Stadium stadium = new Stadium(0,"Sion", "Switzerland", 33);
 
 

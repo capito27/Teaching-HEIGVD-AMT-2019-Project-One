@@ -30,7 +30,8 @@ public class UsersDAO implements IUsersDAO {
                         .firstname(rs.getString("first_name"))
                         .lastname(rs.getString("last_name"))
                         .password(rs.getString("password"))
-                        .username(rs.getString("username"));
+                        .username(rs.getString("username"))
+                        .admin(rs.getBoolean("isAdmin"));
 
                 returnUser.add(ub.build());
             }
@@ -43,15 +44,16 @@ public class UsersDAO implements IUsersDAO {
 
 
     @Override
-    public User createUser(String username, String firstname, String lastname, String email, String password) {
+    public User createUser(String username, String firstname, String lastname, String email, String password, boolean isAdmin) {
         try {
             Connection conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO amt.`user` (`username`, `first_name`, `last_name`, `password`, `email`) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pstmt = conn.prepareStatement("INSERT INTO amt.`user` (`username`, `first_name`, `last_name`, `password`, `email`, `isAdmin`) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, username);
             pstmt.setString(2, firstname);
             pstmt.setString(3, lastname);
             pstmt.setString(4, password);
             pstmt.setString(5, email);
+            pstmt.setBoolean(6, isAdmin);
             int res = pstmt.executeUpdate();
             long key = -1;
             // if the statement was ran correctly, we get the generated key field
@@ -76,7 +78,8 @@ public class UsersDAO implements IUsersDAO {
                 user.getFirstname(),
                 user.getLastname(),
                 user.getEmail(),
-                user.getPassword());
+                user.getPassword(),
+                user.isAdmin());
     }
 
     @Override
@@ -97,7 +100,7 @@ public class UsersDAO implements IUsersDAO {
     }
 
     @Override
-    public boolean updateUser(long id, String username, String firstname, String lastname, String email, String password) {
+    public boolean updateUser(long id, String username, String firstname, String lastname, String email, String password, boolean isAdmin) {
         Connection conn = null;
         try {
             String updateQuerry = "UPDATE amt.`user` SET ";
@@ -128,14 +131,14 @@ public class UsersDAO implements IUsersDAO {
                 updateQuerry += "password = ?,";
                 querryUpdated = true;
             }
-
+            updateQuerry += "isAdmin = ?,";
             // if no field was updated, don't run the statement, and return false
             if (!querryUpdated) {
                 return false;
             }
 
             conn = dataSource.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + "WHERE id_user = ?;");
+            PreparedStatement pstmt = conn.prepareStatement(updateQuerry.substring(0, updateQuerry.length() - 1) + " WHERE id_user = ?;");
             int index = 1;
             // insert the values into the prepared statement
             if (username != null) {
@@ -157,7 +160,7 @@ public class UsersDAO implements IUsersDAO {
             if (password != null) {
                 pstmt.setString(index++, password);
             }
-
+            pstmt.setBoolean(index++, isAdmin);
             pstmt.setLong(index, id);
 
             int res = pstmt.executeUpdate();
@@ -173,7 +176,7 @@ public class UsersDAO implements IUsersDAO {
 
     @Override
     public boolean updateUser(User user) {
-        return user != null && updateUser(user.getId(), user.getUsername(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getPassword());
+        return user != null && updateUser(user.getId(), user.getUsername(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getPassword(), user.isAdmin());
     }
 
     @Override
@@ -196,8 +199,5 @@ public class UsersDAO implements IUsersDAO {
     @Override
     public boolean deleteUser(User user) {
         return user != null && deleteUser(user.getId());
-
     }
-
-
 }

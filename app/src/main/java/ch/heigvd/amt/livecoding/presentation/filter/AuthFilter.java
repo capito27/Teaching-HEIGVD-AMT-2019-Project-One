@@ -1,5 +1,7 @@
 package ch.heigvd.amt.livecoding.presentation.filter;
 
+import ch.heigvd.amt.livecoding.model.User;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,7 @@ import java.util.regex.Pattern;
 public class AuthFilter implements Filter {
 
     private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/logout", "/match", "/stadium", "/team", "/user", "/index", "/login")));
+            Arrays.asList("/logout", "/match", "/stadium", "/team", "/user", "/index", "/login", "/ArquillianServletRunner")));
 
     private static final Set<String> RESTRICTED_PATHS = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList("/logout", "/match", "/stadium", "/team", "/user")));
@@ -45,6 +47,16 @@ public class AuthFilter implements Filter {
         if (RESTRICTED_PATHS.contains(path) && (session == null || session.getAttribute("user") == null)) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
+        }
+
+        // if the path is in the restricted list, and the user is not logged, redirect to login
+        if (ADMIN_PATHS.contains(path) && (session != null || session.getAttribute("user") != null)) {
+            User adminUser = (User) session.getAttribute("user");
+            if(!adminUser.isAdmin()) {
+                // TODO : Send Unauthorized ?
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
         }
 
         chain.doFilter(request, response);

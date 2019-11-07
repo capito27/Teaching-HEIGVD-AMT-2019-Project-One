@@ -41,8 +41,16 @@
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a href="index" class="nav-link">Games</a></li>
-                <li class="nav-item cta"><a href="login" class="nav-link">Login / Register</a></li>
-
+                <li class="nav-item cta">
+                <c:choose>
+                    <c:when test="${user != null}">
+                        <a href="login" class="nav-link">Logout</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="login" class="nav-link">Login / Register</a>
+                    </c:otherwise>
+                </c:choose>
+                </li>
             </ul>
         </div>
     </div>
@@ -62,102 +70,10 @@
     </div>
 </section>
 
-<section class="ftco-section ftco-game-schedule bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 heading-section ftco-animate mb-4">
-                <span class="subheading">Game Schedule</span>
-            </div>
-        </div>
-        <div class="row ftco-animate">
-            <div class="col-md-12 carousel-game-schedule owl-carousel">
-                <div class="item">
-                    <div class="game-schedule">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo"
-                                 style="background-image: url(./assets/knights/images/team-1.jpg);"></div>
-                            <div class="pl-4 desc">
-                                <span class="venue">Home @ Arena</span>
-                                <h4 class="team-name">Knight Warrior</h4>
-                                <span class="date">April 17, 2018</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="game-schedule">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo"
-                                 style="background-image: url(./assets/knights/images/team-2.jpg);"></div>
-                            <div class="pl-4 desc">
-                                <span class="venue">Home @ Arena</span>
-                                <h4 class="team-name">Knight Warrior</h4>
-                                <span class="date">April 17, 2018</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="game-schedule">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo"
-                                 style="background-image: url(./assets/knights/images/team-3.jpg);"></div>
-                            <div class="pl-4 desc">
-                                <span class="venue">Home @ Arena</span>
-                                <h4 class="team-name">Knight Warrior</h4>
-                                <span class="date">April 17, 2018</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="game-schedule">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo"
-                                 style="background-image: url(./assets/knights/images/team-4.jpg);"></div>
-                            <div class="pl-4 desc">
-                                <span class="venue">Home @ Arena</span>
-                                <h4 class="team-name">Knight Warrior</h4>
-                                <span class="date">April 17, 2018</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="game-schedule">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo"
-                                 style="background-image: url(./assets/knights/images/team-5.jpg);"></div>
-                            <div class="pl-4 desc">
-                                <span class="venue">Home @ Arena</span>
-                                <h4 class="team-name">Knight Warrior</h4>
-                                <span class="date">April 17, 2018</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="game-schedule">
-                        <div class="sport-team d-flex align-items-center">
-                            <div class="img logo"
-                                 style="background-image: url(./assets/knights/images/team-6.jpg);"></div>
-                            <div class="pl-4 desc">
-                                <span class="venue">Home @ Arena</span>
-                                <h4 class="team-name">Knight Warrior</h4>
-                                <span class="date">April 17, 2018</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-            <div class="col-md-7">
+            <div>
                 <div class="heading-section ftco-animate">
                     <span class="subheading">Game Report</span>
                     <h2 class="mb-4">Football Game Reports 2018</h2>
@@ -225,105 +141,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5 sidebar">
-                <div class="sidebar-box">
-                    <h2 class="mb-4">Latest Video</h2>
-                    <div class="img d-flex align-items-center justify-content-center py-5"
-                         style="background-image: url(./assets/knights/images/victory.jpg); width: 100%;">
-                        <p class="text-center mb-0 py-5">
-                            <a href="https://vimeo.com/45830194"
-                               class="icon-video-2 popup-vimeo d-flex justify-content-center align-items-center mr-3">
-                                <span class="ion-ios-play"></span>
-                            </a>
-                            <small style="color: rgba(255,255,255,1); font-size: 16px;">Watch Highlights</small>
-                        </p>
-                    </div>
-                </div>
-                <div class="sidebar-box">
-                    <h2 class="mb-4">League Table</h2>
-                    <table class="table table-league">
-                        <thead>
-                        <tr>
-                            <th>Team</th>
-                            <th>G</th>
-                            <th>P</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Knights Warrior</td>
-                            <td>14</td>
-                            <td>24</td>
-                        </tr>
-                        <tr>
-                            <td>Mighty Falcons</td>
-                            <td>14</td>
-                            <td>24</td>
-                        </tr>
-                        <tr>
-                            <td>Germany Football</td>
-                            <td>14</td>
-                            <td>24</td>
-                        </tr>
-                        <tr>
-                            <td>Colorado</td>
-                            <td>14</td>
-                            <td>24</td>
-                        </tr>
-                        <tr>
-                            <td>Florida CLub</td>
-                            <td>14</td>
-                            <td>24</td>
-                        </tr>
-                        <tr>
-                            <td>Miami Club</td>
-                            <td>14</td>
-                            <td>24</td>
-                        </tr>
-                        <tr>
-                            <td>Toronto Team</td>
-                            <td>14</td>
-                            <td>24</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 </section>
 
 <footer class="ftco-footer ftco-footer-2 ftco-section">
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Knights</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts.</p>
-                    <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
-                        <li class="ftco-animate"><a href="index#"><span class="icon-twitter"></span></a></li>
-                        <li class="ftco-animate"><a href="index#"><span class="icon-facebook"></span></a></li>
-                        <li class="ftco-animate"><a href="index#"><span class="icon-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md">
-                <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Have a Questions?</h2>
-                    <div class="block-23 mb-3">
-                        <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
-                            </li>
-                            <li><a href="index#"><span class="icon icon-phone"></span><span
-                                    class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="index#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12 text-center">
 

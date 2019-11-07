@@ -8,12 +8,13 @@ public class UserTest {
 
     @Test
     void itShouldHaveAConstructor() {
-        User user = new User(0,"admin", "admin", "istrator", "admin@istrator.com", "toto");
+        User user = new User(0,"admin", "admin", "istrator", "admin@istrator.com", "toto", true);
         assertEquals("admin", user.getUsername());
         assertEquals("admin", user.getFirstname());
         assertEquals("istrator", user.getLastname());
         assertEquals("admin@istrator.com", user.getEmail());
         assertEquals("toto", user.getPassword());
+        assertEquals(true, user.isAdmin());
     }
 
     @Test

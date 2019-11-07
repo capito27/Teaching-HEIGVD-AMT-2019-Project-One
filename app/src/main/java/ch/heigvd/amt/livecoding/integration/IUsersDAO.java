@@ -8,7 +8,7 @@ import java.util.List;
 @Local
 public interface IUsersDAO {
     // Create
-    User createUser(String username, String firstname, String lastname, String email, String password);
+    User createUser(String username, String firstname, String lastname, String email, String password, boolean isAdmin);
 
     User createUser(User user);
 
@@ -21,7 +21,7 @@ public interface IUsersDAO {
     User getUserByUsername(String username);
 
     // Update
-    boolean updateUser(long id, String username, String firstname, String lastname, String email, String password);
+    boolean updateUser(long id, String username, String firstname, String lastname, String email, String password, boolean isAdmin);
 
     boolean updateUser(User user);
 
