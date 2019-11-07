@@ -112,14 +112,19 @@ public class MatchesDAOTest {
         assertNotEquals(matchOriginal, matchModified);
     }
 
-    // mostly for code coverage completeness§
+    // mostly for code coverage completeness
     @Test
     @Transactional(TransactionMode.ROLLBACK)
-    public void itShouldNotBreakWithInvalidValues() {
+    public void itShouldNotBreakWithInvalidInput() {
         assertNull(manager.createMatch(0, 0, 0, 0, 0, 0));
         assertNull(manager.createMatch(null));
         assertNull(manager.createMatch(new Match(1, 0, 0, null, null, null, null)));
-        assertArrayEquals(manager.getMatchesFromOffset(-1, -1).toArray(), new ArrayList<Match>().toArray());
+        // invalid offset or count should return an empty list
+        assertArrayEquals(manager.getMatchesFromOffset(0, 0).toArray(), new ArrayList<Match>().toArray());
+        assertArrayEquals(manager.getMatchesFromUserAndOffset(0, 0, 0).toArray(), new ArrayList<Match>().toArray());
+        assertFalse(manager.updateMatch(null));
+        assertFalse(manager.deleteMatch(-1));
+        assertFalse(manager.deleteMatch(null));
     }
 
 

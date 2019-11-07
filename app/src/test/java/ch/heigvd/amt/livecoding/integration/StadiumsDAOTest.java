@@ -27,7 +27,7 @@ public class StadiumsDAOTest {
     @Test
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToCreateAStadium() {
-        Stadium stadium = stadiumsManager.createStadium("toto", "tata", 1);
+        Stadium stadium = stadiumsManager.createStadium(new Stadium(0, "toto", "tata", 1));
         assertEquals("toto", stadium.getName());
         assertEquals("tata", stadium.getLocation());
         assertEquals(1, stadium.getViewerPlaces().intValue());
@@ -45,8 +45,10 @@ public class StadiumsDAOTest {
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToDeleteAStadium() {
         Stadium stadium = stadiumsManager.createStadium("toto", "tata", 1);
+        int stadiumCount = stadiumsManager.getAllStadiums().size();
         stadiumsManager.deleteStadium(stadium);
         assertNull(stadiumsManager.getStadium(stadium.getId()));
+        assertEquals(stadiumCount -1 , stadiumsManager.getAllStadiums().size());
     }
 
     @Test
@@ -69,5 +71,16 @@ public class StadiumsDAOTest {
         Stadium stadiumModified = stadiumOriginal.toBuilder().viewerPlaces(2).build();
         assertTrue(stadiumsManager.updateStadium(stadiumModified));
         assertNotEquals(stadiumOriginal, stadiumModified);
+    }
+
+    // mostly for code coverage completeness
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldNotBreakWithInvalidInput() {
+        assertNull(stadiumsManager.createStadium(null));
+        assertNull(stadiumsManager.getStadium(-1));
+        assertFalse(stadiumsManager.updateStadium(null));
+        assertFalse(stadiumsManager.deleteStadium(-1));
+        assertFalse(stadiumsManager.deleteStadium(null));
     }
 }

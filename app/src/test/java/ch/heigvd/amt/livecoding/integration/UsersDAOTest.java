@@ -51,8 +51,10 @@ public class UsersDAOTest {
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToDeleteAUser() {
         User user = usersManager.createUser("toto" + (int) (Math.random() * 10000000), "tata", "titi", "tete", "tutu");
+        int userCount =usersManager.getAllUsers().size();
         usersManager.deleteUser(user);
         assertNull(usersManager.getUserById(user.getId()));
+        assertEquals(userCount-1, usersManager.getAllUsers().size());
     }
 
     @Test
@@ -75,5 +77,17 @@ public class UsersDAOTest {
         User userModified = userOriginal.toBuilder().firstname("toto").build();
         assertTrue(usersManager.updateUser(userModified));
         assertNotEquals(userOriginal, userModified);
+    }
+
+    // mostly for code coverage completeness
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldNotBreakWithInvalidInput() {
+        assertNull(usersManager.createUser(null));
+        assertNull(usersManager.getUserById(-1));
+        assertNull(usersManager.getUserByUsername(""));
+        assertFalse(usersManager.updateUser(null));
+        assertFalse(usersManager.deleteUser(-1));
+        assertFalse(usersManager.deleteUser(null));
     }
 }

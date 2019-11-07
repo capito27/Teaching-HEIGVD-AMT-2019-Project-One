@@ -53,6 +53,7 @@ public class MatchTest {
                 .build();
         Match cloned = match.toBuilder().build();
         assertEquals(match, cloned);
+        assertEquals(match.hashCode(),cloned.hashCode());
         assertNotSame(match, cloned);
     }
 }

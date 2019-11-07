@@ -26,7 +26,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // register success, render index page
         req.setAttribute("register", true);
-        if(Utils.CheckRequiredAttributes(req,resp,postReqArgs, "/WEB-INF/pages/login_register.jsp", postReqVal)) {
+        if(new Utils().CheckRequiredAttributes(req,resp,postReqArgs, "/WEB-INF/pages/login_register.jsp", postReqVal)) {
             User user = User.builder()
                     .username(req.getParameter("username"))
                     .password(req.getParameter("password"))

@@ -37,6 +37,7 @@ public class StadiumTest {
                 .build();
         Stadium cloned = stadium.toBuilder().build();
         assertEquals(stadium, cloned);
+        assertEquals(stadium.hashCode(),cloned.hashCode());
         assertNotSame(stadium, cloned);
     }
 

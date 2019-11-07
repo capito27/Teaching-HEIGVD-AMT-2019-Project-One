@@ -29,7 +29,7 @@ public class TeamServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getParameter("action").equals("post")) {
-            if(Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/teams.jsp", postReqArgs)) {
+            if(new Utils().CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/teams.jsp", postReqArgs)) {
                 Team toCreateTeam = Team.builder()
                         .country(req.getParameter("country"))
                         .name(req.getParameter("name"))

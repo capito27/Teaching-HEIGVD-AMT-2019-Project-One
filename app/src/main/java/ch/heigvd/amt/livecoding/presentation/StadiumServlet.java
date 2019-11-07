@@ -29,7 +29,7 @@ public class StadiumServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getParameter("action").equals("post")) {
-            if(Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/stadiums.jsp", postReqArgs)) {
+            if(new Utils().CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/stadiums.jsp", postReqArgs)) {
                 Stadium toCreateTeam = Stadium.builder()
                         .location(req.getParameter("location"))
                         .name(req.getParameter("name"))

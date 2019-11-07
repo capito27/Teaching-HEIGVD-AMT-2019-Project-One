@@ -44,6 +44,7 @@ public class UserTest {
                 .build();
         User cloned = user.toBuilder().build();
         assertEquals(user, cloned);
+        assertEquals(user.hashCode(),cloned.hashCode());
         assertNotSame(user, cloned);
     }
 }

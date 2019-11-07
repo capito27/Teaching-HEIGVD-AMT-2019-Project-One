@@ -32,6 +32,7 @@ public class TeamTest {
                 .build();
         Team cloned = team.toBuilder().build();
         assertEquals(team, cloned);
+        assertEquals(team.hashCode(),cloned.hashCode());
         assertNotSame(team, cloned);
     }
 }

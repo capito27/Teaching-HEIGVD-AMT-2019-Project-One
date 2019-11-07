@@ -19,10 +19,11 @@ import java.security.NoSuchAlgorithmException;
 public class LoginServlet extends HttpServlet {
 
     @EJB
-    private IUsersDAO usersManager;
+    IUsersDAO usersManager;
 
-    private static String[] postReqArgs = {"username", "password"};
-    private static String[] postReqVal = {"username"};
+    static String[] postReqArgs = {"username", "password"};
+    static String[] postReqVal = {"username"};
+    Utils utils = new Utils();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,7 +37,7 @@ public class LoginServlet extends HttpServlet {
         // Check if that user is in the DB
         // TODO : Control form entries
         req.setAttribute("login", true);
-        if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/login_register.jsp", postReqVal)) {
+        if (utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/login_register.jsp", postReqVal)) {
             User user = usersManager.getUserByUsername(req.getParameter("username"));
             if (user != null) {
                 MessageDigest digest = null;

@@ -60,7 +60,6 @@ public class StadiumsDAO implements IStadiumsDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

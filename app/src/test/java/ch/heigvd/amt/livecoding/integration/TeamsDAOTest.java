@@ -46,8 +46,11 @@ public class TeamsDAOTest {
     @Transactional(TransactionMode.ROLLBACK)
     public void itShouldBePossibleToDeleteATeam() {
         Team team = teamManager.createTeam("toto", "tata");
+
+        int teamCount = teamManager.getAllTeams().size();
         teamManager.deleteTeam(team);
         assertNull(teamManager.getTeam(team.getId()));
+        assertEquals(teamCount -1 , teamManager.getAllTeams().size());
     }
 
     @Test
@@ -70,5 +73,16 @@ public class TeamsDAOTest {
         Team teamModified = teamOriginal.toBuilder().name("titi").build();
         assertTrue(teamManager.updateTeam(teamModified));
         assertNotEquals(teamOriginal, teamModified);
+    }
+
+    // mostly for code coverage completeness
+    @Test
+    @Transactional(TransactionMode.ROLLBACK)
+    public void itShouldNotBreakWithInvalidInput() {
+        assertNull(teamManager.createTeam(null));
+        assertNull(teamManager.getTeam(-1));
+        assertFalse(teamManager.updateTeam(null));
+        assertFalse(teamManager.deleteTeam(-1));
+        assertFalse(teamManager.deleteTeam(null));
     }
 }

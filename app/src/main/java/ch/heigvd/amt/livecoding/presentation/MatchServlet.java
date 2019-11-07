@@ -92,7 +92,7 @@ public class MatchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println(req.getParameter("action"));
         if(req.getParameter("action").equals("post")) {
-            if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
+            if (new Utils().CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
                 User user = (User) req.getSession().getAttribute("user");
                 if (matchesManager.createMatch(Integer.parseInt(req.getParameter("score1")),
                         Integer.parseInt(req.getParameter("score2")),
@@ -131,7 +131,7 @@ public class MatchServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (Utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
+        if (new Utils().CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
             User user = (User) req.getSession().getAttribute("user");
             if (matchesManager.updateMatch(Integer.parseInt(req.getParameter("id")),
                     Integer.parseInt(req.getParameter("score1")),

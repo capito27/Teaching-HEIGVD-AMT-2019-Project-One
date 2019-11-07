@@ -17,7 +17,7 @@ public class LandingServlet extends HttpServlet {
     private static int matchPerPage = 5;
 
     @EJB
-    private IMatchesDAO matchesManager;
+    IMatchesDAO matchesManager;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -72,8 +72,4 @@ public class LandingServlet extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/pages/landing.jsp").forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
 }
