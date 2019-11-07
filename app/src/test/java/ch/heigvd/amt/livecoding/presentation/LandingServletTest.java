@@ -53,13 +53,24 @@ public class LandingServletTest {
     }
 
     @Test
-    void doGetHandlesvalidParam() throws ServletException, IOException, DuplicateKeyException, SQLException {
+    void doGetHandlesValidParam() throws ServletException, IOException, DuplicateKeyException, SQLException {
         when(request.getRequestDispatcher("/WEB-INF/pages/landing.jsp")).thenReturn(requestDispatcher);
         when(matchesDAO.getMatchCount()).thenReturn(100);
         when(request.getParameter("matchListPage")).thenReturn("5");
         servlet.doGet(request, response);
         verify(matchesDAO, atLeastOnce()).getMatchCount();
         verify(matchesDAO, atLeastOnce()).getMatchesFromOffset(20, 5);
+        verify(requestDispatcher,atLeastOnce()).forward(request,response);
+    }
+
+    @Test
+    void doGetHandlesTooBigParam() throws ServletException, IOException, DuplicateKeyException, SQLException {
+        when(request.getRequestDispatcher("/WEB-INF/pages/landing.jsp")).thenReturn(requestDispatcher);
+        when(matchesDAO.getMatchCount()).thenReturn(100);
+        when(request.getParameter("matchListPage")).thenReturn("1000");
+        servlet.doGet(request, response);
+        verify(matchesDAO, atLeastOnce()).getMatchCount();
+        verify(matchesDAO, atLeastOnce()).getMatchesFromOffset(95, 5);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
 }

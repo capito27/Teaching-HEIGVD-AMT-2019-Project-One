@@ -1,5 +1,6 @@
 package ch.heigvd.amt.livecoding.presentation;
 
+import ch.heigvd.amt.livecoding.business.Utils;
 import ch.heigvd.amt.livecoding.model.User;
 import ch.heigvd.amt.livecoding.integration.IUsersDAO;
 
@@ -17,16 +18,17 @@ import java.io.IOException;
 public class RegistrationServlet extends HttpServlet {
 
     @EJB
-    private IUsersDAO usersManager;
+    IUsersDAO usersManager;
 
     private static String[] postReqArgs = {"username", "firstname", "lastname", "email", "password"};
     private static String[] postReqVal = {"username", "firstname", "lastname", "email"};
+    Utils utils = new Utils();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // register success, render index page
         req.setAttribute("register", true);
-        if(new Utils().CheckRequiredAttributes(req,resp,postReqArgs, "/WEB-INF/pages/login_register.jsp", postReqVal)) {
+        if (utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/login_register.jsp", postReqVal)) {
             User user = User.builder()
                     .username(req.getParameter("username"))
                     .password(req.getParameter("password"))
@@ -41,6 +43,7 @@ public class RegistrationServlet extends HttpServlet {
                 resp.sendRedirect("/Project-One/index");
                 return;
             } else {
+                req.setAttribute("error", "Username was not unique");
                 req.getRequestDispatcher("/WEB-INF/pages/login_register.jsp").forward(req, resp);
             }
         }

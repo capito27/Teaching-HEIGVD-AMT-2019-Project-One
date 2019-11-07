@@ -1,6 +1,7 @@
 package ch.heigvd.amt.livecoding.presentation;
 
 
+import ch.heigvd.amt.livecoding.business.Utils;
 import ch.heigvd.amt.livecoding.model.User;
 import ch.heigvd.amt.livecoding.integration.IMatchesDAO;
 import ch.heigvd.amt.livecoding.integration.IStadiumsDAO;
@@ -30,6 +31,8 @@ public class MatchServlet extends HttpServlet {
     IStadiumsDAO stadiumsManager;
 
     private static String[] postReqArgs = {"action", "score1", "score2", "team1", "team2", "stadium"};
+
+    Utils utils = new Utils();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -92,7 +95,7 @@ public class MatchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println(req.getParameter("action"));
         if(req.getParameter("action").equals("post")) {
-            if (new Utils().CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
+            if (utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
                 User user = (User) req.getSession().getAttribute("user");
                 if (matchesManager.createMatch(Integer.parseInt(req.getParameter("score1")),
                         Integer.parseInt(req.getParameter("score2")),
@@ -132,7 +135,7 @@ public class MatchServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (new Utils().CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
+        if (utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
             User user = (User) req.getSession().getAttribute("user");
             if (matchesManager.updateMatch(Integer.parseInt(req.getParameter("id")),
                     Integer.parseInt(req.getParameter("score1")),

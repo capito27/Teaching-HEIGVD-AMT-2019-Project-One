@@ -1,6 +1,6 @@
 package ch.heigvd.amt.livecoding.presentation;
 
-import ch.heigvd.amt.livecoding.integration.IMatchesDAO;
+import ch.heigvd.amt.livecoding.business.Utils;
 import ch.heigvd.amt.livecoding.integration.IUsersDAO;
 import ch.heigvd.amt.livecoding.model.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class LoginServletTest {
-
 
     @Mock
     HttpServletRequest request;
@@ -68,7 +67,6 @@ public class LoginServletTest {
 
     @Test
     void doPostHandlesMissingAtributes() throws ServletException, IOException, DuplicateKeyException, SQLException {
-
         when(utils.CheckRequiredAttributes(request, response, postReqArgs, "/WEB-INF/pages/login_register.jsp", postReqVal)).thenReturn(false);
 
         servlet.doPost(request, response);
@@ -128,8 +126,8 @@ public class LoginServletTest {
         when(request.getParameter("password")).thenReturn("toto");
         when(request.getSession()).thenReturn(session);
         when(user.getPassword()).thenReturn("31f7a65e315586ac198bd798b6629ce4903d0899476d5741a9f32e2e521b6a66");
-        when(request.getContextPath()).thenReturn("/Project-One");
 
+        when(request.getContextPath()).thenReturn("toto");
         servlet.doPost(request, response);
 
         // display login view
@@ -140,6 +138,6 @@ public class LoginServletTest {
         verify(request, atLeastOnce()).getSession();
         verify(user, atLeastOnce()).getPassword();
         verify(session, atLeastOnce()).setAttribute("user", user);
-        verify(response, atLeastOnce()).sendRedirect(eq("/Project-One/index"));
+        verify(response, atLeastOnce()).sendRedirect("toto/index");
     }
 }

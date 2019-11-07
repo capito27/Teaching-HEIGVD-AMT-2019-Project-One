@@ -1,5 +1,6 @@
 package ch.heigvd.amt.livecoding.presentation;
 
+import ch.heigvd.amt.livecoding.business.Utils;
 import ch.heigvd.amt.livecoding.model.Team;
 import ch.heigvd.amt.livecoding.integration.ITeamsDAO;
 

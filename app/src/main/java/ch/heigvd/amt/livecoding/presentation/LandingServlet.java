@@ -30,7 +30,7 @@ public class LandingServlet extends HttpServlet {
             currentMatchPage = Integer.parseInt(req.getParameter("matchListPage"));
         } catch (Exception e) { /* ignored */ }
 
-        if(currentMatchPage > matchPageCount)
+        if (currentMatchPage > matchPageCount)
             currentMatchPage = matchPageCount;
 
 
@@ -58,9 +58,9 @@ public class LandingServlet extends HttpServlet {
 
         int rightArrow = Math.min(matchPageCount, matchPageNumbers.get(0) + 5);
 
-        // if the first page number is at 1,
-        if(leftArrow == 1){
-
+        // if the first page number is at 1, we need to decrease the right arrow value by one
+        if (matchPageNumbers.get(0) == 1) {
+            rightArrow--;
         }
 
         resp.setContentType("text/html;charset=UTF-8");

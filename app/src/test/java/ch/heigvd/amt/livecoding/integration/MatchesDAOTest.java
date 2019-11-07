@@ -3,9 +3,15 @@ package ch.heigvd.amt.livecoding.integration;
 import ch.heigvd.amt.livecoding.model.Match;
 import org.arquillian.container.chameleon.deployment.api.DeploymentParameters;
 import org.arquillian.container.chameleon.deployment.maven.MavenBuild;
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.impl.base.filter.ExcludeRegExpPaths;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
