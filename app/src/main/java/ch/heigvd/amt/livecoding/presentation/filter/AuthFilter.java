@@ -30,7 +30,7 @@ public class AuthFilter implements Filter {
         String path = request.getRequestURI().substring(request.getContextPath().length()).replaceAll("[/]+$", "");
 
         // if the path of the request is not the current project, we ignore it
-        if (!path.startsWith("/Project-One") && !path.isEmpty()) {
+        if (!((HttpServletRequest) req).getRequestURI().startsWith("/Project-One") && !path.isEmpty()) {
             chain.doFilter(request, response);
             return;
         }
