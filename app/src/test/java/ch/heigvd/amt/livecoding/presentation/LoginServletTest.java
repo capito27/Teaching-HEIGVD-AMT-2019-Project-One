@@ -128,8 +128,7 @@ public class LoginServletTest {
         when(request.getParameter("password")).thenReturn("toto");
         when(request.getSession()).thenReturn(session);
         when(user.getPassword()).thenReturn("31f7a65e315586ac198bd798b6629ce4903d0899476d5741a9f32e2e521b6a66");
-
-        when(request.getRequestDispatcher("/WEB-INF/pages/landing.jsp")).thenReturn(requestDispatcher);
+        when(request.getContextPath()).thenReturn("/Project-One");
 
         servlet.doPost(request, response);
 
@@ -141,6 +140,6 @@ public class LoginServletTest {
         verify(request, atLeastOnce()).getSession();
         verify(user, atLeastOnce()).getPassword();
         verify(session, atLeastOnce()).setAttribute("user", user);
-        verify(requestDispatcher, atLeastOnce()).forward(request, response);
+        verify(response, atLeastOnce()).sendRedirect(eq("/Project-One/index"));
     }
 }
