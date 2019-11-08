@@ -10,13 +10,6 @@ services:
       - 8080:8080
       - 4848:4848
       - 9009:9009
-
-  wildfly:
-    build: ../../images/wildfly
-    ports:
-      - 9090:9090
-      - 9990:9990
-      - 8787:8787
   
   db:
     build: ../../images/mysql
@@ -29,14 +22,3 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    environment:
-     - PMA_HOST=db
-    restart: always
-    depends_on:
-     - db
-    ports:
-     - 8888:80
-

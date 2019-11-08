@@ -28,7 +28,7 @@ do
     fi
 done
 
-echo $OUTPUT >> gen_data.sql
+#echo $OUTPUT >> gen_data.sql
 OUTPUT=""
 
 # USER GENERATION
@@ -48,7 +48,7 @@ do
     fi
 done
 
-echo $OUTPUT >> gen_data.sql
+#echo $OUTPUT >> gen_data.sql
 OUTPUT=""
 
 # STADIUM GENERATION
@@ -67,7 +67,7 @@ do
     fi
 done
 
-echo $OUTPUT >> gen_data.sql
+#echo $OUTPUT >> gen_data.sql
 OUTPUT=""
 
 # MATCH GENERATION
