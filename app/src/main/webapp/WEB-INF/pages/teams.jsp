@@ -23,6 +23,7 @@
     <a class="nav-link" href="/Project-One/match">Matches</a>
 </nav>
 
+<form method="POST" action="team" id="teamForm">
 <!-- Modal -->
 <div class="modal fade" style="align: right;" id="teamModal" tabindex="-1" role="dialog" aria-labelledby="teamModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -34,7 +35,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" target="team">
+
                     <input name="action" class="action" value="post" hidden>
                     <input name="id" class="id" hidden>
                     <div class="form-group">
@@ -46,7 +47,7 @@
                         <input name="country" type="text" class="form-control country" id="countryTeam" placeholder="Switzerland">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -54,6 +55,7 @@
         </div>
     </div>
 </div>
+</form>
 <span>
     <h1>Teams you entered</h1>
     <!-- Button trigger modal -->
@@ -94,6 +96,10 @@
 </body>
 
 <script>
+    function form_submit() {
+        document.getElementById("teamForm").submit();
+    }
+
     $('#teamModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         if(button.data('id')) {

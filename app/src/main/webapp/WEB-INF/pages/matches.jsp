@@ -22,7 +22,7 @@
     <a class="nav-link" href="/Project-One/stadium">Stadiums</a>
     <a class="nav-link" href="/Project-One/match">Matches</a>
 </nav>
-
+<form method="POST" action="match" id="matchForm">
 <!-- Modal -->
 <div class="modal fade" style="align: right;" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="matchModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -34,7 +34,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" target="match">
+
                     <input name="action" class="action" value="post" hidden>
                     <input name="id" class="id" hidden>
                     <div class="form-group">
@@ -63,8 +63,8 @@
                         <label for="score2Input">Score2</label>
                         <input name="score2" type="number" class="form-control score2" id="score2Input" placeholder="10">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                    <button type="submit" onclick="form_click()" class="btn btn-primary">Submit</button>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -72,6 +72,7 @@
         </div>
     </div>
 </div>
+</form>
 <span>
     <h1>Matches you entered</h1>
     <!-- Button trigger modal -->
@@ -138,6 +139,11 @@
 </body>
 
 <script>
+
+    function form_submit() {
+        document.getElementById("matchForm").submit();
+    }
+
     $('#matchModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         if(button.data('id')) {

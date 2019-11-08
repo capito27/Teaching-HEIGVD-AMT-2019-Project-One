@@ -22,7 +22,7 @@
     <a class="nav-link" href="/Project-One/stadium">Stadiums</a>
     <a class="nav-link" href="/Project-One/match">Matches</a>
 </nav>
-
+<form method="POST" action="stadium">
 <!-- Modal -->
 <div class="modal fade" style="align: right;" id="stadiumModal" tabindex="-1" role="dialog" aria-labelledby="stadiumModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -34,7 +34,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" target="stadium">
+
                     <input name="action" class="action" value="post" hidden>
                     <input name="id" class="id" hidden>
                     <div class="form-group">
@@ -50,7 +50,7 @@
                         <input name="viewers" type="number" class="form-control viewers" id="viewersPlacesStadium" placeholder="25000">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -58,6 +58,7 @@
         </div>
     </div>
 </div>
+</form>
 <span>
     <h1>Stadiums</h1>
     <!-- Button trigger modal -->
@@ -101,6 +102,11 @@
 </body>
 
 <script>
+
+    function form_submit() {
+        document.getElementById("stadiumForm").submit();
+    }
+
     $('#stadiumModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         if(button.data('id')) {
