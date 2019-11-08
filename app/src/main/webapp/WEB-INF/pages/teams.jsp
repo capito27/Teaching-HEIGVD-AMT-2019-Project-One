@@ -18,8 +18,11 @@
 </head>
 <body>
 <nav class="nav">
-    <a class="nav-link active" href="/Project-One/team">Teams</a>
-    <a class="nav-link" href="/Project-One/stadium">Stadiums</a>
+    <a class="nav-link" href="/Project-One/index">Home</a>
+    <c:if test="${user.isAdmin() == true}">
+        <a class="nav-link active" href="/Project-One/team">Teams</a>
+        <a class="nav-link" href="/Project-One/stadium">Stadiums</a>
+    </c:if>
     <a class="nav-link" href="/Project-One/match">Matches</a>
 </nav>
 

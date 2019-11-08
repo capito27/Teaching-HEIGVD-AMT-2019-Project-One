@@ -40,11 +40,11 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index" class="nav-link">Games</a></li>
+                <c:if test="${user != null}"> <li class="nav-item active"><a href="match" class="nav-link">Games</a></li></c:if>
                 <li class="nav-item cta">
                 <c:choose>
                     <c:when test="${user != null}">
-                        <a href="login" class="nav-link">Logout</a>
+                        <a href="logout" class="nav-link">Logout</a>
                     </c:when>
                     <c:otherwise>
                         <a href="login" class="nav-link">Login / Register</a>
