@@ -4,7 +4,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Website URL
 WebsiteURL=http://localhost:8080/Project-One/index
-DBURL=http://localhost:3306
 
 printf "Cleaning repo..."
 # First, we clean the repo
@@ -28,7 +27,7 @@ printf "Website deployment in progress (takes up to 2 minutes)..."
 
 a=0
 # This code waits for both the website and the database to be up and accessible
-until $(curl --output /dev/null --silent --fail $DBURL && curl --output /dev/null --silent --head --fail $WebsiteURL);
+until $(curl --output /dev/null --silent --head --fail $WebsiteURL);
 do
     sleep 1
     a=$((a+1))

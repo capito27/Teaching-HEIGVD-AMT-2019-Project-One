@@ -15,8 +15,8 @@ docker-compose -f docker/topologies/amt-projectOne-dev/docker-compose.yml --log-
 docker-compose -f docker/topologies/amt-projectOne-dev/docker-compose.yml --log-level ERROR up --build --force-recreate -d
 
 printf "done !\nBuilding WAR file..."
-# Then, we run the package target without arquillian, so that we can get a war file
-mvn -f app/pom.xml package -DNoArquillian --quiet
+# Then, we run the package target without tests, so that we can get a war file quickly
+mvn -f app/pom.xml package -DskipTests --quiet
 
 printf "done !\nLaunching the tests !\n"
 # Finally, we run the mvn test target
