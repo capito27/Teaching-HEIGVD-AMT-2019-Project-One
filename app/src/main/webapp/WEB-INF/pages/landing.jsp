@@ -80,11 +80,10 @@
             <div>
                 <div class="heading-section ftco-animate">
                     <span class="subheading">Game Report</span>
-                    <h2 class="mb-4">Football Game Reports 2018</h2>
+                    <h2 class="mb-4">Football Game Reports 2019</h2>
                 </div>
                 <c:forEach items="${matches}" var="match">
                     <div class="scoreboard mb-5 mb-lg-3">
-                        <div class="divider text-center"><span>Tue. Feb 21, 2019; FIFA Champions League</span></div>
                         <div class="d-sm-flex mb-4">
                             <div class="sport-team d-flex align-items-center">
                                 <div class="img logo"
@@ -118,9 +117,6 @@
                                         <h4 class="team-name">${match.getTeam2().getName()}</h4>
                                 </div>
                             </div>
-                        </div>
-                        <div class="text-center">
-                            <p><a href="index#" class="btn btn-primary">More Details</a></p>
                         </div>
                     </div>
                 </c:forEach>
