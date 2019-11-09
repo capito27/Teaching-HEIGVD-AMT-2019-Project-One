@@ -40,6 +40,10 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
+                <c:if test="${user != null && user.isAdmin()}">
+                    <li class="nav-item active"><a href="match" class="nav-link">Teams</a></li>
+                    <li class="nav-item active"><a href="match" class="nav-link">Stadiums</a></li>
+                </c:if>
                 <c:if test="${user != null}"> <li class="nav-item active"><a href="match" class="nav-link">Games</a></li></c:if>
                 <li class="nav-item cta">
                 <c:choose>

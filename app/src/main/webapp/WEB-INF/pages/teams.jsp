@@ -24,6 +24,7 @@
         <a class="nav-link" href="/Project-One/stadium">Stadiums</a>
     </c:if>
     <a class="nav-link" href="/Project-One/match">Matches</a>
+    <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
 
 <form method="POST" action="team" id="teamForm">

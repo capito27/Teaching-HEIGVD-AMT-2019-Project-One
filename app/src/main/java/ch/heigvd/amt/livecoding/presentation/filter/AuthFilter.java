@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class AuthFilter implements Filter {
 
     private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/logout", "/match", "/stadium", "/team", "/user", "/index", "/login", "/ArquillianServletRunner")));
+            Arrays.asList("/logout", "/match", "/stadium", "/team", "/user", "/index", "/login", "/ArquillianServletRunner", "/teamDetails", "/stadiumDetails")));
 
     private static final Set<String> RESTRICTED_PATHS = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList("/logout", "/match", "/stadium", "/team", "/user")));

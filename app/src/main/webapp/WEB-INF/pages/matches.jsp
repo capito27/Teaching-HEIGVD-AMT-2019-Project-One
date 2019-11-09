@@ -24,6 +24,7 @@
         <a class="nav-link" href="/Project-One/stadium">Stadiums</a>
     </c:if>
     <a class="nav-link" href="/Project-One/match">Matches</a>
+    <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
 <form method="POST" action="match" id="matchForm">
 <!-- Modal -->
@@ -37,7 +38,6 @@
                 </button>
             </div>
             <div class="modal-body">
-
                     <input name="action" class="action" value="post" hidden>
                     <input name="id" class="id" hidden>
                     <div class="form-group">
@@ -97,11 +97,11 @@
     <tbody>
         <c:forEach items="${matches}" var="match">
         <tr>
-            <th>${match.getTeam1().getName()}</th>
-            <td>${match.getTeam2().getName()}</td>
+            <td><a href="${pageContext.request.contextPath}/teamDetails?id=<c:out value="${match.getTeam1().getId()}"/>">${match.getTeam1().getName()}</a></td>
+            <td><a href="${pageContext.request.contextPath}/teamDetails?id=<c:out value="${match.getTeam2().getId()}"/>">${match.getTeam2().getName()}</a></td>
             <td>${match.getGoals1()}</td>
             <td>${match.getGoals2()}</td>
-            <td>${match.getLocation().getName()}</td>
+            <td><a href="${pageContext.request.contextPath}/stadiumDetails?id=<c:out value="${match.getLocation().getId()}"/>">${match.getLocation().getName()}</a></td>
             <td>
                 <button type="button" data-toggle="modal" data-target="#matchModal"
                         data-id="<c:out value="${match.getId()}"/>"
