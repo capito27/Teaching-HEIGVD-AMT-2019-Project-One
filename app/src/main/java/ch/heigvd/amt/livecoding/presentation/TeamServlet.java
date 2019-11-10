@@ -38,6 +38,7 @@ public class TeamServlet extends HttpServlet {
                 Team teamCreated = teamsManager.createTeam(toCreateTeam);
                 if (teamCreated != null) {
                     System.out.println("Creation team");
+                    req.setAttribute("confirmation", "Team creation successful");
                     this.doGet(req, resp);
                 } else {
                     req.setAttribute("error", "Error in creation");
@@ -57,6 +58,7 @@ public class TeamServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(teamsManager.deleteTeam(Integer.parseInt(req.getParameter("team")))) {
             // TODO : Put confirmation
+            req.setAttribute("confirmation", "Team deleted successful");
             this.doGet(req, resp);
         } else {
             req.setAttribute("error", "Error in deleting");
@@ -68,6 +70,7 @@ public class TeamServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(teamsManager.updateTeam(Integer.parseInt(req.getParameter("id")), req.getParameter("name"), req.getParameter("country"))) {
             // TODO : Put confirmation
+            req.setAttribute("confirmation", "Team updated successful");
             this.doGet(req, resp);
         } else {
             req.setAttribute("error", "Error in updating");

@@ -27,6 +27,31 @@
     <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
 
+<div class="confirmToast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <img src="..." class="rounded mr-2" alt="...">
+        <strong class="mr-auto">Confirmation</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        ${confirmation}
+    </div>
+</div>
+<div class="errorToast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+        <img src="..." class="rounded mr-2" alt="...">
+        <strong class="mr-auto">Error</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        ${error}
+    </div>
+</div>
+
 <form method="POST" action="team" id="teamForm">
 <!-- Modal -->
 <div class="modal fade" style="align: right;" id="teamModal" tabindex="-1" role="dialog" aria-labelledby="teamModalLabel" aria-hidden="true">
@@ -100,6 +125,14 @@
 </body>
 
 <script>
+
+    if(${error}) {
+        $('#errorToast').toast('show')
+    }
+    if(${confirmation}){
+        $('#confirmToast').toast('show')
+    }
+
     function form_submit() {
         document.getElementById("teamForm").submit();
     }
@@ -122,5 +155,4 @@
         }
     })
 </script>
-
 </html>
