@@ -44,7 +44,7 @@ To run this program, due to depending on a specific dockerised environment, you 
 
 The script will build the project, deploy the dockerized infrastructure and the website, along with a default dataset of over 1 million entries.
 
-Once the script is done, it will print the website URL, which can be accessed from any browser.
+Once the script is done, it will print the website URL, which can be accessed from any browser. You can access the application with user:password for a standard user and an admin with admin:password.
 
 NB : at the time the website URL is displayed, the sql database may not be available yet, as such you may receieve empty pages for 10-20 seconds after receiving the website URL.
 

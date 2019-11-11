@@ -33,11 +33,11 @@ We can see that the server can handle some requests but take much more time, by 
 ### 1000 entries
 
 With ressource tier pagination :
-![Paging 1000 Ressource tier](assets/ResponseTimePaging_1k.png)
+![Paging 1000 Ressource tier](assets/ResponseTimePaging_1K.png)
 With 1k entries we can see that the server is really fast. The RAM taken is not so big.
 
 With Service tier pagination :
-![Paging 1000 Service Tier](assets/ResponseTimeDisabledPaging_1k.png)
+![Paging 1000 Service Tier](assets/ResponseTimeDisabledPaging_1K.png)
 With 1k entries and loading Service tier we an see that is pretty fast but still not as much as the ressource tier solution.
 
 ## Conclusion
