@@ -27,11 +27,22 @@
     <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
 <c:if test="${error != null}">
-    <p style="color: red;">${error}</p>
+    <div id="errorAlert" class="alert alert-danger" role="alert">
+        ${error}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </c:if>
 <c:if test="${confirmation != null}">
-    <p style="color: green;">${confirmation}</p>
+    <div id="confirmAlert" class="alert alert-success" role="alert">
+        ${confirmation}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </c:if>
+
 <form method="POST" action="match" id="matchForm">
 <!-- Modal -->
 <div class="modal fade" style="align: right;" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="matchModalLabel" aria-hidden="true">
@@ -82,72 +93,89 @@
     </div>
 </div>
 </form>
-<span style="display: inline;">
-    <h1>Matches you entered</h1>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" style="align:right;" data-toggle="modal" data-target="#matchModal">
-        Add Match
-    </button>
-</span>
-<table style="padding: 10px;" class="table">
-    <thead>
-        <tr>
-            <th scope="col">Team1</th>
-            <th scope="col">Team2</th>
-            <th scope="col">Score1</th>
-            <th scope="col">Score2</th>
-            <th scope="col">Stadium</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${matches}" var="match">
-        <tr>
-            <td><a href="${pageContext.request.contextPath}/teamDetails?id=<c:out value="${match.getTeam1().getId()}"/>">${match.getTeam1().getName()}</a></td>
-            <td><a href="${pageContext.request.contextPath}/teamDetails?id=<c:out value="${match.getTeam2().getId()}"/>">${match.getTeam2().getName()}</a></td>
-            <td>${match.getGoals1()}</td>
-            <td>${match.getGoals2()}</td>
-            <td><a href="${pageContext.request.contextPath}/stadiumDetails?id=<c:out value="${match.getLocation().getId()}"/>">${match.getLocation().getName()}</a></td>
-            <td>
-                <button type="button" data-toggle="modal" data-target="#matchModal"
-                        data-id="<c:out value="${match.getId()}"/>"
-                        data-team1="<c:out value="${match.getTeam1().getId()}"/>"
-                        data-team2="<c:out value="${match.getTeam2().getId()}"/>"
-                        data-score1="<c:out value="${match.getGoals1()}"/>"
-                        data-score2="<c:out value="${match.getGoals2()}"/>"
-                        data-stadium="<c:out value="${match.getLocation().getId()}"/>"
-                        class="btn btn-success"><i class="material-icons">create</i>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1 style="text-align: left">Matches you entered</h1>
+        </div>
+        <div class="col-sm-4 justify-content-md-right">
+            <div class="float-right">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#matchModal">
+                    Add Match
                 </button>
-                <form style="display:inline" method="POST" action="match">
-                    <input name="action" value="delete" hidden>
-                    <input name="match" value="<c:out value="${match.getId()}"/>" hidden>
-                    <button type="submit" class="btn btn-danger"><i class="material-icons">clear</i></button>
-                </form>
-            </td>
-        </tr>
-        </c:forEach>
-    </tbody>
-</table>
-
-<nav style="align:center;" aria-label="...">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="match?matchListPage=${leftArrow}">&lt;</a></li>
-            <c:forEach items="${matchPageNumbers}" var="page">
-                <c:choose>
-                    <c:when test="${page == currentMatchPage}">
-                        <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li class="page-item"><a class="page-link" href="match?matchListPage=${page}">${page}</a></li>
-                    </c:otherwise>
-                </c:choose>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <!-- Button trigger modal -->
+    <table style="padding: 20px;" class="table">
+        <thead>
+            <tr>
+                <th scope="col">Team1</th>
+                <th scope="col">Team2</th>
+                <th scope="col">Score1</th>
+                <th scope="col">Score2</th>
+                <th scope="col">Stadium</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${matches}" var="match">
+            <tr>
+                <td><a href="${pageContext.request.contextPath}/teamDetails?id=<c:out value="${match.getTeam1().getId()}"/>">${match.getTeam1().getName()}</a></td>
+                <td><a href="${pageContext.request.contextPath}/teamDetails?id=<c:out value="${match.getTeam2().getId()}"/>">${match.getTeam2().getName()}</a></td>
+                <td>${match.getGoals1()}</td>
+                <td>${match.getGoals2()}</td>
+                <td><a href="${pageContext.request.contextPath}/stadiumDetails?id=<c:out value="${match.getLocation().getId()}"/>">${match.getLocation().getName()}</a></td>
+                <td>
+                    <button type="button" data-toggle="modal" data-target="#matchModal"
+                            data-id="<c:out value="${match.getId()}"/>"
+                            data-team1="<c:out value="${match.getTeam1().getId()}"/>"
+                            data-team2="<c:out value="${match.getTeam2().getId()}"/>"
+                            data-score1="<c:out value="${match.getGoals1()}"/>"
+                            data-score2="<c:out value="${match.getGoals2()}"/>"
+                            data-stadium="<c:out value="${match.getLocation().getId()}"/>"
+                            class="btn btn-success"><i class="material-icons">create</i>
+                    </button>
+                    <form style="display:inline" method="POST" action="match">
+                        <input name="action" value="delete" hidden>
+                        <input name="match" value="<c:out value="${match.getId()}"/>" hidden>
+                        <button type="submit" class="btn btn-danger"><i class="material-icons">clear</i></button>
+                    </form>
+                </td>
+            </tr>
             </c:forEach>
-        <li class="page-item"><a class="page-link" href="match?matchListPage=${rightArrow}">&gt;</a></li>
-    </ul>
-</nav>
+        </tbody>
+    </table>
+    </div>
+    <div class="row justify-content-md-center">
+        <nav style="align:center;" aria-label="...">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="match?matchListPage=${leftArrow}">&lt;</a></li>
+                    <c:forEach items="${matchPageNumbers}" var="page">
+                        <c:choose>
+                            <c:when test="${page == currentMatchPage}">
+                                <li class="page-item active"><a class="page-link" href="#">${page}</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="page-item"><a class="page-link" href="match?matchListPage=${page}">${page}</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                <li class="page-item"><a class="page-link" href="match?matchListPage=${rightArrow}">&gt;</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
 </body>
 
 <script>
+    if(${error != null}) {
+        $('#confirmAlert').alert();
+    }
+    if(${confirmation != null}) {
+        $('#errorAlert').alert();
+    }
 
     function form_submit() {
         document.getElementById("matchForm").submit();

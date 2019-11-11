@@ -76,8 +76,8 @@
 
 <section class="ftco-section">
     <div class="container">
-        <div class="row">
-            <div>
+        <div class="row justify-content-md-center">
+            <div class="col-sm">
                 <div class="heading-section ftco-animate">
                     <span class="subheading">Game Report</span>
                     <h2 class="mb-4">Football Game Reports 2019</h2>

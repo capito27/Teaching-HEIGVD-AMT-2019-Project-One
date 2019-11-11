@@ -27,10 +27,20 @@
     <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
 <c:if test="${error != null}">
-    <p style="color: red;">${error}</p>
+    <div id="errorAlert" class="alert alert-danger" role="alert">
+            ${error}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </c:if>
 <c:if test="${confirmation != null}">
-    <p style="color: green;">${confirmation}</p>
+    <div id="confirmAlert" class="alert alert-success" role="alert">
+            ${confirmation}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </c:if>
 <form method="POST" action="stadium">
 <!-- Modal -->
@@ -69,49 +79,64 @@
     </div>
 </div>
 </form>
-<span>
-    <h1>Stadiums</h1>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" style="align:right;" data-toggle="modal" data-target="#stadiumModal">
-        Add Stadium
-    </button>
-</span>
-<table style="padding: 10px;" class="table">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Location</th>
-            <th scope="col">Viewers places</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${stadiums}" var="stadium">
-        <tr>
-            <th>${stadium.getName()}</th>
-            <td>${stadium.getLocation()}</td>
-            <td>${stadium.getViewerPlaces()}</td>
-            <td>
-                <button type="button" data-toggle="modal" data-target="#stadiumModal"
-                        data-id="<c:out value="${stadium.getId()}"/>"
-                        data-name="<c:out value="${stadium.getName()}"/>"
-                        data-location="<c:out value="${stadium.getLocation()}"/>"
-                        data-viewers="<c:out value="${stadium.getViewerPlaces()}"/>"
-                        class="btn btn-success"><i class="material-icons">create</i>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Stadiums</h1>
+        </div>
+        <div class="col-sm-4">
+            <div class="float-right">
+                <button type="button" class="btn btn-primary" style="align:right;" data-toggle="modal" data-target="#stadiumModal">
+                    Add Stadium
                 </button>
-                <form style="display:inline" method="POST" action="stadium">
-                    <input name="action" value="delete" hidden>
-                    <input name="stadium" value="<c:out value="${stadium.getId()}"/>" hidden>
-                    <button type="submit" class="btn btn-danger"><i class="material-icons">clear</i></button>
-                </form>
-            </td>
-        </tr>
-        </c:forEach>
-    </tbody>
-</table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table style="padding: 10px;" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Viewers places</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${stadiums}" var="stadium">
+                <tr>
+                    <th>${stadium.getName()}</th>
+                    <td>${stadium.getLocation()}</td>
+                    <td>${stadium.getViewerPlaces()}</td>
+                    <td>
+                        <button type="button" data-toggle="modal" data-target="#stadiumModal"
+                                data-id="<c:out value="${stadium.getId()}"/>"
+                                data-name="<c:out value="${stadium.getName()}"/>"
+                                data-location="<c:out value="${stadium.getLocation()}"/>"
+                                data-viewers="<c:out value="${stadium.getViewerPlaces()}"/>"
+                                class="btn btn-success"><i class="material-icons">create</i>
+                        </button>
+                        <form style="display:inline" method="POST" action="stadium">
+                            <input name="action" value="delete" hidden>
+                            <input name="stadium" value="<c:out value="${stadium.getId()}"/>" hidden>
+                            <button type="submit" class="btn btn-danger"><i class="material-icons">clear</i></button>
+                        </form>
+                    </td>
+                </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 
 <script>
+    if(${error != null}) {
+        $('#confirmAlert').alert();
+    }
+    if(${confirmation != null}) {
+        $('#errorAlert').alert();
+    }
 
     function form_submit() {
         document.getElementById("stadiumForm").submit();

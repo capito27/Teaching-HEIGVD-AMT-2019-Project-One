@@ -27,10 +27,20 @@
     <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
 <c:if test="${error != null}">
-    <p style="color: red;">${error}</p>
+    <div id="errorAlert" class="alert alert-danger" role="alert">
+            ${error}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </c:if>
 <c:if test="${confirmation != null}">
-    <p style="color: green;">${confirmation}</p>
+    <div id="confirmAlert" class="alert alert-success" role="alert">
+            ${confirmation}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </c:if>
 <form method="POST" action="team" id="teamForm">
 <!-- Modal -->
@@ -65,45 +75,61 @@
     </div>
 </div>
 </form>
-<span>
-    <h1>Teams you entered</h1>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" style="align:right;" data-toggle="modal" data-target="#teamModal">
-        Add team
-    </button>
-</span>
-<table style="padding: 10px;" class="table">
-    <thead>
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Country</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${teams}" var="team">
-        <tr>
-            <th>${team.getName()}</th>
-            <td>${team.getCountry()}</td>
-            <td>
-                <button type="button" data-toggle="modal" data-target="#teamModal"
-                        data-id="<c:out value="${team.getId()}"/>"
-                        data-name="<c:out value="${team.getName()}"/>"
-                        data-country="<c:out value="${team.getCountry()}"/>"
-                        class="btn btn-success"><i class="material-icons">create</i>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>Teams you entered</h1>
+        </div>
+        <div class="col-sm-4">
+            <div class="float-right">
+                <button type="button" class="btn btn-primary" style="align:right;" data-toggle="modal" data-target="#teamModal">
+                    Add team
                 </button>
-                <form style="display:inline" method="POST" action="team">
-                    <input name="action" value="delete" hidden>
-                    <input name="team" value="<c:out value="${team.getId()}"/>" hidden>
-                    <button type="submit" class="btn btn-danger"><i class="material-icons">clear</i></button>
-                </form>
-            </td>
-        </tr>
-        </c:forEach>
-    </tbody>
-</table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table style="padding: 10px;" class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${teams}" var="team">
+                <tr>
+                    <th>${team.getName()}</th>
+                    <td>${team.getCountry()}</td>
+                    <td>
+                        <button type="button" data-toggle="modal" data-target="#teamModal"
+                                data-id="<c:out value="${team.getId()}"/>"
+                                data-name="<c:out value="${team.getName()}"/>"
+                                data-country="<c:out value="${team.getCountry()}"/>"
+                                class="btn btn-success"><i class="material-icons">create</i>
+                        </button>
+                        <form style="display:inline" method="POST" action="team">
+                            <input name="action" value="delete" hidden>
+                            <input name="team" value="<c:out value="${team.getId()}"/>" hidden>
+                            <button type="submit" class="btn btn-danger"><i class="material-icons">clear</i></button>
+                        </form>
+                    </td>
+                </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <script>
+    if(${error != null}) {
+        $('#confirmAlert').alert();
+    }
+    if(${confirmation != null}) {
+        $('#errorAlert').alert();
+    }
+
     function form_submit() {
         document.getElementById("teamForm").submit();
     }
