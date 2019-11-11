@@ -26,6 +26,12 @@
     <a class="nav-link" href="/Project-One/match">Matches</a>
     <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
+<c:if test="${error != null}">
+    <p style="color: red;">${error}</p>
+</c:if>
+<c:if test="${confirmation != null}">
+    <p style="color: green;">${confirmation}</p>
+</c:if>
 <form method="POST" action="stadium">
 <!-- Modal -->
 <div class="modal fade" style="align: right;" id="stadiumModal" tabindex="-1" role="dialog" aria-labelledby="stadiumModalLabel" aria-hidden="true">

@@ -15,6 +15,29 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+        function form_submit() {
+            document.getElementById("teamForm").submit();
+        }
+
+        $('#teamModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            if(button.data('id')) {
+                var id = button.data('id');
+                var nameTeam = button.data('name');
+                var country = button.data('country');
+
+                var modal = $(this);
+                modal.find('.modal-body input.action').val("update");
+                modal.find('.modal-body input.id').val(id);
+                modal.find('.modal-body input.name').val(nameTeam);
+                modal.find('.modal-body input.country').val(country);
+            } else {
+                var modal = $(this);
+                modal.find('.modal-body input.action').val("post");
+            }
+        })
+    </script>
 </head>
 <body>
 <nav class="nav">
@@ -26,32 +49,12 @@
     <a class="nav-link" href="/Project-One/match">Matches</a>
     <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
-
-<div class="confirmToast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-        <img src="..." class="rounded mr-2" alt="...">
-        <strong class="mr-auto">Confirmation</strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="toast-body">
-        ${confirmation}
-    </div>
-</div>
-<div class="errorToast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-        <img src="..." class="rounded mr-2" alt="...">
-        <strong class="mr-auto">Error</strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="toast-body">
-        ${error}
-    </div>
-</div>
-
+<c:if test="${error != null}">
+    <p style="color: red;">${error}</p>
+</c:if>
+<c:if test="${confirmation != null}">
+    <p style="color: green;">${confirmation}</p>
+</c:if>
 <form method="POST" action="team" id="teamForm">
 <!-- Modal -->
 <div class="modal fade" style="align: right;" id="teamModal" tabindex="-1" role="dialog" aria-labelledby="teamModalLabel" aria-hidden="true">
@@ -123,36 +126,4 @@
     </tbody>
 </table>
 </body>
-
-<script>
-
-    if(${error}) {
-        $('#errorToast').toast('show')
-    }
-    if(${confirmation}){
-        $('#confirmToast').toast('show')
-    }
-
-    function form_submit() {
-        document.getElementById("teamForm").submit();
-    }
-
-    $('#teamModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        if(button.data('id')) {
-            var id = button.data('id');
-            var nameTeam = button.data('name');
-            var country = button.data('country');
-
-            var modal = $(this);
-            modal.find('.modal-body input.action').val("update");
-            modal.find('.modal-body input.id').val(id);
-            modal.find('.modal-body input.name').val(nameTeam);
-            modal.find('.modal-body input.country').val(country);
-        } else {
-            var modal = $(this);
-            modal.find('.modal-body input.action').val("post");
-        }
-    })
-</script>
 </html>
