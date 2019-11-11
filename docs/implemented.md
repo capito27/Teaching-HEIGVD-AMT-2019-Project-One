@@ -1,6 +1,6 @@
 ## Project-One
 
-### Buisness domain : 
+### Business domain : 
 For this project, we decided to go with an online platform listing sports matches, allowing users to submit new matches and to edit their own matches, but consult every match in the platform.
 
 A match is played inside a stadium, which is located in a country, has a name and the number of viewers it can fit.
@@ -9,7 +9,7 @@ Finally, a match is submitted by a user, and may only be modified by themselves.
 
 Stadiums and teams may only be modified by administrator users.
 
-### Buisness diagram :
+### Business diagram :
 ![](assets/uml.png)
 
 
@@ -17,11 +17,11 @@ Stadiums and teams may only be modified by administrator users.
  
 #### CRUD
  
-In this project, we have implemented a full CRUD access to our buisness entities through the website. Creating/Reading/Deleting those entities may requires specific privilèges (admin status, or ownership).
+In this project, we have implemented a full CRUD access to our business entities through the website. Creating/Updating/Deleting those entities may requires specific privilèges (admin status, or ownership).
  
 #### Navigation
 It is possible to navigate between entities.
-As an example, opening the match list, users can click on a specific team, or a specific stadium, to get its details
+As an example, opening the matches list, users can click on a specific team, or a specific stadium, to get its details
  
  
  ![](assets/matches.png)

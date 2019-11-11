@@ -25,7 +25,7 @@ They link the data they obtain from the integration layer, and then proceed to s
 
 We implemented basic levels of acess control in the AuthFilter, located in the `presentation/filter` directory.
 
-We implemented in in such a way that we capture all URLs with the filter, and sequentially check if the user can access them, and if not, redirect them where appropriate (index, or login page)
+We implemented it in such a way that we capture all URLs with the filter, and sequentially check if the user can access them, and if not, redirect them where appropriate (index, or login page)
 
 #### Integration Layer
 
