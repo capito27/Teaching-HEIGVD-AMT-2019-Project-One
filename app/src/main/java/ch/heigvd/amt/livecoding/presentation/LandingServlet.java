@@ -64,7 +64,10 @@ public class LandingServlet extends HttpServlet {
         }
 
         resp.setContentType("text/html;charset=UTF-8");
+        // SQL paging enabled
         req.setAttribute("matches", matchesManager.getMatchesFromOffset(matchPerPage * (currentMatchPage - 1), matchPerPage));
+        // SQL paging disabled
+        //req.setAttribute("matches", matchesManager.getAllMatches().subList(matchPerPage * (currentMatchPage - 1), matchPerPage));
         req.setAttribute("matchPageNumbers", matchPageNumbers);
         req.setAttribute("currentMatchPage", currentMatchPage);
         req.setAttribute("leftArrow", leftArrow);
