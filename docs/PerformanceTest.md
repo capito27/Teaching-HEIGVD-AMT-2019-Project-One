@@ -13,7 +13,7 @@ We can see that in the average we have a pretty good performance with a load of 
 With service tier pagination :
 
 Simulated 2 users doing 10 requests each (20 requests total). And with a Gaussian random timer with a constant delay of 2000ms.
-![Paging 1 million Service tier](assets/responseTimeDisabledPaging.ong)
+![Paging 1 million Service tier](assets/responseTimeDisabledPaging.png)
 We can see that the server handles the requests in like minutes, and it takes a large amount of the RAM (actually all of it on a 16GB Ram laptop). But we can see drops of the response time (maybe Grabage collector doing his job or maybe SWAP, we don't really know). But we van see that is not efficient.
 
 ### 20'000 entries
