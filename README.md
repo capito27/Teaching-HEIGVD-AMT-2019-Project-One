@@ -60,7 +60,7 @@ The details of our implementation may be found at [the following link](https://g
 
 ### Testing strategy
 
-Our testing strategy is explicited at [the following link](https://github.com/capito27/Teaching-HEIGVD-AMT-2019-Project-One/blob/master/docs/TestStrategy.md).
+Our testing strategy is explicited at [the following link](https://github.com/capito27/Teaching-HEIGVD-AMT-2019-Project-One/blob/master/docs/TestingStrategy.md).
 
 ### Performance experiments
 
