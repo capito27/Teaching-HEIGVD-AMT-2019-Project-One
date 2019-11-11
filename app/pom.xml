@@ -22,7 +22,6 @@
         <arquillian.launch></arquillian.launch>
         <version.jacoco>0.8.2</version.jacoco>
         <version.arquillian_jacoco>1.0.0</version.arquillian_jacoco>
-        <powermock.version>2.0.2</powermock.version>
     </properties>
 
     <dependencies>
