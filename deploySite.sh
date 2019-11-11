@@ -2,6 +2,8 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+cd $DIR
+
 # Website URL
 WebsiteURL=http://localhost:8080/Project-One/index
 
@@ -18,7 +20,7 @@ printf "done !\nRebuilding prod docker environment (takes up to a minute)...\n"
 # Secondly, we stop and rebuild the dev docker environment (as well as stop the prod environment, for port collision safety)
 # (also, since we're deploying, we copy the 1Mil entries, so that we have enough datasets for loadtesting)
 
-cp $DIR/docker/images/mysql/2_gen_data.sql $DIR/docker/images/mysql/dump/2_gen_data.sql
+cp docker/images/mysql/2_gen_data.sql docker/images/mysql/dump/2_gen_data.sql
 docker-compose -f docker/topologies/amt-projectOne-dev/docker-compose.yml --log-level ERROR down >/dev/null
 docker-compose -f docker/topologies/amt-projectOne-prod/docker-compose.yml --log-level ERROR down >/dev/null
 docker-compose -f docker/topologies/amt-projectOne-prod/docker-compose.yml --log-level ERROR up --build -d

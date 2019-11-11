@@ -18,7 +18,7 @@ public class AuthFilter implements Filter {
             Arrays.asList("/logout", "/match", "/stadium", "/team", "/user", "/index", "/login", "/ArquillianServletRunner", "/teamDetails", "/stadiumDetails")));
 
     private static final Set<String> RESTRICTED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/logout", "/match", "/stadium", "/team", "/user")));
+            Arrays.asList("/logout", "/match", "/stadium", "/team", "/user", "/teamDetails", "/stadiumDetails")));
 
     private static final Set<String> ADMIN_PATHS = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList("/stadium", "/team")));

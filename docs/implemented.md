@@ -1,4 +1,4 @@
-##Project-One
+## Project-One
 
 ### Buisness domain : 
 For this project, we decided to go with an online platform listing sports matches, allowing users to submit new matches and to edit their own matches, but consult every match in the platform.
@@ -13,7 +13,7 @@ Stadiums and teams may only be modified by administrator users.
 ![](assets/uml.png)
 
 
-### List of implemented aspects : 
+### List of implemented functional aspects : 
  
 #### CRUD
  
