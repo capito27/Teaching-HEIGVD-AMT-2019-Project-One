@@ -94,7 +94,7 @@ public class MatchServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println(req.getParameter("action"));
-        if(req.getParameter("action").equals("post")) {
+        if(req.getParameter("action") != null && req.getParameter("action").equals("post")) {
             if (utils.CheckRequiredAttributes(req, resp, postReqArgs, "/WEB-INF/pages/matches.jsp", postReqArgs)) {
                 User user = (User) req.getSession().getAttribute("user");
                 if (matchesManager.createMatch(Integer.parseInt(req.getParameter("score1")),
@@ -111,10 +111,14 @@ public class MatchServlet extends HttpServlet {
                 }
             }
         } else {
-            if(req.getParameter("action").equals("update")){
+            if(req.getParameter("action") != null && req.getParameter("action").equals("update")){
                 this.doPut(req, resp);
-            } else if(req.getParameter("action").equals("delete")){
+            } else if(req.getParameter("action") != null && req.getParameter("action").equals("delete")){
                 this.doDelete(req, resp);
+            }
+            else {
+                req.setAttribute("error", "Attention, unknown request");
+                req.getRequestDispatcher("/WEB-INF/pages/matches.jsp").forward(req, resp);
             }
         }
     }

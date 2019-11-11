@@ -99,7 +99,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Location</th>
                     <th scope="col">Viewers places</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" class="text-right">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -108,7 +108,7 @@
                     <th>${stadium.getName()}</th>
                     <td>${stadium.getLocation()}</td>
                     <td>${stadium.getViewerPlaces()}</td>
-                    <td>
+                    <td class="text-right">
                         <button type="button" data-toggle="modal" data-target="#stadiumModal"
                                 data-id="<c:out value="${stadium.getId()}"/>"
                                 data-name="<c:out value="${stadium.getName()}"/>"

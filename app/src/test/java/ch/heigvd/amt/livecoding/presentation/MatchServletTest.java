@@ -100,6 +100,17 @@ public class MatchServletTest {
     }
 
     @Test
+    void doPostHandlesErrors() throws ServletException, IOException {
+        when(request.getParameter("action")).thenReturn(null);
+        when(request.getRequestDispatcher(anyString())).thenReturn(dispatch);
+
+        servlet.doPost(request, response);
+
+        verify(request, atLeastOnce()).setAttribute(eq("error"), any());
+        verify(dispatch, atLeastOnce()).forward(request, response);
+    }
+
+    @Test
     void doPostRedirectToPut() throws ServletException, IOException {
         when(request.getParameter("action")).thenReturn("update");
         when(request.getRequestDispatcher(anyString())).thenReturn(dispatch);

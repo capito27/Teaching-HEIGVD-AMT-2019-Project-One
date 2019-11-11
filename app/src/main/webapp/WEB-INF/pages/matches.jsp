@@ -116,7 +116,7 @@
                 <th scope="col">Score1</th>
                 <th scope="col">Score2</th>
                 <th scope="col">Stadium</th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="text-right">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -127,7 +127,7 @@
                 <td>${match.getGoals1()}</td>
                 <td>${match.getGoals2()}</td>
                 <td><a href="${pageContext.request.contextPath}/stadiumDetails?id=<c:out value="${match.getLocation().getId()}"/>">${match.getLocation().getName()}</a></td>
-                <td>
+                <td class="text-right">
                     <button type="button" data-toggle="modal" data-target="#matchModal"
                             data-id="<c:out value="${match.getId()}"/>"
                             data-team1="<c:out value="${match.getTeam1().getId()}"/>"

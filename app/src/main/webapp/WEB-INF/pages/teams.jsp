@@ -94,7 +94,7 @@
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Country</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col" class="text-right">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,7 +102,7 @@
                 <tr>
                     <th>${team.getName()}</th>
                     <td>${team.getCountry()}</td>
-                    <td>
+                    <td class="text-right">
                         <button type="button" data-toggle="modal" data-target="#teamModal"
                                 data-id="<c:out value="${team.getId()}"/>"
                                 data-name="<c:out value="${team.getName()}"/>"
