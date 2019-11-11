@@ -26,6 +26,12 @@
     <a class="nav-link" href="/Project-One/match">Matches</a>
     <a class="nav-link" href="/Project-One/logout">Logout</a>
 </nav>
+<c:if test="${error != null}">
+    <p style="color: red;">${error}</p>
+</c:if>
+<c:if test="${confirmation != null}">
+    <p style="color: green;">${confirmation}</p>
+</c:if>
 <form method="POST" action="match" id="matchForm">
 <!-- Modal -->
 <div class="modal fade" style="align: right;" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="matchModalLabel" aria-hidden="true">
