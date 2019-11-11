@@ -6,7 +6,7 @@ We have done some performance tests of our web page. The JMeter config may be fo
 
 #### With ressource tier pagination (Databse scope)
 
-Using JMeter to simulate 20 users, making 100 requests each (20009 total). And we added a gaussian random timer between each request, with a constant delay of 200ms, and 100ms Standard deviation. 
+Using JMeter to simulate 20 users, making 100 requests each (20000 total). And we added a gaussian random timer between each request, with a constant delay of 200ms, and 100ms Standard deviation. 
 ![Paging 1million ressource tier](assets/responseTimePaging.png)
 We can see that in the average we have a pretty good performance with a load of the page in 1s. The server handles the requests in seconds.
 
