@@ -103,8 +103,6 @@ public class MatchServlet extends HttpServlet {
                         Integer.parseInt(req.getParameter("team2")),
                         Integer.parseInt(req.getParameter("stadium")),
                         (int) user.getId()) != null) {
-                    System.out.println("Creation");
-                    // TODO put confirmation of action
                     req.setAttribute("confirmation", "Match creation successful");
                     this.doGet(req, resp);
                 } else {
@@ -124,8 +122,6 @@ public class MatchServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (matchesManager.deleteMatch(Integer.parseInt(req.getParameter("match")))) {
-            System.out.println("Delete");
-            // TODO put confirmation of action
             req.setAttribute("confirmation", "Match delete successful");
             this.doGet(req, resp);
         } else {
@@ -145,9 +141,7 @@ public class MatchServlet extends HttpServlet {
                     (long) Integer.parseInt(req.getParameter("team2")),
                     (long) Integer.parseInt(req.getParameter("stadium")),
                     user.getId())) {
-                System.out.println("Update");
                 req.setAttribute("confirmation", "Update of Match successful");
-                // TODO put confirmation of action
                 this.doGet(req, resp);
             } else {
                 req.setAttribute("error", "Error in creation");

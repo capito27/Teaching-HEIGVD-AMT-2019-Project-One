@@ -82,7 +82,7 @@
     </div>
 </div>
 </form>
-<span>
+<span style="display: inline;">
     <h1>Matches you entered</h1>
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary" style="align:right;" data-toggle="modal" data-target="#matchModal">

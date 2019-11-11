@@ -150,7 +150,7 @@ public class MatchesDAO implements IMatchesDAO {
 
     @Override
     public List<Match> getMatchesFromOffset(int offset, int count) {
-        return getMatchesByRule("ORDER BY id_match LIMIT " + offset + "," + count);
+        return getMatchesByRule("LIMIT " + offset + "," + count);
     }
 
     @Override

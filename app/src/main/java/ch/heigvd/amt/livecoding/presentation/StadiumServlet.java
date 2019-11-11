@@ -58,7 +58,6 @@ public class StadiumServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(stadiumsManager.deleteStadium(Integer.parseInt(req.getParameter("stadium")))) {
-            // TODO : Put confirmation
             req.setAttribute("confirmation", "Stadium deleted successfully");
             this.doGet(req, resp);
         } else {
@@ -70,7 +69,6 @@ public class StadiumServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(stadiumsManager.updateStadium(Integer.parseInt(req.getParameter("id")), req.getParameter("name"), req.getParameter("location"), Integer.parseInt(req.getParameter("viewers")))) {
-            // TODO : Put confirmation
             req.setAttribute("confirmation", "Stadium updated successfully");
             this.doGet(req, resp);
         } else {
