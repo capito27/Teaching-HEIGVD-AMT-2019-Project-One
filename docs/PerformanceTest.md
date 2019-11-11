@@ -26,5 +26,23 @@ The server handles the queries much more faster, in fact for the pagination
 
 With service tier pagination :
 
-imulating 2 users doing 10 requests each (200 requests total). With a Gaussian random timer and a constant delay of 2000ms.
+Simulating 2 users doing 10 requests each (20 requests total). With a Gaussian random timer and a constant delay of 2000ms.
 ![Paging 20000 Service tier](assets/responseTimeDisabledPaging_20k.png)
+We can see that the server can handle some requests but take much more time, by the way the RAM disapeared in this case too.
+
+### 1000 entries
+
+With ressource tier pagination :
+![Paging 1000 Ressource tier](assets/responseTimePaging_1k.png)
+With 1k entries we can see that the server is really fast. The RAM taken is not so big.
+
+With Service tier pagination :
+![Paging 1000 Service Tier](assets/responseTimeDisabledPaging_1k.png)
+With 1k entries and loading Service tier we an see that is pretty fast but still not as much as the ressource tier solution.
+
+## Conclusion
+We can see that for a large amount of data, pagination is required. In fact, the server sometimes dies trying to respond to a large amount of requests with a pagination implemented on the service tier. So we see the importance of loading only the required data.
+
+
+---
+[Return to the main readme](https://github.com/capito27/Teaching-HEIGVD-AMT-2019-Project-One/blob/master/README.md)

@@ -13,7 +13,7 @@ mvn -f app/pom.xml clean --quiet
 
 printf "done !\nBuilding WAR file (Without Arquillian testing)..."
 # Then, we run the package target without arquillian, so that we can get a war file
-mvn -f app/pom.xml package -DNoArquillian --quiet
+mvn -f app/pom.xml package -DskipTests --quiet
 
 
 printf "done !\nRebuilding prod docker environment (takes up to a minute)...\n"

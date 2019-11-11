@@ -57,7 +57,7 @@ public class TeamServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(teamsManager.deleteTeam(Integer.parseInt(req.getParameter("team")))) {
-            req.setAttribute("confirmation", "Team deleted successful");
+            req.setAttribute("confirmation", "Team deleted successfully");
             this.doGet(req, resp);
         } else {
             req.setAttribute("error", "Error in deleting");
@@ -68,7 +68,7 @@ public class TeamServlet extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(teamsManager.updateTeam(Integer.parseInt(req.getParameter("id")), req.getParameter("name"), req.getParameter("country"))) {
-            req.setAttribute("confirmation", "Team updated successful");
+            req.setAttribute("confirmation", "Team updated successfully");
             this.doGet(req, resp);
         } else {
             req.setAttribute("error", "Error in updating");

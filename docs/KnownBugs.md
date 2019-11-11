@@ -7,3 +7,6 @@
 
 ### Limitations
 * The CRUD operations for the user entity are not implemented.
+
+---
+[Return to the main readme](https://github.com/capito27/Teaching-HEIGVD-AMT-2019-Project-One/blob/master/README.md)
